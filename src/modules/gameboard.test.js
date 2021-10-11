@@ -29,8 +29,7 @@ test("the Gameboard factory returns default values of false for both isHit and i
     let check = false;
     let checkArray = [];
     for (let i = 0; i < testBoard.spaceArray.length; i++) {
-        let spaceObj = testBoard.spaceArray[i];
-                
+        let spaceObj = testBoard.spaceArray[i];    
         if (spaceObj.isOccupied || spaceObj.isHit) {
             check = true
         };
@@ -40,6 +39,23 @@ test("the Gameboard factory returns default values of false for both isHit and i
     expect(checkArray.every((position) => position === false)).toBe(true);
 });
 
+
+test("The receiveAttack method effectively renders multiple hits on the board", () => {
+    testBoard.receiveAttack("A2");
+    testBoard.receiveAttack("B4");
+    testBoard.receiveAttack("C5");
+    for (let i = 0; i < testBoard.spaceArray.length; i++) {
+        if (testBoard.spaceArray[i].coord === "A2") {
+            expect(testBoard.spaceArray[i].isHit).toBe(true);
+        };
+        if (testBoard.spaceArray[i].coord === "B4") {
+            expect(testBoard.spaceArray[i].isHit).toBe(true);
+        };
+        if (testBoard.spaceArray[i].coord === "C5") {
+            expect(testBoard.spaceArray[i].isHit).toBe(true);
+        };
+    };
+});
 
 /*
 test("The placeShip method is functional", () => {
