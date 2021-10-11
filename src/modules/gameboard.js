@@ -18,14 +18,18 @@ const Gameboard = () => {
     })();
 
     const placeShip = (ship, coordinates) => {
-        let newShip = ship.place(coordinates);
+        
     };
 
     const receiveAttack = (coordinate) =>  {
+        for (let i = 0; i < spaceArray.length; i++) {
+            if (spaceArray[i].coord === coordinate) {
+                spaceArray[i].isHit = true;
+            };
+        };
+    };
 
-    }
-
-    return { letterArray, createGrid, placeShip, spaceArray }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack }
 }
 
 export { Gameboard }
