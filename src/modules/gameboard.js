@@ -1,11 +1,5 @@
-import { Ship } from './ship'
-
 const Gameboard = () => {
     const letterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
-
-    const space = (position) => {
-        return { position }
-    };
 
     const spaceArray = []
 
@@ -14,15 +8,22 @@ const Gameboard = () => {
             let letter = letterArray[i];
             for (let y = 0; y < 10; y++) {
                 let spaceNum = y + 1;
-                let newSpace = space(`${letter + spaceNum}`)
-                spaceArray.push(newSpace);
+                let spaceObj = new Object();
+                spaceObj.coord = `${letter + spaceNum}`;
+                spaceObj.isOccupied = false;
+                spaceObj.isHit = false;
+                spaceArray.push(spaceObj);
             };
         };
     })();
 
-    const placeShip = () => {
-
+    const placeShip = (ship, coordinates) => {
+        let newShip = ship.place(coordinates);
     };
+
+    const receiveAttack = (coordinate) =>  {
+
+    }
 
     return { letterArray, createGrid, placeShip, spaceArray }
 }

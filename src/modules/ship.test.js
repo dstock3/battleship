@@ -29,7 +29,6 @@ test("isSunk method returns false when at least one position is not hit", () => 
     for (let i = 2; i < testShip.hitCount.length; i++) {
         testShip.hit(i);
     }
-    console.log(testShip.hitCount)
     expect(testShip.isSunk()).toBe(false);
 });
 
