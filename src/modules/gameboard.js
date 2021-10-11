@@ -24,9 +24,7 @@ const Gameboard = () => {
 
     };
 
-    console.log(spaceArray)
-
-    return { createGrid, placeShip, spaceArray }
+    return { letterArray, createGrid, placeShip, spaceArray }
 }
 
 export { Gameboard }
