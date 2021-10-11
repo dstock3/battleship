@@ -18,3 +18,8 @@ test('hitposition attribute is an array containing boolean values', () => {
         expect(typeof hits[i]).toBe("boolean");
     };
 });
+
+test("hit method works", () => {
+    testShip.hit(0);
+    expect(testShip.hits[0]).toBe(true);
+});
