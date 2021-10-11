@@ -16,6 +16,5 @@ test('hitposition attribute is an array containing boolean values', () => {
     let hits = testShip.hitposition
     for (let i = 0; i < hits.length; i++) {
         expect(typeof hits[i]).toBe("boolean");
-    }
-    
+    };
 });
