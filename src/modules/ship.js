@@ -1,25 +1,11 @@
-const shipMaker = (length, hits, status) => {
+const Ship = (length, hitCount, status) => {
     const hit = (position) => {
-        hits[position] = true;
+        hitCount[position] = true;
     };
 
-    const isSunk = () => {
-        let check = 0;
-
-        for (let i = 0; i < hits.length; i++) {
-            if (hits[i] === true) {
-                check += 1;
-            };
-        };
-
-        if (check === length) {
-            status = "sunk"
-        } else {
-            status = "active"
-        };
-    };
-
-    return { length, hits, status, hit, isSunk }
+    const isSunk = () => hitCount.every((i) => i === true);
+    
+    return { length, hitCount, status, hit, isSunk }
 };
 
-export { shipMaker }
+export { Ship }

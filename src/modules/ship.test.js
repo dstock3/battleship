@@ -1,10 +1,10 @@
-import { shipMaker } from "./ship";
+import { Ship } from "./ship";
 
-const testShip = shipMaker(3, [false, false, true], "active");
+const testShip = Ship(3, [false, false, false], "active");
 
 test('shipMaker returns an object with appropriate attributes', () => {
     expect(testShip.length).not.toBeNull;
-    expect(testShip.hits).not.toBeNull;
+    expect(testShip.hitCount).not.toBeNull;
     expect(testShip.status).not.toBeNull;
 });
 
@@ -13,7 +13,7 @@ test('shipMaker object length is a number', () => {
 });
 
 test('hitposition attribute is an array containing boolean values', () => {
-    let hits = testShip.hits
+    let hits = testShip.hitCount
     for (let i = 0; i < hits.length; i++) {
         expect(typeof hits[i]).toBe("boolean");
     };
@@ -21,13 +21,21 @@ test('hitposition attribute is an array containing boolean values', () => {
 
 test("hit method works", () => {
     testShip.hit(0);
-    expect(testShip.hits[0]).toBe(true);
+    expect(testShip.hitCount[0]).toBe(true);
 });
 
-test("isSunk method works", () => {
-    for (let i = 0; i < testShip.hits.length; i++) {
+
+test("isSunk method returns false when at least one position is not hit", () => {
+    for (let i = 2; i < testShip.hitCount.length; i++) {
         testShip.hit(i);
     }
-    testShip.isSunk(testShip.hits);
-    expect(testShip.status).toBe("sunk");
+    console.log(testShip.hitCount)
+    expect(testShip.isSunk()).toBe(false);
+});
+
+test("isSunk method returns true in appropriate context", () => {
+    for (let i = 0; i < testShip.hitCount.length; i++) {
+        testShip.hit(i);
+    }
+    expect(testShip.isSunk()).toBe(true);
 });
