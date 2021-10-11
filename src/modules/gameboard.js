@@ -5,13 +5,15 @@ const Gameboard = () => {
 
     const space = (position) => {
         return { position }
-    }
+    };
+
+    const spaceArray = []
 
     const createGrid = (() => {
-        const spaceArray = []
         for (let i = 0; i < letterArray.length; i++) {
-            for (let y = 1; y < 10; i++) {
-                let newSpace = space(`${letterArray[i] + y}`)
+            let letter = letterArray[i];
+            for (let spaceNum = 0; spaceNum < 10; spaceNum++) {
+                let newSpace = space(`${letter + spaceNum}`)
                 spaceArray.push(newSpace);
             };
         };
@@ -19,7 +21,9 @@ const Gameboard = () => {
 
     const placeShip = () => {
 
-    }
+    };
 
     return { createGrid, placeShip, spaceArray }
 }
+
+export { Gameboard }
