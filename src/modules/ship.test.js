@@ -23,3 +23,11 @@ test("hit method works", () => {
     testShip.hit(0);
     expect(testShip.hits[0]).toBe(true);
 });
+
+test("isSunk method works", () => {
+    for (let i = 0; i < testShip.hits.length; i++) {
+        testShip.hit(i);
+    }
+    testShip.isSunk();
+    expect(testShip.status).toBe("sunk");
+});
