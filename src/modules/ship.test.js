@@ -28,6 +28,6 @@ test("isSunk method works", () => {
     for (let i = 0; i < testShip.hits.length; i++) {
         testShip.hit(i);
     }
-    testShip.isSunk();
+    testShip.isSunk(testShip.hits);
     expect(testShip.status).toBe("sunk");
 });

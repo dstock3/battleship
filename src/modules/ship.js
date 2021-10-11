@@ -1,16 +1,21 @@
 const shipMaker = (length, hits, status) => {
     const hit = (position) => {
-        hits[position] = true
+        hits[position] = true;
     };
 
     const isSunk = () => {
-        let allEqual = arr => arr.every( v => v === arr[0] );
-        let values = allEqual(hits);
+        let check = 0;
 
-        if (values) {
-            if (hits[0] === true) {
-                status = "sunk"
+        for (let i = 0; i < hits.length; i++) {
+            if (hits[i] === true) {
+                check += 1;
             };
+        };
+
+        if (check === length) {
+            status = "sunk"
+        } else {
+            status = "active"
         };
     };
 
