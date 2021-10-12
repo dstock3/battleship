@@ -1,3 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
+
+
 import { Gameboard } from './gameboard'
 import { shipSet } from './ship'
 

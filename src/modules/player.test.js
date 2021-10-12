@@ -1,3 +1,7 @@
+/**
+ * @jest-environment jsdom
+ */
+
 import { Player, computerPlayer } from './player'
 import { Gameboard } from './gameboard'
 

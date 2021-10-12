@@ -1,3 +1,8 @@
+/**
+ * @jest-environment jsdom
+ */
+
+
 import { Ship } from "./ship";
 
 const testShip = Ship(3, [false, false, false], "active");
