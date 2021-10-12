@@ -25,26 +25,20 @@ test("The computer player effectively performs a random move", () => {
     expect(check).toBe(1);
 });
 
-test("The computer player cannot move in the same place twice", () => {
-    
-    for (let i = 1; i < 100; i++) {
-        computer.randomMove();
-    };
-
-    let testArray = [];
-    let check = true;
-
-    for (let i = 0; i < computer.playerBoard.spaceArray.length; i++) {
-        if (computer.playerBoard.spaceArray[i].isHit) {
-            let previousCoord = computer.playerBoard.spaceArray[i].coord;
-            for (let y = 0; y < testArray.length; y++) {
-                if (testArray[y] === previousCoord) {
-                    check = false
-                };
+test("The computer player can't attack the same position more than once", () => {
+    let testArray = []
+    let fail = false;
+    for (let i = 100; i > 0; i--) {
+        let newMove = computer.randomMove();
+        console.log(newMove + " " + i)
+        for (let y = 0; y < testArray.length; y++) {
+            if (newMove === testArray[y]) {
+                fail = true; 
             };
-            testArray.push(computer.playerBoard.spaceArray[i].coord);
         };
+        testArray.push(newMove);
     };
-
-    expect(check).toBe(true);
+    
+    expect(fail).toBe(false);
 });
+
