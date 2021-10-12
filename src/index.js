@@ -1,4 +1,5 @@
-import { Ship, shipSet } from "./ship";
+import './style.css'
+import { Ship, shipSet } from "./modules/ship";
 
 
 
