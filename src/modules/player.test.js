@@ -30,7 +30,6 @@ test("The computer player can't attack the same position more than once", () => 
     let fail = false;
     for (let i = 100; i > 0; i--) {
         let newMove = computer.randomMove();
-        console.log(newMove + " " + i)
         for (let y = 0; y < testArray.length; y++) {
             if (newMove === testArray[y]) {
                 fail = true; 

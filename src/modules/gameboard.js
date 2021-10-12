@@ -1,3 +1,5 @@
+import { Ship } from './ship'
+
 const Gameboard = () => {
     const letterArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
@@ -17,8 +19,17 @@ const Gameboard = () => {
         };
     })();
 
-    const placeShip = (ship, coordinates) => {
-        
+    const shipArray = [];
+
+    const placeShip = (shipType, coordArray) => {        
+        let newShip = Ship(shipType[1], shipType[2], shipType[3]);
+        let base = newShip;
+        let type = shipType[0]; 
+        let coords = coordArray;
+
+        //shipArray.push(basedShip);
+
+        return { base, type, coords }
     };
 
     const receiveAttack = (coordinate) =>  {

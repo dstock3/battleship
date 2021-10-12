@@ -9,15 +9,13 @@ const Ship = (length, hitCount, status) => {
 };
 
 const shipSet = () => {
-    const carrier = Ship(5, [false, false, false, false, false], "active");
-    const battleship = Ship(4, [false, false, false, false], "active");
-    const cruiser = Ship(3, [false, false, false], "active");
-    const submarine = Ship(3, [false, false, false], "active");
-    const destroyer = Ship(2, [false, false], "active");
+    const carrier = ["carrier", 5, [false, false, false, false, false], "active"];
+    const battleship = ["battleship", 4, [false, false, false, false], "active"];
+    const cruiser = ["cruiser", 3, [false, false, false], "active"];
+    const submarine = ["submarine", 3, [false, false, false], "active"];
+    const destroyer = ["destroyer", 2, [false, false], "active"];
 
     return { carrier, battleship, cruiser, submarine, destroyer }
 };
-
-
 
 export { Ship, shipSet }

@@ -24,7 +24,7 @@ const computerPlayer = () => {
         let moveIndex = Math.floor(Math.random() * possibleMoves.length);
 
         computer.move(possibleMoves[moveIndex]);
-        return(possibleMoves[moveIndex])
+        return(possibleMoves[moveIndex]);
     };
 
     return { playerBoard, computer, randomMove }

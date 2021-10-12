@@ -57,10 +57,11 @@ test("The receiveAttack method effectively renders multiple hits on the board", 
     };
 });
 
-/*
 test("The placeShip method is functional", () => {
     let coordArray = ["A2", "B2", "C2"];
     let newSet = shipSet();
-    testBoard.placeShip(newSet.cruiser, coordArray);
-    expect(newSet.cruiser).toBe(100);
-}); */
+    let newShip = testBoard.placeShip(newSet.cruiser, coordArray);
+
+    expect(newShip.coords.length).toBe(3);
+    expect(newShip.type).toBe("cruiser");
+}); 
