@@ -1,0 +1,1 @@
+(()=>{"use strict";document.getElementsByTagName("body")[0];const e=Gameboard();for(let t=0;t<e.spaceArray.length;t++){let a=e.spaceArray[t],c=document.createElement("div");c.classList.add("space"),c.id=a.coord}})();
