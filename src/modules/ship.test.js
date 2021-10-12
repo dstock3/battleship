@@ -24,7 +24,6 @@ test("hit method works", () => {
     expect(testShip.hitCount[0]).toBe(true);
 });
 
-
 test("isSunk method returns false when at least one position is not hit", () => {
     for (let i = 2; i < testShip.hitCount.length; i++) {
         testShip.hit(i);
