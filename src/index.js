@@ -1,5 +1,5 @@
-import './style.css'
 import { Gameboard } from "./modules/gameboard";
+import './style.css';
 
 const body = document.getElementsByTagName("body")[0];
 
