@@ -25,6 +25,7 @@ const Gameboard = () => {
         for (let i = 0; i < spaceArray.length; i++) {
             if (spaceArray[i].coord === coordinate) {
                 spaceArray[i].isHit = true;
+                /*
                 if (spaceArray[i].isOccupied) {
                     for (let y = 0; y < shipArray.length; y++) {
                         let ship = shipArray[y]; //need to create a shipArray
@@ -35,6 +36,7 @@ const Gameboard = () => {
                         };
                     };
                 };
+                */
             };
         };
     };
