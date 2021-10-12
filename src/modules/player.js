@@ -12,16 +12,22 @@ const computerPlayer = () => {
     const playerBoard = Gameboard();
     const computer = Player(playerBoard);
 
-    const generateRandomMove = () => {
+    const randomMove = () => {
+        let possibleMoves = []
         for (let i = 0; i < playerBoard.spaceArray.length; i++) {
             let spaceObj = playerBoard.spaceArray[i];
-            spaceObj
-    
-        }
-        return
-    }
+            if (!spaceObj.isHit) {
+                possibleMoves.push(spaceObj.coord)
+            };
+        };
+        
+        let moveIndex = Math.floor(Math.random() * possibleMoves.length);
 
-    return { playerBoard, computer }
+        computer.move(possibleMoves[moveIndex]);
+        console.log(possibleMoves[moveIndex])
+    };
+
+    return { playerBoard, computer, randomMove }
 }
 
-export { Player } 
+export { Player, computerPlayer } 
