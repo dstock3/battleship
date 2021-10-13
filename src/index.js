@@ -10,7 +10,7 @@ const masterContainer = document.createElement("div");
 masterContainer.classList.add("master-container");
 body.appendChild(masterContainer);
 
-let playerBoard = boardGen("player", masterContainer)
+let playerBoard = boardGen("player", masterContainer);
 
 let ships = shipSet();
 
@@ -19,7 +19,7 @@ const setSail = (ship) => {
     for (let i = 0; i < ship.coords.length; i++) {
         for (let y = 0; y < spaces.length; y++) {
             if (ship.coords[i] === spaces[y].id) {
-                spaces[y].style.backgroundColor = "#93989c"
+                spaces[y].style.backgroundColor = "#0377fc";
                 spaces[y].classList.add("occupied");
             };
         };
@@ -31,7 +31,7 @@ const cruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]
 const carrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
 const submarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
 const destroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["H7", "H6"]);
-const shipList = [battleship, cruiser, carrier, submarine, destroyer]
+const shipList = [battleship, cruiser, carrier, submarine, destroyer];
 
 for (let i = 0; i < shipList.length; i++) {
     setSail(shipList[i])
