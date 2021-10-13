@@ -76,3 +76,10 @@ h1 {
 .space:hover {
     background-color: #0377fc36;
 }
+
+@media only screen and (max-width: 600px) {
+    .master-container {
+        flex-direction: column;
+    }
+
+}
