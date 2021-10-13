@@ -6,6 +6,17 @@ const boardGen = () => {
     let outerBoard = document.createElement("div");
     body.appendChild(outerBoard);
     outerBoard.classList.add("outer-board");
+
+    let lettercontainer = document.createElement("div");
+    lettercontainer.classList.add("letter-container");
+    outerBoard.appendChild(lettercontainer);
+
+    for (let i = 0; i < newBoard.letterArray.length; i++) {
+        let letter = document.createElement("div");
+        letter.textContent = newBoard.letterArray[i];
+        lettercontainer.appendChild(letter)
+    };
+
     let playerBoard = document.createElement("div");
     playerBoard.classList.add("player-board");
     outerBoard.appendChild(playerBoard);
