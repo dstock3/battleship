@@ -7,17 +7,6 @@ const boardGen = () => {
     body.appendChild(outerBoard);
     outerBoard.classList.add("outer-board");
 
-    let letterContainer = document.createElement("div");
-    letterContainer.classList.add("letter-container");
-    outerBoard.appendChild(letterContainer);
-
-    for (let i = 0; i < newBoard.letterArray.length; i++) {
-        let letter = document.createElement("div");
-        letter.textContent = newBoard.letterArray[i];
-        letter.classList.add("letter");
-        letterContainer.appendChild(letter)
-    };
-
     let numContainer = document.createElement("div");
     numContainer.classList.add("num-container");
     outerBoard.appendChild(numContainer);
@@ -29,9 +18,26 @@ const boardGen = () => {
         numContainer.appendChild(num)
     };
 
+    let boardContainer = document.createElement("div");
+    boardContainer.classList.add("board-container");
+    outerBoard.appendChild(boardContainer);
+
+
+
+    let letterContainer = document.createElement("div");
+    letterContainer.classList.add("letter-container");
+    boardContainer.appendChild(letterContainer);
+
+    for (let i = 0; i < newBoard.letterArray.length; i++) {
+        let letter = document.createElement("div");
+        letter.textContent = newBoard.letterArray[i];
+        letter.classList.add("letter");
+        letterContainer.appendChild(letter)
+    };
+
     let playerBoard = document.createElement("div");
     playerBoard.classList.add("player-board");
-    outerBoard.appendChild(playerBoard);
+    boardContainer.appendChild(playerBoard);
 
     for (let y = 0; y < newBoard.letterArray.length; y++) {
         let column = document.createElement("div");
