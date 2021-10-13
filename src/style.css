@@ -1,4 +1,24 @@
+.player-board {
+    display: flex;
+    height: 750px;
+    width: 750px;
+    margin: auto;
+    border: 1px solid black;
+}
+
+.col {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 10%;
+}
+
 .space {
-    border: 2px solid black;
-    width: 50px;
+    border: 1px solid black;
+    width: 100%;
+    height: 10%;
+}
+
+.space:hover {
+    background-color: #0377fc36;
 }
