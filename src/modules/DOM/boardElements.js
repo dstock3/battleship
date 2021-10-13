@@ -14,6 +14,7 @@ const boardGen = () => {
     for (let i = 0; i < newBoard.letterArray.length; i++) {
         let letter = document.createElement("div");
         letter.textContent = newBoard.letterArray[i];
+        letter.classList.add("letter");
         lettercontainer.appendChild(letter)
     };
 
