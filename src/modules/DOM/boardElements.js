@@ -33,15 +33,16 @@ const boardGen = (allegiance, parent) => {
         letterContainer.appendChild(letter)
     };
 
-    let playerBoard = document.createElement("div");
-    playerBoard.classList.add("player-board");
-    boardContainer.appendChild(playerBoard);
+    let board = document.createElement("div");
+    board.classList.add(`board`);
+    board.id = `${allegiance}`
+    boardContainer.appendChild(board);
 
     for (let y = 0; y < newBoard.letterArray.length; y++) {
         let column = document.createElement("div");
         column.classList.add("col");
         column.id = newBoard.letterArray[y];
-        playerBoard.appendChild(column);
+        board.appendChild(column);
     };
 
     let spaceArray = [];
