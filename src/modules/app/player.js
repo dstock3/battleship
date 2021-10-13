@@ -1,5 +1,3 @@
-import { Gameboard } from './gameboard'
-
 const Player = (boardObj) => {
     const move = (coords) => {
         boardObj.receiveAttack(coords);
@@ -8,9 +6,8 @@ const Player = (boardObj) => {
     return { move }
 }
 
-const computerPlayer = () => {
-    const playerBoard = Gameboard();
-    const computer = Player(playerBoard);
+const ComputerPlayer = (boardObj) => {
+    const computer = Player(boardObj);
 
     const randomMove = () => {
         let possibleMoves = []
@@ -30,4 +27,4 @@ const computerPlayer = () => {
     return { playerBoard, computer, randomMove }
 }
 
-export { Player, computerPlayer } 
+export { Player, ComputerPlayer } 

@@ -2,6 +2,7 @@ import './style.css';
 import { boardGen } from './modules/DOM/boardElements'
 import { header } from './modules/DOM/title'
 import { shipSet } from './modules/app/ship'
+import { Player, ComputerPlayer } from './modules/app/player'
 
 const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
@@ -39,11 +40,12 @@ for (let i = 0; i < playerShipList.length; i++) {
 
 let enemyBoard = boardGen("enemy", masterContainer);
 
-const enemyBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A4", "A5", "A6", "A7"]);
-const enemyCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
-const enemyCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["B2", "C2", "D2", "E2", "F2"]);
-const enemySubmarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
-const enemyDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["C9", "C10"]);
+const enemyBattleship = enemyBoard.newBoard.placeShip(ships.battleship, ["A4", "A5", "A6", "A7"]);
+const enemyCruiser = enemyBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
+const enemyCarrier = enemyBoard.newBoard.placeShip(ships.carrier, ["B2", "C2", "D2", "E2", "F2"]);
+const enemySubmarine = enemyBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
+const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, ["C9", "C10"]);
 const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
 
-
+let newPlayer = Player(playerBoard)
+let enemy = ComputerPlayer(enemyBoard)
