@@ -1,11 +1,12 @@
 import { Gameboard } from '../app/gameboard.js'
 const body = document.getElementsByTagName("body")[0];
 
-const boardGen = () => {
+const boardGen = (allegiance) => {
     const newBoard = Gameboard();
     let outerBoard = document.createElement("div");
     body.appendChild(outerBoard);
     outerBoard.classList.add("outer-board");
+    outerBoard.id = allegiance
 
     let numContainer = document.createElement("div");
     numContainer.classList.add("num-container");
@@ -68,4 +69,3 @@ const boardGen = () => {
 };
 
 export { body, boardGen }
-
