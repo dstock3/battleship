@@ -7,15 +7,26 @@ const boardGen = () => {
     body.appendChild(outerBoard);
     outerBoard.classList.add("outer-board");
 
-    let lettercontainer = document.createElement("div");
-    lettercontainer.classList.add("letter-container");
-    outerBoard.appendChild(lettercontainer);
+    let letterContainer = document.createElement("div");
+    letterContainer.classList.add("letter-container");
+    outerBoard.appendChild(letterContainer);
 
     for (let i = 0; i < newBoard.letterArray.length; i++) {
         let letter = document.createElement("div");
         letter.textContent = newBoard.letterArray[i];
         letter.classList.add("letter");
-        lettercontainer.appendChild(letter)
+        letterContainer.appendChild(letter)
+    };
+
+    let numContainer = document.createElement("div");
+    numContainer.classList.add("num-container");
+    outerBoard.appendChild(numContainer);
+
+    for (let y = 1; y < 11; y++) {
+        let num = document.createElement("div");
+        num.textContent = y
+        num.classList.add("num");
+        numContainer.appendChild(num)
     };
 
     let playerBoard = document.createElement("div");
