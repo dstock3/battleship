@@ -26,17 +26,24 @@ const setSail = (ship) => {
     };
 };
 
-const battleship = playerBoard.newBoard.placeShip(ships.battleship, ["A1", "A2", "A3", "A4"]);
-const cruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]);
-const carrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
-const submarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
-const destroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["H7", "H6"]);
-const shipList = [battleship, cruiser, carrier, submarine, destroyer];
+const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A1", "A2", "A3", "A4"]);
+const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]);
+const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
+const playerSubmarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
+const playerDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["H7", "H6"]);
+const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSubmarine, playerDestroyer];
 
-for (let i = 0; i < shipList.length; i++) {
-    setSail(shipList[i])
+for (let i = 0; i < playerShipList.length; i++) {
+    setSail(playerShipList[i])
 }
 
-let enemyBoard = boardGen("enemy", masterContainer)
+let enemyBoard = boardGen("enemy", masterContainer);
+
+const enemyBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A4", "A5", "A6", "A7"]);
+const enemyCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
+const enemyCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["B2", "C2", "D2", "E2", "F2"]);
+const enemySubmarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
+const enemyDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["C9", "C10"]);
+const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
 
 
