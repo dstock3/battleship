@@ -4,4 +4,4 @@ import { header } from './modules/DOM/title'
 
 body.appendChild(header);
 
-boardGen()
+let playerBoard = boardGen()

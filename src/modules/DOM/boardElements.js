@@ -3,11 +3,13 @@ const body = document.getElementsByTagName("body")[0];
 
 const boardGen = () => {
     const newBoard = Gameboard();
+    let outerBoard = document.createElement("div");
+    body.appendChild(outerBoard);
+    outerBoard.classList.add("outer-board");
     let playerBoard = document.createElement("div");
     playerBoard.classList.add("player-board");
-    body.appendChild(playerBoard);
+    outerBoard.appendChild(playerBoard);
 
-    //Columns
     for (let y = 0; y < newBoard.letterArray.length; y++) {
         let column = document.createElement("div");
         column.classList.add("col");
@@ -15,7 +17,6 @@ const boardGen = () => {
         playerBoard.appendChild(column);
     };
 
-    //Spaces
     let spaceArray = [];
     for (let i = 0; i < newBoard.spaceArray.length; i++) {
         let spaceObj = newBoard.spaceArray[i];
@@ -35,6 +36,8 @@ const boardGen = () => {
             };
         };
     };
+
+    return { newBoard }
 };
 
 export { body, boardGen }
