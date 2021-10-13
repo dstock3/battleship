@@ -22,8 +22,6 @@ const boardGen = () => {
     boardContainer.classList.add("board-container");
     outerBoard.appendChild(boardContainer);
 
-
-
     let letterContainer = document.createElement("div");
     letterContainer.classList.add("letter-container");
     boardContainer.appendChild(letterContainer);
