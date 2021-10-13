@@ -27,7 +27,13 @@ const Gameboard = () => {
         let type = shipType[0]; 
         let coords = coordArray;
 
-        //shipArray.push(basedShip);
+        for (let i = 0; i < coords.length; i++) {
+            for (let y = 0; y < spaceArray.length; y++) {
+                if (coords[i] === spaceArray[y].coord) {
+                    spaceArray[y].isOccupied = true;
+                };
+            };
+        };
 
         return { base, type, coords }
     };

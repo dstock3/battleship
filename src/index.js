@@ -1,8 +1,8 @@
 import './style.css';
-import { boardGen } from './modules/DOM/boardElements'
-import { header } from './modules/DOM/title'
-import { shipSet } from './modules/app/ship'
-import { Player, ComputerPlayer } from './modules/app/player'
+import { boardGen } from './modules/DOM/boardElements';
+import { header } from './modules/DOM/title';
+import { shipSet } from './modules/app/ship';
+import { Player, ComputerPlayer } from './modules/app/player';
 
 const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
@@ -11,9 +11,9 @@ const masterContainer = document.createElement("div");
 masterContainer.classList.add("master-container");
 body.appendChild(masterContainer);
 
-let playerBoard = boardGen("player", masterContainer);
+const playerBoard = boardGen("player", masterContainer);
 
-let ships = shipSet();
+const ships = shipSet();
 
 const setSail = (ship) => {
     const spaces = Array.from(document.getElementsByClassName("space"));
@@ -38,7 +38,7 @@ for (let i = 0; i < playerShipList.length; i++) {
     setSail(playerShipList[i])
 }
 
-let enemyBoard = boardGen("enemy", masterContainer);
+const enemyBoard = boardGen("enemy", masterContainer);
 
 const enemyBattleship = enemyBoard.newBoard.placeShip(ships.battleship, ["A4", "A5", "A6", "A7"]);
 const enemyCruiser = enemyBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
@@ -47,5 +47,11 @@ const enemySubmarine = enemyBoard.newBoard.placeShip(ships.submarine, ["F10", "F
 const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, ["C9", "C10"]);
 const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
 
-let newPlayer = Player(playerBoard)
-let enemy = ComputerPlayer(enemyBoard)
+let newPlayer = Player(enemyBoard.newBoard) 
+let enemy = ComputerPlayer(playerBoard.newBoard)
+
+for (let i = 50; i > 0; i--) {
+    let move = enemy.randomMove()
+}
+
+console.log(playerBoard.newBoard.spaceArray)

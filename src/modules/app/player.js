@@ -1,13 +1,13 @@
-const Player = (boardObj) => {
+const Player = (enemyBoard) => {
     const move = (coords) => {
-        boardObj.receiveAttack(coords);
+        enemyBoard.receiveAttack(coords);
     }
 
     return { move }
 }
 
-const ComputerPlayer = (boardObj) => {
-    const computer = Player(boardObj);
+const ComputerPlayer = (playerBoard) => {
+    const computer = Player(playerBoard);
 
     const randomMove = () => {
         let possibleMoves = []
@@ -24,7 +24,7 @@ const ComputerPlayer = (boardObj) => {
         return(possibleMoves[moveIndex]);
     };
 
-    return { playerBoard, computer, randomMove }
+    return { randomMove }
 }
 
 export { Player, ComputerPlayer } 
