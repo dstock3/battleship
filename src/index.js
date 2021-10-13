@@ -1,13 +1,18 @@
 import './style.css';
-import { body, boardGen } from './modules/DOM/boardElements'
+import { boardGen } from './modules/DOM/boardElements'
 import { header } from './modules/DOM/title'
 import { shipSet } from './modules/app/ship'
 
+const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
 
-let playerBoard = boardGen("player")
+const masterContainer = document.createElement("div");
+masterContainer.classList.add("master-container");
+body.appendChild(masterContainer);
 
-let ships = shipSet()
+let playerBoard = boardGen("player", masterContainer)
+
+let ships = shipSet();
 
 const setSail = (ship) => {
     const spaces = Array.from(document.getElementsByClassName("space"));
@@ -32,6 +37,6 @@ for (let i = 0; i < shipList.length; i++) {
     setSail(shipList[i])
 }
 
-let enemyBoard = boardGen("enemy")
+let enemyBoard = boardGen("enemy", masterContainer)
 
 
