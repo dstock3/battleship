@@ -3,7 +3,7 @@ import { boardGen } from './modules/DOM/boardElements';
 import { header } from './modules/DOM/title';
 import { shipSet } from './modules/app/ship';
 import { Player, ComputerPlayer } from './modules/app/player';
-import { registerHit } from './modules/DOM/events';
+import { registerHit, yourMove } from './modules/DOM/events';
 
 const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
@@ -45,13 +45,12 @@ const enemyBattleship = enemyBoard.newBoard.placeShip(ships.battleship, ["A4", "
 const enemyCruiser = enemyBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
 const enemyCarrier = enemyBoard.newBoard.placeShip(ships.carrier, ["B2", "C2", "D2", "E2", "F2"]);
 const enemySubmarine = enemyBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
-const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, ["C9", "C10"]);
+const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, ["H7", "H8"]);
 const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
 
 let newPlayer = Player(enemyBoard.newBoard) 
 let enemy = ComputerPlayer(playerBoard.newBoard)
 
-for (let i = 0; i < playerBoard.newBoard.spaceArray.length; i++) {
-    let move = enemy.randomMove();
-    registerHit(playerBoard, move);
-};
+let move = enemy.randomMove();
+registerHit(playerBoard, move);
+yourMove(enemyBoard, playerBoard, enemy, newPlayer, registerHit);
