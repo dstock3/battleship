@@ -45,19 +45,19 @@ const boardGen = (allegiance, parent) => {
         board.appendChild(column);
     };
 
-    let spaceArray = [];
+    let spaceElements = [];
     for (let i = 0; i < newBoard.spaceArray.length; i++) {
         let spaceObj = newBoard.spaceArray[i];
         let newSpace = document.createElement("div");
         newSpace.classList.add("space");
         newSpace.id = spaceObj.coord;
-        spaceArray.push(newSpace);
+        spaceElements.push(newSpace);
     };
 
     let columns = Array.from(document.getElementsByClassName("col"))
 
-    for (let x = 0; x < spaceArray.length; x++) {
-        let space = spaceArray[x]
+    for (let x = 0; x < spaceElements.length; x++) {
+        let space = spaceElements[x]
         for (let z = 0; z < columns.length; z++) {
             if (space.id.charAt(0) === columns[z].id) {
                 columns[z].appendChild(space);
@@ -65,7 +65,7 @@ const boardGen = (allegiance, parent) => {
         };
     };
 
-    return { newBoard }
+    return { newBoard, spaceElements }
 };
 
 export { boardGen }
