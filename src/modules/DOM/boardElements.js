@@ -1,4 +1,12 @@
+import { header } from './title';
 import { Gameboard } from '../app/gameboard.js'
+
+const body = document.getElementsByTagName("body")[0];
+body.appendChild(header);
+
+const masterContainer = document.createElement("div");
+masterContainer.classList.add("master-container");
+body.appendChild(masterContainer);
 
 const boardGen = (allegiance, parent) => {
     const newBoard = Gameboard();
@@ -68,4 +76,4 @@ const boardGen = (allegiance, parent) => {
     return { newBoard, spaceElements }
 };
 
-export { boardGen }
+export { body, masterContainer, boardGen }
