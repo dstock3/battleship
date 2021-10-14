@@ -21,6 +21,19 @@ const Gameboard = () => {
 
     const shipArray = [];
 
+    const assignPositions = () => {
+        for (let i = 0; i < letterArray.length; i++) {
+            
+        }
+
+        let possibleCoords = []
+
+
+        let coordIndex = Math.floor(Math.random() * possibleCoords.length);
+
+        return [battleshipPosition, cruiserPosition, carrierPosition, submarinePosition, destroyerPosition]
+    }
+
     const placeShip = (shipType, coordArray) => {        
         let newShip = Ship(shipType[1], shipType[2], shipType[3]);
         let base = newShip;
@@ -47,7 +60,7 @@ const Gameboard = () => {
         };
     };
 
-    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, assignPositions }
 }
 
 export { Gameboard }

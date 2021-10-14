@@ -1,5 +1,5 @@
 import './style.css';
-import { header } from './modules/DOM/title';
+
 import { Player, ComputerPlayer } from './modules/app/player';
 import { registerHit, yourMove } from './modules/DOM/events';
 import { enemyBoard, playerBoard } from './modules/DOM/placement';
