@@ -2,12 +2,14 @@
  * @jest-environment jsdom
  */
 
-import { Player, computerPlayer } from './player'
+import { Player, ComputerPlayer } from './player'
 import { Gameboard } from './gameboard'
 
 const enemyBoard = Gameboard();
 const testPlayer = Player(enemyBoard);
-const computer = computerPlayer();
+
+const playerBoard = Gameboard();
+const computer = ComputerPlayer(playerBoard);
 
 test("The move method effectively renders a hit on the board", () => {
     testPlayer.move("A2");
@@ -21,8 +23,8 @@ test("The move method effectively renders a hit on the board", () => {
 test("The computer player effectively performs a random move", () => {
     computer.randomMove();
     let check = 0
-    for (let i = 0; i < computer.playerBoard.spaceArray.length; i++) {
-        if (computer.playerBoard.spaceArray[i].isHit) {
+    for (let i = 0; i < playerBoard.spaceArray.length; i++) {
+        if (playerBoard.spaceArray[i].isHit) {
             check += 1;
         };
     };
@@ -32,7 +34,7 @@ test("The computer player effectively performs a random move", () => {
 test("The computer player can't attack the same position more than once", () => {
     let testArray = []
     let fail = false;
-    for (let i = 100; i > 0; i--) {
+    for (let i = 0; i < playerBoard.spaceArray.length; i++) {
         let newMove = computer.randomMove();
         for (let y = 0; y < testArray.length; y++) {
             if (newMove === testArray[y]) {

@@ -25,7 +25,7 @@ const yourMove = (enemyBoard, playerBoard, enemy, newPlayer, registerHit) => {
             registerHit(playerBoard, move);
             newPlayer.move(coords);
             registerHit(enemyBoard, coords);
-        }
+        };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
     };
 };
