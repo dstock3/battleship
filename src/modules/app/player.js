@@ -1,26 +1,24 @@
 const Player = (enemyBoard) => {
     const getHitResult = (enemyBoard, move) => {
-        for (let i = 0; i < enemyBoard.newBoard.spaceArray.length; i++) {
-            let spaceObj = enemyBoard.newBoard.spaceArray[i];
+        for (let i = 0; i < enemyBoard.spaceArray.length; i++) {
+            let spaceObj = enemyBoard.spaceArray[i];
             if (move === spaceObj.coord) {
                 if (spaceObj.isOccupied && spaceObj.isHit) {
-                    if (enemyBoard.spaceElements[i].id === spaceObj.coord) {
-                        return true
-                    };
+                    return [true, i, move]
                 };
     
                 if ((spaceObj.isHit) && (!spaceObj.isOccupied)) {
-                    return false
+                    return [false, i, move]
                 };
             };
         };
     };
     
     const move = (coords) => {
-        enemyBoard.receiveAttack(coords);
-        let hitResult = getHitResult(enemyBoard, coords);
+        enemyBoard.receiveAttack(coords);        
+        let hitArray = getHitResult(enemyBoard, coords);
 
-        return hitResult
+        return hitArray
     }
 
     return { move, enemyBoard }
@@ -39,10 +37,11 @@ const ComputerPlayer = (playerBoard) => {
         };
         
         let moveIndex = Math.floor(Math.random() * possibleMoves.length);
-        let coords = possibleMoves[moveIndex]
-        let hitResult = computer.move(playerBoard, coords);
+        
+        let coords = possibleMoves[moveIndex];
+        let hitArray = computer.move(coords);
 
-        return hitResult;
+        return hitArray
     };
 
     return { randomMove, computer }

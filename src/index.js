@@ -51,6 +51,7 @@ const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmari
 let newPlayer = Player(enemyBoard.newBoard) 
 let enemy = ComputerPlayer(playerBoard.newBoard)
 
-let move = enemy.randomMove();
-registerHit(playerBoard, move);
-yourMove(enemyBoard, playerBoard, enemy, newPlayer, registerHit);
+let hitArray = enemy.randomMove();
+registerHit(playerBoard, hitArray);
+/*
+yourMove(enemyBoard, playerBoard, enemy, newPlayer, registerHit); */
