@@ -3,7 +3,7 @@ import { boardGen } from './modules/DOM/boardElements';
 import { header } from './modules/DOM/title';
 import { shipSet } from './modules/app/ship';
 import { Player, ComputerPlayer } from './modules/app/player';
-import { directHit } from './modules/DOM/events';
+import { registerHit } from './modules/DOM/events';
 
 const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
@@ -53,6 +53,6 @@ let enemy = ComputerPlayer(playerBoard.newBoard)
 
 for (let i = 0; i < playerBoard.newBoard.spaceArray.length; i++) {
     let move = enemy.randomMove();
-    let playerSpaceObj = playerBoard.newBoard.spaceArray[i];
-    directHit(playerBoard, playerSpaceObj);
+    console.log(move)
+    registerHit(playerBoard, i);
 };

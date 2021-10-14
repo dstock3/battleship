@@ -3,7 +3,7 @@ const Player = (enemyBoard) => {
         enemyBoard.receiveAttack(coords);
     }
 
-    return { move }
+    return { move, enemyBoard }
 }
 
 const ComputerPlayer = (playerBoard) => {
@@ -14,12 +14,12 @@ const ComputerPlayer = (playerBoard) => {
         for (let i = 0; i < playerBoard.spaceArray.length; i++) {
             let spaceObj = playerBoard.spaceArray[i];
             if (!spaceObj.isHit) {
-                possibleMoves.push(spaceObj.coord)
+                possibleMoves.push(spaceObj.coord);
             };
         };
         
         let moveIndex = Math.floor(Math.random() * possibleMoves.length);
-
+        
         computer.move(possibleMoves[moveIndex]);
         return(possibleMoves[moveIndex]);
     };

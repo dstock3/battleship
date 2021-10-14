@@ -1,21 +1,16 @@
-function directHit(playerBoard, playerSpaceObj) {
+const registerHit = (playerBoard, index) => {
+    let playerSpaceObj = playerBoard.newBoard.spaceArray[index];
     if (playerSpaceObj.isOccupied && playerSpaceObj.isHit) {
-        for (let y = 0; y < playerBoard.spaceElements.length; y++) {
-            if (playerBoard.spaceElements[y].id === playerSpaceObj.coord) {
-                playerBoard.spaceElements[y].style.backgroundColor = "#a83244"
-            };
+        if (playerBoard.spaceElements[index].id === playerSpaceObj.coord) {
+            playerBoard.spaceElements[index].style.backgroundColor = "#a83244";
+        };
+    };
+
+    if ((playerSpaceObj.isHit) && (!playerSpaceObj.isOccupied)) {
+        if (playerBoard.spaceElements[index].id === playerSpaceObj.coord) {
+            playerBoard.spaceElements[index].textContent = "X";
         };
     };
 };
 
-function miss(move, playerBoard) {
-    if ((move === playerSpaceObj.coord) && (!playerSpaceObj.isOccupied)) {
-        for (let y = 0; y < playerBoard.spaceElements.length; y++) {
-            if (playerBoard.spaceElements[y].id === playerSpaceObj.coord) {
-                playerBoard.spaceElements[y].style.backgroundColor = "#a83244"
-            };
-        };
-    };
-};
-
-export { directHit, miss }
+export { registerHit }
