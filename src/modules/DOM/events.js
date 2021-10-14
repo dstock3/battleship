@@ -9,6 +9,9 @@ const registerHit = (playerBoard, index) => {
     if ((playerSpaceObj.isHit) && (!playerSpaceObj.isOccupied)) {
         if (playerBoard.spaceElements[index].id === playerSpaceObj.coord) {
             playerBoard.spaceElements[index].textContent = "X";
+            playerBoard.spaceElements[index].style.textAlign = "center";
+            playerBoard.spaceElements[index].style.fontSize = "3em";
+
         };
     };
 };
