@@ -43,18 +43,6 @@ const Gameboard = () => {
             if (spaceArray[i].coord === coordinate) {
                 spaceArray[i].isHit = true;
                 
-                /*
-                if (spaceArray[i].isOccupied) {
-                    for (let y = 0; y < shipArray.length; y++) {
-                        let ship = shipArray[y]; //need to create a shipArray
-                        for (let z = 0; z < ship.position.length; z++) {
-                            if (ship.position[z] === coordinate) {
-
-                            };
-                        };
-                    };
-                };
-                */
             };
         };
     };
