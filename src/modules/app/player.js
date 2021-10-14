@@ -1,6 +1,7 @@
 const Player = (enemyBoard) => {
     const move = (coords) => {
         enemyBoard.receiveAttack(coords);
+        return coords
     }
 
     return { move, enemyBoard }
@@ -24,7 +25,7 @@ const ComputerPlayer = (playerBoard) => {
         return(possibleMoves[moveIndex]);
     };
 
-    return { randomMove }
+    return { randomMove, computer }
 }
 
 export { Player, ComputerPlayer } 

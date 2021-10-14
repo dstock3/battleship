@@ -53,6 +53,5 @@ let enemy = ComputerPlayer(playerBoard.newBoard)
 
 for (let i = 0; i < playerBoard.newBoard.spaceArray.length; i++) {
     let move = enemy.randomMove();
-    console.log(move)
-    registerHit(playerBoard, i);
+    registerHit(playerBoard, move);
 };
