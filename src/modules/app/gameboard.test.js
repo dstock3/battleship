@@ -70,3 +70,12 @@ test("The placeShip method is functional", () => {
     expect(newShip.coords.length).toBe(3);
     expect(newShip.type).toBe("cruiser");
 }); 
+
+test("Assign positions effectively generates a random coordinate", () => {
+    let letterIndex = Math.floor(Math.random() * letterArray.length);
+    let chooseLetter = letterArray[letterIndex];
+    let numIndex = Math.floor(Math.random() * 10) + 1;
+    let startingCoord = chooseLetter + numIndex;
+    console.log(startingCoord)
+    //expect(newShip.coords.length).toBe(3);
+});
