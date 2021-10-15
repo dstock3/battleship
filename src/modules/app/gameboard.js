@@ -59,7 +59,7 @@ const Gameboard = () => {
         return  [orientation, position, startingCoord]
     };
 
-    function removeFromBoard(possibleCoords, coord) {
+    const removeFromBoard = (possibleCoords, coord) => {
         for (let i = 0; i < possibleCoords.length; ) {
             if (possibleCoords[i] === coord) {
                 possibleCoords.splice(i, 1)
@@ -201,8 +201,7 @@ const Gameboard = () => {
         };
     };
 
-
-    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, assignPositions }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, assignPositions, removeFromBoard }
 };
 
 export { Gameboard }

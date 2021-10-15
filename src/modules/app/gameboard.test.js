@@ -90,3 +90,20 @@ test("determineOrientation method effectively generates a random coordinate", ()
     };
     expect(numCheck).toBe(1);
 });
+
+test("The removeFromBoard method effectively eliminates positions from a possible coordinates array", () => {
+    let possibleCoords = []
+    for (let i = 0; i < testBoard.spaceArray.length; i++) {
+        possibleCoords.push(testBoard.spaceArray[i].coord)
+    }
+
+    for (let i = 0; i < 50; i++) {
+        possibleCoords = testBoard.removeFromBoard(possibleCoords, testBoard.spaceArray[i].coord)
+    }
+    expect(possibleCoords.length).toBe(50);
+
+    for (let i = 50; i < 100; i++) {
+        possibleCoords = testBoard.removeFromBoard(possibleCoords, testBoard.spaceArray[i].coord)
+    }
+    expect(possibleCoords.length).toBe(0)
+});
