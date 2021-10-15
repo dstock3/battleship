@@ -35,7 +35,7 @@ const Gameboard = () => {
         } else {
             orientation = "horz"
         };
-
+        let position
         if (orientation === "vert") {
             if (numIndex <= 5) {
                 position = true
@@ -202,7 +202,7 @@ const Gameboard = () => {
     };
 
 
-    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, assignPositions }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, assignPositions }
 };
 
 export { Gameboard }
