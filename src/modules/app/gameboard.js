@@ -75,12 +75,7 @@ const Gameboard = () => {
         };
     };
 
-    const possibleCoords = [];
-    for (let i = 0; i < spaceArray.length; i++) {
-        possibleCoords.push(spaceArray[i].coord);
-    };
-
-    const determineCoords = (shipLength, coordInfo, possibleCoords) => {
+    const determineCoords = (shipLength, coordInfo) => {
         let coordArray = [coordInfo.startingCoord];
         let coordNum
         if (coordInfo.startingCoord.charAt(2)) {
@@ -88,7 +83,6 @@ const Gameboard = () => {
             coordNum = parseInt(numString)
         } else {
             coordNum = parseInt(coordInfo.startingCoord.charAt(1));
-            console.log(coordNum)
         };
 
         if ((coordInfo.orientation === "vert") && (coordInfo.position)) {
@@ -132,56 +126,60 @@ const Gameboard = () => {
                 };
             };
         };
-        
-        for (let i = 0; i < coordArray.length; i++) {
-            possibleCoords = removeFromBoard(possibleCoords, coordArray[i])
-        };
-
-        return { coordArray, possibleCoords }
+        return coordArray
     };
 
     const assignPositions = () => {
-        let enemyPositions = []
+        let enemyPositions = [];
 
-        for (let i = 1; i < 6; i++) {
-            if (i === 1) {
-                let position = determineOrientation()
+        let position = determineOrientation();
+        let carrierPosition = determineCoords(5, position)
+        enemyPositions.push(carrierPosition);
 
-                let carrierInfo = determineCoords(5, position[0], position[1], position[2], spaceArray)
-                let carrierPosition = carrierInfo[0];
-                spaceArray = carrierInfo[1];
-                enemyPositions.push(carrierPosition)
-            };
-            if (i === 2) {
-                let position = determineOrientation()
-                let battleshipInfo = determineCoords(4, position[0], position[1], position[2], spaceArray)
-                let battleshipPosition = battleshipInfo[0];
-                spaceArray = battleshipInfo[1];
-                enemyPositions.push(battleshipPosition)
+        position = determineOrientation();
+        let battleshipPosition = determineCoords(4, position);
+        
+        if (battleshipPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
+            position = determineOrientation();
+            battleshipPosition = determineCoords(4, position);
+            enemyPositions.push(battleshipPosition);
+        } else {
+            enemyPositions.push(battleshipPosition);
+        };
 
-            };
-            if (i === 3) {
-                let position = determineOrientation()
-                let cruiserInfo = determineCoords(3, position[0], position[1], position[2], spaceArray)
-                let cruiserPosition = cruiserInfo[0];
-                spaceArray = cruiserInfo[1];
-                enemyPositions.push(cruiserPosition)
-            };
-            if (i === 4) {
-                let position = determineOrientation()
-                let submarineInfo = determineCoords(3, position[0], position[1], position[2], spaceArray)
-                let submarinePosition = submarineInfo[0];
-                spaceArray = submarineInfo[1];
-                enemyPositions.push(submarinePosition)
-            };
-            if (i === 5){
-                let position = determineOrientation()
-                let destroyerInfo = determineCoords(2, position[0], position[1], position[2], spaceArray)
-                let destroyerPosition = destroyerInfo[0];
-                spaceArray = destroyerInfo[1];
-                enemyPositions.push(destroyerPosition)
-            };
-        };        
+        position = determineOrientation();
+        let cruiserPosition = determineCoords(3, position);
+
+        if (cruiserPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
+            position = determineOrientation();
+            cruiserPosition = determineCoords(3, position);
+            enemyPositions.push(cruiserPosition);
+        } else {
+            enemyPositions.push(cruiserPosition);
+        };
+
+        position = determineOrientation();
+        let submarinePosition = determineCoords(3, position);
+
+        if (submarinePosition.some(i => enemyPositions.indexOf(i) >= 0)) {
+            position = determineOrientation();
+            submarinePosition = determineCoords(3, position);
+            enemyPositions.push(submarinePosition);
+        } else {
+            enemyPositions.push(submarinePosition);
+        };
+        
+        position = determineOrientation();
+        let destroyerPosition = determineCoords(2, position);
+
+        if (destroyerPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
+            position = determineOrientation();
+            destroyerPosition = determineCoords(2, position);
+            enemyPositions.push(destroyerPosition);
+        } else {
+            enemyPositions.push(destroyerPosition);
+        };
+
         return enemyPositions
     };
 
@@ -211,7 +209,7 @@ const Gameboard = () => {
         };
     };
 
-    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, determineCoords, assignPositions, removeFromBoard, possibleCoords }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, determineCoords, assignPositions }
 };
 
 export { Gameboard }
