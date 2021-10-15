@@ -100,7 +100,7 @@ test("The determineCoords method effectively returns coherent result for the ene
 
 test("enemy positions", () => {
     let enemyPositions = testBoard.assignPositions()
-    console.log(enemyPositions)
+
     expect(enemyPositions.length).toBe(5)
 });
 

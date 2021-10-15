@@ -6,9 +6,9 @@ import { enemyBoard, playerBoard } from './modules/DOM/placement';
 
 const newPlayer = Player(enemyBoard.newBoard) 
 const enemy = ComputerPlayer(playerBoard.newBoard)
-/*
+
 yourMove(enemyBoard, playerBoard, enemy, newPlayer, registerHit);
-*/
+
 
 
 

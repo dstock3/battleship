@@ -30,14 +30,19 @@ for (let i = 0; i < playerShipList.length; i++) {
 
 const enemyPositions = (() => {
     const enemyBoard = boardGen("enemy", masterContainer);
-    enemyBoard.newBoard.assignPositions()
+    const enemyPositions = enemyBoard.newBoard.assignPositions();
 
-    const enemyBattleship = enemyBoard.newBoard.placeShip(ships.battleship, ["A4", "A5", "A6", "A7"]);
-    const enemyCruiser = enemyBoard.newBoard.placeShip(ships.cruiser, ["C7", "C8", "C9"]);
-    const enemyCarrier = enemyBoard.newBoard.placeShip(ships.carrier, ["B2", "C2", "D2", "E2", "F2"]);
-    const enemySubmarine = enemyBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
-    const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, ["H7", "H8"]);
+    const enemyCarrier = enemyBoard.newBoard.placeShip(ships.carrier, enemyPositions[0]);
+    const enemyBattleship = enemyBoard.newBoard.placeShip(ships.battleship, enemyPositions[1]);
+    const enemyCruiser = enemyBoard.newBoard.placeShip(ships.cruiser, enemyPositions[2]);
+    const enemySubmarine = enemyBoard.newBoard.placeShip(ships.submarine, enemyPositions[3]);
+    const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, enemyPositions[4]);
+
     const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
+    
+    for (let i = 0; i < enemyShipList.length; i++) {
+        setSail(enemyShipList[i])
+    }
 
     return { enemyBoard }
 })();

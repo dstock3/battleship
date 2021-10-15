@@ -129,6 +129,19 @@ const Gameboard = () => {
         return coordArray
     };
 
+    function possibleCoordsCheck(shipPosition, enemyPositionsArray, len) {
+        for (let i = 0; i < enemyPositionsArray.length; i++) {
+            let enemyPositions = enemyPositionsArray[i]
+            if (shipPosition.some(y => enemyPositions.indexOf(y) >= 0)) {
+                let position = determineOrientation();
+                shipPosition = determineCoords(len, position);
+                possibleCoordsCheck(shipPosition, enemyPositionsArray, len);
+            } else {
+                return shipPosition
+            };
+        };
+    };
+
     const assignPositions = () => {
         let enemyPositions = [];
 
@@ -137,48 +150,25 @@ const Gameboard = () => {
         enemyPositions.push(carrierPosition);
 
         position = determineOrientation();
-        let battleshipPosition = determineCoords(4, position);
-        
-        if (battleshipPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
-            position = determineOrientation();
-            battleshipPosition = determineCoords(4, position);
-            enemyPositions.push(battleshipPosition);
-        } else {
-            enemyPositions.push(battleshipPosition);
-        };
+        let initBattleship = determineCoords(4, position);
+        let battleshipPosition = possibleCoordsCheck(initBattleship, enemyPositions, 4);
+        enemyPositions.push(battleshipPosition);
 
         position = determineOrientation();
-        let cruiserPosition = determineCoords(3, position);
-
-        if (cruiserPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
-            position = determineOrientation();
-            cruiserPosition = determineCoords(3, position);
-            enemyPositions.push(cruiserPosition);
-        } else {
-            enemyPositions.push(cruiserPosition);
-        };
+        let initCruiserPosition = determineCoords(3, position);
+        let cruiserPosition = possibleCoordsCheck(initCruiserPosition, enemyPositions, 3);
+        enemyPositions.push(cruiserPosition);
 
         position = determineOrientation();
-        let submarinePosition = determineCoords(3, position);
+        let initSubmarinePosition = determineCoords(3, position);
+        let submarinePosition = possibleCoordsCheck(initSubmarinePosition, enemyPositions, 3);
+        enemyPositions.push(submarinePosition);
 
-        if (submarinePosition.some(i => enemyPositions.indexOf(i) >= 0)) {
-            position = determineOrientation();
-            submarinePosition = determineCoords(3, position);
-            enemyPositions.push(submarinePosition);
-        } else {
-            enemyPositions.push(submarinePosition);
-        };
-        
         position = determineOrientation();
-        let destroyerPosition = determineCoords(2, position);
-
-        if (destroyerPosition.some(i => enemyPositions.indexOf(i) >= 0)) {
-            position = determineOrientation();
-            destroyerPosition = determineCoords(2, position);
-            enemyPositions.push(destroyerPosition);
-        } else {
-            enemyPositions.push(destroyerPosition);
-        };
+        let initDestroyerPosition = determineCoords(2, position);
+        let destroyerPosition = possibleCoordsCheck(initDestroyerPosition, enemyPositions, 2);
+        enemyPositions.push(destroyerPosition);
+        console.log(enemyPositions)
 
         return enemyPositions
     };
