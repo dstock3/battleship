@@ -70,18 +70,18 @@ test("The placeShip method is functional", () => {
     expect(newShip.coords.length).toBe(3);
     expect(newShip.type).toBe("cruiser");
 }); 
-
-test("determineOrientation method effectively generates a random coordinate", () => {
+/*
+test("The determineOrientation method effectively generates a random coordinate", () => {
     let coordInfo = testBoard.determineOrientation();
-    let letter = coordInfo[2].charAt(0)
+    let letter = coordInfo.startingCoord.charAt(0)
     let letterCheck = 0;
     for (let i = 0; i < testBoard.letterArray.length; i++) {
         if (letter === testBoard.letterArray[i])
         letterCheck += 1 
-    }
+    };
     expect(letterCheck).toBe(1);
 
-    let num = parseInt(coordInfo[2].charAt(1));
+    let num = parseInt(coordInfo.startingCoord.charAt(1));
 
     let numCheck = 0;
     for (let i = 1; i < 11; i++) {
@@ -90,9 +90,9 @@ test("determineOrientation method effectively generates a random coordinate", ()
     };
     expect(numCheck).toBe(1);
 });
-
+*/
 test("The removeFromBoard method effectively eliminates positions from a possible coordinates array", () => {
-    let possibleCoords = []
+    let possibleCoords = [];
     for (let i = 0; i < testBoard.spaceArray.length; i++) {
         possibleCoords.push(testBoard.spaceArray[i].coord)
     }
@@ -107,3 +107,13 @@ test("The removeFromBoard method effectively eliminates positions from a possibl
     }
     expect(possibleCoords.length).toBe(0)
 });
+
+
+test("The determineCoords method effectively returns coherent result for the enemy position", () => {
+    let coordInfo = testBoard.determineOrientation();
+    let coordObj = testBoard.determineCoords(5, coordInfo, testBoard.possibleCoords);
+    let battleShipCoords = coordObj.coordArray
+    
+    expect(battleShipCoords.length).toBe(5)
+});
+

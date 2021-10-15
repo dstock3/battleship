@@ -19,115 +19,125 @@ const Gameboard = () => {
         };
     })();
 
-    const shipArray = [];
+    function getChance() {
+        let chance = Math.floor(Math.random() * 2);
+
+        let orientation
+        if (chance === 0) {
+            orientation = "vert"
+        } else {
+            orientation = "hor"
+        };
+        return orientation
+    };
+
+    function getPosition(orientation, letter, num) {
+        let position
+        if (orientation === "vert") {
+            if (num <= 5) {
+                position = true
+            } else {
+                position = false
+            };
+        };
+        
+        if (orientation === "hor") {
+            for (let i = 0; i < letterArray.length; i++) {
+                if (letter === letterArray[i]) {
+                    if (i < 5) {
+                        position = true
+                    } else {
+                        position = false
+                    };
+                };
+            };
+        };
+        return position
+    }
 
     const determineOrientation = () => {
         let letterIndex = Math.floor(Math.random() * letterArray.length);
         let chooseLetter = letterArray[letterIndex];
         let numIndex = Math.floor(Math.random() * 10) + 1;
         let startingCoord = chooseLetter + numIndex;
+        let orientation = getChance();
+        let position = getPosition(orientation, chooseLetter, numIndex);
 
-        let orientation
-        let chance = Math.floor(Math.random() * 1);
-
-        if (chance === 0) {
-            orientation = "vert"
-        } else {
-            orientation = "horz"
-        };
-        let position
-        if (orientation === "vert") {
-            if (numIndex <= 5) {
-                position = true
-            } else {
-                position = false
-            } 
-        }
-        if (orientation === "horz") {
-            for (let i = 0; i < letterArray.length; i++) {
-                if (chooseLetter === letterArray[i]) {
-                    if (i < 5) {
-                        position = true
-                    } else {
-                        position = false
-
-                    };
-                };
-            };
-        };
-
-        return  [orientation, position, startingCoord]
+        return  { orientation, position, startingCoord } 
     };
 
     const removeFromBoard = (possibleCoords, coord) => {
         for (let i = 0; i < possibleCoords.length; ) {
             if (possibleCoords[i] === coord) {
-                possibleCoords.splice(i, 1)
+                possibleCoords.splice(i, 1);
                 return possibleCoords
             };
         };
     };
-    
-    const determineCoords = (length, orientation, position, startingCoord, spaceArray) => {
-        let coordArray = [startingCoord];
-            if ((orientation === "vert") && (position)) {
-                for (let y = 1; y < length.length; y++) {
-                    numIndex += 1;
-                    newCoord = chooseLetter + numIndex;
-                    coordArray.push(newCoord) 
-                };
-            };
-            if ((orientation === "vert") && (!position)) {
-                for (let y = 1; y < length.length; y++) {
-                    numIndex -= 1;
-                    newCoord = chooseLetter + numIndex;
-                    coordArray.push(newCoord) 
-                };
-            };
-            if ((orientation === "horz") && (position)) {
-                for (let y = 1; y < length.length; y++) {
-                    for (let x = 0; x < letterArray.length; x++) {
-                        if (chooseLetter === letterArray[x]) {
-                            if (x < 5) {
-                                for (let z = 5; z > 0; z--) {
-                                    newCoord = letterArray[z] + numIndex
-                                    coordArray.push(newCoord) 
-                                }
-                            } else {
-                                for (let z = 6; z < 11; z++) {
-                                    newCoord = letterArray[z] + numIndex
-                                    coordArray.push(newCoord) 
-                                }
-                            };
 
-                        };
+    const possibleCoords = [];
+    for (let i = 0; i < spaceArray.length; i++) {
+        possibleCoords.push(spaceArray[i].coord);
+    };
+
+    const determineCoords = (shipLength, coordInfo, possibleCoords) => {
+        let coordArray = [coordInfo.startingCoord];
+        let coordNum
+        if (coordInfo.startingCoord.charAt(2)) {
+            let numString = coordInfo.startingCoord.charAt(1) + coordInfo.startingCoord.charAt(2);
+            coordNum = parseInt(numString)
+        } else {
+            coordNum = parseInt(coordInfo.startingCoord.charAt(1));
+            console.log(coordNum)
+        };
+
+        if ((coordInfo.orientation === "vert") && (coordInfo.position)) {
+            for (let y = 1; y < shipLength; y++) {
+                coordNum += 1;
+                let newCoord = coordInfo.startingCoord.charAt(0) + `${coordNum}`
+                coordArray.push(newCoord) 
+            };
+        };
+        
+        if ((coordInfo.orientation === "vert") && (!coordInfo.position)) {
+            for (let y = 1; y < shipLength; y++) {
+                coordNum -= 1;
+                let newCoord = coordInfo.startingCoord.charAt(0) + `${coordNum}`
+                coordArray.push(newCoord) 
+            };
+        };
+        
+        if ((coordInfo.orientation === "hor") && (coordInfo.position)) {
+            for (let x = 0; x < letterArray.length; x++) {
+                if (coordInfo.startingCoord.charAt(0) === letterArray[x]) {
+                    let coordLetterIndex = x
+                    for (let y = 1; y < shipLength; y++) {
+                        coordLetterIndex += 1
+                        let newCoord = letterArray[coordLetterIndex] + coordNum;
+                        coordArray.push(newCoord);
                     };
                 };
             };
-            if ((orientation === "horz") && (!position)) {
-                for (let y = 1; y < length.length; y++) {
-                    for (let y = 1; y < length.length; y++) {
-                        for (let x = 0; x < letterArray.length; x++) {
-                            if (chooseLetter === letterArray[x]) {
-                                if (x < 5) {
-
-    
-                                } else {
-    
-                                };
-                            };
-                        };
-     
-                    };     
-                };
-            };
-
-        for (let i = 0; i < coordArray.length; i++) {
-            spaceArray = removeFromBoard(spaceArray, coordArray[i])
         };
 
-        return [coordArray, spaceArray]
+        if ((coordInfo.orientation === "hor") && (!coordInfo.position)) {
+            for (let x = 0; x < letterArray.length; x++) {
+                if (coordInfo.startingCoord.charAt(0) === letterArray[x]) {
+                    let coordLetterIndex = x
+                    for (let y = 1; y < shipLength; y++) {
+                        coordLetterIndex -= 1
+                        let newCoord = letterArray[coordLetterIndex] + coordNum;
+                        coordArray.push(newCoord);
+                    };
+                };
+            };
+        };
+        
+        for (let i = 0; i < coordArray.length; i++) {
+            possibleCoords = removeFromBoard(possibleCoords, coordArray[i])
+        };
 
+        return { coordArray, possibleCoords }
     };
 
     const assignPositions = () => {
@@ -201,7 +211,7 @@ const Gameboard = () => {
         };
     };
 
-    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, assignPositions, removeFromBoard }
+    return { letterArray, createGrid, placeShip, spaceArray, receiveAttack, determineOrientation, determineCoords, assignPositions, removeFromBoard, possibleCoords }
 };
 
 export { Gameboard }
