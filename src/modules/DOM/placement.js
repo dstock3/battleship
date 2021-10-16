@@ -39,10 +39,10 @@ const enemyPositions = (() => {
     const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, enemyPositions[4]);
 
     const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
-    
+    /*
     for (let i = 0; i < enemyShipList.length; i++) {
         setSail(enemyShipList[i])
-    }
+    }*/
 
     return { enemyBoard }
 })();

@@ -75,7 +75,8 @@ const Gameboard = () => {
         };
     };
 
-    const determineCoords = (shipLength, coordInfo) => {
+    const determineCoords = (shipLength) => {
+        let coordInfo = determineOrientation();
         let coordArray = [coordInfo.startingCoord];
         let coordNum
         if (coordInfo.startingCoord.charAt(2)) {
@@ -150,26 +151,22 @@ const Gameboard = () => {
     const assignPositions = () => {
         let enemyPositions = [];
 
-        let position = determineOrientation();
-        let carrierPosition = determineCoords(5, position)
+        let carrierPosition = determineCoords(5)
         enemyPositions.push(carrierPosition);
 
-        position = determineOrientation();
-        let initBattleship = determineCoords(4, position);
+        let initBattleship = determineCoords(4);
         let battleshipPosition = possibleCoordsCheck(initBattleship, enemyPositions, 4);
         enemyPositions.push(battleshipPosition);
 
-        let initCruiserPosition = determineCoords(3, position);
+        let initCruiserPosition = determineCoords(3);
         let cruiserPosition = possibleCoordsCheck(initCruiserPosition, enemyPositions, 3);
         enemyPositions.push(cruiserPosition);
 
-        position = determineOrientation();
-        let initSubmarinePosition = determineCoords(3, position);
+        let initSubmarinePosition = determineCoords(3);
         let submarinePosition = possibleCoordsCheck(initSubmarinePosition, enemyPositions, 3);
         enemyPositions.push(submarinePosition);
 
-        position = determineOrientation();
-        let initDestroyerPosition = determineCoords(2, position);
+        let initDestroyerPosition = determineCoords(2);
         let destroyerPosition = possibleCoordsCheck(initDestroyerPosition, enemyPositions, 2);
         enemyPositions.push(destroyerPosition);
 
