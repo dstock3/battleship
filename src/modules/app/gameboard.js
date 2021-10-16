@@ -130,15 +130,20 @@ const Gameboard = () => {
     };
 
     function possibleCoordsCheck(shipPosition, enemyPositionsArray, len) {
+        let coordCheck = 0;
         for (let i = 0; i < enemyPositionsArray.length; i++) {
-            let enemyPositions = enemyPositionsArray[i]
-            if (shipPosition.some(y => enemyPositions.indexOf(y) >= 0)) {
-                let position = determineOrientation();
-                shipPosition = determineCoords(len, position);
-                possibleCoordsCheck(shipPosition, enemyPositionsArray, len);
-            } else {
-                return shipPosition
+            let enemyPositions = enemyPositionsArray[i]; 
+            if (enemyPositions.some(y => shipPosition.indexOf(y) >= 0)) {
+                coordCheck += 1;
             };
+        };
+        if (coordCheck > 0) {
+            let position = determineOrientation();
+            let initShipPosition = determineCoords(len, position);
+            let shipPosition = possibleCoordsCheck(initShipPosition, enemyPositionsArray, len);
+            return shipPosition
+        } else {
+            return shipPosition
         };
     };
 
@@ -154,7 +159,6 @@ const Gameboard = () => {
         let battleshipPosition = possibleCoordsCheck(initBattleship, enemyPositions, 4);
         enemyPositions.push(battleshipPosition);
 
-        position = determineOrientation();
         let initCruiserPosition = determineCoords(3, position);
         let cruiserPosition = possibleCoordsCheck(initCruiserPosition, enemyPositions, 3);
         enemyPositions.push(cruiserPosition);
@@ -168,7 +172,6 @@ const Gameboard = () => {
         let initDestroyerPosition = determineCoords(2, position);
         let destroyerPosition = possibleCoordsCheck(initDestroyerPosition, enemyPositions, 2);
         enemyPositions.push(destroyerPosition);
-        console.log(enemyPositions)
 
         return enemyPositions
     };

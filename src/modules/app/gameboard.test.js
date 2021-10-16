@@ -104,3 +104,16 @@ test("enemy positions", () => {
     expect(enemyPositions.length).toBe(5)
 });
 
+test("", () => {
+    let array1 = ['G10', 'G9', 'G8', 'G7', 'G6'];
+    let array2 = ['F8', 'F7', 'F6', 'F5'];
+    let array3 = ['G10', 'H2', 'H3']
+    let enemyPositions = [array1, array2]
+    for (let i = 0; i < enemyPositions.length; i++) {
+        let coordCheck = enemyPositions[i].some(y => array3.indexOf(y) >= 0);
+        console.log(coordCheck)
+    }
+
+    
+});
+
