@@ -54,12 +54,20 @@ test("The educated guess method effectively attacks valid coordinates.", () => {
     expect(((hitArray[2]) === ("B1")) || ((hitArray[2]) === ("B3")) || ((hitArray[2]) === ("A2")) || ((hitArray[2]) === ("C2")) ).toBe(true);
 });
 
-test("The educated guess method effectively attacks valid coordinates.", () => {
-    let previousAttack = "F5"
+test("The educated guess method effectively attacks valid coordinates based on a prior coordinate in the corner.", () => {
+    let previousAttack = "A10"
     let hitArray = computer.educatedGuess(previousAttack);
     console.log(hitArray[2])
-    expect(((hitArray[2]) === ("F4")) || ((hitArray[2]) === ("F6")) || ((hitArray[2]) === ("E5")) || ((hitArray[2]) === ("G5")) ).toBe(true);
+    expect(((hitArray[2]) === ("A9")) || ((hitArray[2]) === ("B10"))).toBe(true);
 });
+
+test("The educated guess method effectively attacks valid coordinates based on a prior coordinate in the corner.", () => {
+    let previousAttack = "J10"
+    let hitArray = computer.educatedGuess(previousAttack);
+    console.log(hitArray[2])
+    expect(((hitArray[2]) === ("I10")) || ((hitArray[2]) === ("J9"))).toBe(true);
+});
+
 
 
 
