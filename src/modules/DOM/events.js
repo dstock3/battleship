@@ -40,42 +40,42 @@ const shipDestroyed = (shipList, coords, player) => {
     };
 };
 
-const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit) => {
-    let enemyBoard = enemyPositions.enemyBoard
-    let playerHits = 0;
-    let enemyHits = 0;
+const yourMove = (enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit) => {
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
             let coords = enemyBoard.spaceElements[i].id;
-            let enemyHitArray = enemy.randomMove();
-            let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
-            enemyHits += potentialEnemyHit
-            shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
             let playerHitArray = newPlayer.move(coords);
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
             shipDestroyed(enemyPositions.enemyShipList, coords, "player")
-            /*
-            if (enemyHitArray[0]) {
-                let calculatedEnemyAttack = enemy.educatedGuess(enemyHitArray[2])
-                let potentialEnemyHit = registerHit(playerBoard, calculatedEnemyAttack);
-                enemyHits += potentialEnemyHit
-                shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
-                let playerHitArray = newPlayer.move(coords);
-                let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
-                playerHits += potentialPlayerHit;
-                shipDestroyed(enemyPositions.enemyShipList, coords, "player")
-            } */
 
-            console.log("Player Hits: " + playerHits)
-            console.log("Enemy Hits: " + enemyHits)
+            let enemyHitArray = enemy.randomMove();
+            let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
+            enemyHits += potentialEnemyHit
+            shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
 
-            if ((playerHits === 17) || (enemyHits === 17)) {
-                console.log("game over")
-            }
+            return { playerHitArray, enemyHitArray, playerHits, enemyHits }
+
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
     };
 };
 
-export { registerHit, yourMove }
+const nextMove = (enemyHitArray, enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit) => {
+    if (enemyHitArray[0]) {
+        console.log("hello")
+        let calculatedEnemyAttack = enemy.educatedGuess(enemyHitArray[2])
+        let potentialEnemyHit = registerHit(playerBoard, calculatedEnemyAttack);
+        enemyHits += potentialEnemyHit
+        shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
+        let playerHitArray = newPlayer.move(coords);
+        let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
+        playerHits += potentialPlayerHit;
+        shipDestroyed(enemyPositions.enemyShipList, coords, "player")
+    } else {
+        let score = yourMove(enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit);
+        return score
+    };
+};
+
+export { registerHit, yourMove, nextMove }
