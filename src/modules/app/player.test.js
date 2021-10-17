@@ -49,36 +49,16 @@ test("The computer player can't attack the same position more than once", () => 
 */
 
 test("The educated guess method effectively attacks valid coordinates.", () => {
-    let previousAttacks = ["E5", "F4", "B3", "J3", "E6"]
-    for (let x = 0; x < previousAttacks.length; x++) {
-        let previousAttack = previousAttacks[x];
+    let previousAttack = "B2"
+    let hitArray = computer.educatedGuess(previousAttack);
+    expect(((hitArray[2]) === ("B1")) || ((hitArray[2]) === ("B3")) || ((hitArray[2]) === ("A2")) || ((hitArray[2]) === ("C2")) ).toBe(true);
+});
 
-        let previousAttackNum
-        if (previousAttack.charAt(2)) {
-            let numString = previousAttack.charAt(1) + previousAttack.charAt(2);
-            previousAttackNum = parseInt(numString)
-        } else {
-            previousAttackNum = parseInt(previousAttack.charAt(1));
-        };
-
-        for (let i = 0; i < playerBoard.spaceArray.length; i++) {
-            if (playerBoard.spaceArray[i].coord === previousAttack)
-            playerBoard.spaceArray[i].isHit = true
-        };
-
-        let hitArray = computer.educatedGuess(previousAttack);
-        let attackCoord = hitArray[2]
-
-        let possibleCoordNum
-        if (attackCoord.charAt(2)) {
-            let numString = attackCoord.charAt(1) + attackCoord.charAt(2);
-            possibleCoordNum = parseInt(numString)
-        } else {
-            possibleCoordNum = parseInt(attackCoord.charAt(1));
-        };
-        expect((attackCoord.charAt(0)) === (previousAttack.charAt(0))).toBe(true);
-        expect((possibleCoordNum) === (previousAttackNum - 1) || (possibleCoordNum) === (previousAttackNum + 1)).toBe(true);
-    };
+test("The educated guess method effectively attacks valid coordinates.", () => {
+    let previousAttack = "F5"
+    let hitArray = computer.educatedGuess(previousAttack);
+    console.log(hitArray[2])
+    expect(((hitArray[2]) === ("F4")) || ((hitArray[2]) === ("F6")) || ((hitArray[2]) === ("E5")) || ((hitArray[2]) === ("G5")) ).toBe(true);
 });
 
 

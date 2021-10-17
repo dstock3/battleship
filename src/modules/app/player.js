@@ -80,6 +80,19 @@ const ComputerPlayer = (playerBoard) => {
                 };      
             };
         };
+        let prevLetter
+        let nextLetter 
+
+        for (let y = 0; y < playerBoard.letterArray.length; y++) {
+            if (prevCoordLetter === playerBoard.letterArray[y]) {
+                prevLetter = playerBoard.letterArray[y - 1];
+                nextLetter = playerBoard.letterArray[y + 1];
+            };
+        };
+        let prevLetterAttack = prevLetter + `${prevCoordNum}`
+        let nextLetterAttack = nextLetter + `${prevCoordNum}`
+
+        newPossibleMoves.push(prevLetterAttack, nextLetterAttack)
         console.log(newPossibleMoves)
 
         if (newPossibleMoves.length > 0) {

@@ -51,11 +51,21 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
             enemyHits += potentialEnemyHit
             shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
-            console.log(enemyHitArray[2])
             let playerHitArray = newPlayer.move(coords);
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
-            shipDestroyed(enemyPositions.enemyShipList, coords, "player") 
+            shipDestroyed(enemyPositions.enemyShipList, coords, "player")
+            /*
+            if (enemyHitArray[0]) {
+                let calculatedEnemyAttack = enemy.educatedGuess(enemyHitArray[2])
+                let potentialEnemyHit = registerHit(playerBoard, calculatedEnemyAttack);
+                enemyHits += potentialEnemyHit
+                shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
+                let playerHitArray = newPlayer.move(coords);
+                let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
+                playerHits += potentialPlayerHit;
+                shipDestroyed(enemyPositions.enemyShipList, coords, "player")
+            } */
 
             console.log("Player Hits: " + playerHits)
             console.log("Enemy Hits: " + enemyHits)
