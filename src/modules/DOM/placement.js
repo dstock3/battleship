@@ -59,4 +59,4 @@ const enemyPositions = (() => {
     return { enemyBoard, enemyShipList, checkShipStatus }
 })();
 
-export { enemyPositions , playerBoard, }
+export { enemyPositions, playerBoard, playerShipList }
