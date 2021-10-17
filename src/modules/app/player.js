@@ -50,9 +50,28 @@ const ComputerPlayer = (playerBoard) => {
     };
 
     const educatedGuess = (previousCoord) => {
+        let possibleMoves = determinePossibleMoves();
 
-
-    }
+        for (let i = 0; i < playerBoard.spaceArray.length; i++) {
+            let spaceObj = playerBoard.spaceArray[i];
+            if (spaceObj.coord.charAt(0) === previousCoord.charAt(0)) {
+                let num = parseInt(previousCoord.charAt(1));
+                for (let y = 0; y < possibleMoves.length; y++) {
+                    let coords = possibleMoves[y];
+                    if (possibleMoves[y].charAt(1) === num + 1) {
+                        let hitArray = computer.move(coords);
+                        return hitArray
+                    } else if (possibleMoves[y].charAt(1) === num - 1) {
+                        let hitArray = computer.move(coords);
+                        return hitArray
+                    } else {
+                        let hitArray = randomMove();
+                        return hitArray
+                    };
+                };
+            };
+        };
+    };
 
     return { randomMove, computer }
 }
