@@ -5,6 +5,12 @@ const Ship = (length, hitCount, status) => {
 
     const isSunk = () => hitCount.every((position) => position === true);
 
+    function updateStatus() {
+        if (isSunk()) {
+            this.status = "sunk"
+        };
+    };
+
     return { length, hitCount, status, hit, isSunk }
 };
 

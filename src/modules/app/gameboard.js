@@ -194,7 +194,6 @@ const Gameboard = () => {
         for (let i = 0; i < spaceArray.length; i++) {
             if (spaceArray[i].coord === coordinate) {
                 spaceArray[i].isHit = true;
-                
             };
         };
     };

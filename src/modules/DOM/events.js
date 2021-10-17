@@ -15,7 +15,8 @@ const registerHit = (playerBoard, hitArray) => {
     };
 };
 
-const yourMove = (enemyBoard, playerBoard, enemy, newPlayer, registerHit) => {
+const yourMove = (enemyPositions, playerBoard, enemy, newPlayer, registerHit) => {
+    let enemyBoard = enemyPositions.enemyBoard
     let playerHits = 0;
     let enemyHits = 0;
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
@@ -26,7 +27,29 @@ const yourMove = (enemyBoard, playerBoard, enemy, newPlayer, registerHit) => {
             enemyHits += potentialEnemyHit
             let playerHitArray = newPlayer.move(coords);
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
-            playerHits += potentialPlayerHit
+            playerHits += potentialPlayerHit;
+            
+            for (let i = 0; i < enemyPositions.enemyShipList.length; i++) {
+                let ship = enemyPositions.enemyShipList[i];
+                
+                for (let y = 0; y < ship.coords.length; y++) {
+                    if (ship.coords[y] === coords) {
+                        for (let x = 0; x < ship.base.hitCount.length; x++) {
+                            if (!ship.base.hitCount[x]) {
+                                ship.base.hitCount[x] = true;
+
+                                if (ship.base.isSunk()) {
+                                    console.log(`You have sunk the enemy's ${ship.type}!`)
+                                };
+                                break
+                            };
+                        };
+                    };
+                };
+            };
+
+
+            
             console.log("Player Hits: " + playerHits)
             console.log("Enemy Hits: " + enemyHits)
 

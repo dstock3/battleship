@@ -39,14 +39,24 @@ const enemyPositions = (() => {
     const enemyDestroyer = enemyBoard.newBoard.placeShip(ships.destroyer, enemyPositions[4]);
 
     const enemyShipList = [enemyBattleship, enemyCruiser, enemyCarrier, enemySubmarine, enemyDestroyer];
+    
+    function checkShipStatus() {
+        for (let i = 0; i < enemyShipList.length; i++) {
+            let ship = enemyShipList[i];
+            ship.base.updateStatus();
+            console.log(ship.base.status)
+            if (ship.base.status === "sunk") {
+                return ship.type
+            }
+        };
+    };
+    
     /*
     for (let i = 0; i < enemyShipList.length; i++) {
         setSail(enemyShipList[i])
     }*/
 
-    return { enemyBoard }
+    return { enemyBoard, enemyShipList, checkShipStatus }
 })();
 
-const enemyBoard = enemyPositions.enemyBoard
-
-export { enemyBoard, playerBoard }
+export { enemyPositions , playerBoard, }

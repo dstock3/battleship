@@ -42,3 +42,11 @@ test("isSunk method returns true in appropriate context", () => {
     }
     expect(testShip.isSunk()).toBe(true);
 });
+
+test("the checkStatus method the appropriate status", () => {
+    for (let i = 0; i < testShip.hitCount.length; i++) {
+        testShip.hit(i);
+    }
+    testShip.updateStatus()
+    expect(testShip.status).toBe("sunk");
+});
