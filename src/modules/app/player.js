@@ -50,37 +50,50 @@ const ComputerPlayer = (playerBoard) => {
     };
 
     const educatedGuess = (previousCoord) => {
+        let prevCoordLetter = previousCoord.charAt(0);
+            
+        let prevCoordNum
+        if (previousCoord.charAt(2)) {
+            let numString = previousCoord.charAt(1) + previousCoord.charAt(2);
+            prevCoordNum = parseInt(numString)
+        } else {
+            prevCoordNum = parseInt(previousCoord.charAt(1));
+        };
+
         let possibleMoves = determinePossibleMoves();
 
-        for (let i = 0; i < playerBoard.spaceArray.length; i++) {
-            let spaceObj = playerBoard.spaceArray[i];
-            if (spaceObj.coord.charAt(0) === previousCoord.charAt(0)) {
-                let num
-                if (previousCoord.charAt(2)) {
-                    let numString = previousCoord.charAt(1) + previousCoord.charAt(2);
-                    num = parseInt(numString)
-                } else {
-                    num = parseInt(previousCoord.charAt(1));
-                };
-
-                for (let y = 0; y < possibleMoves.length; y++) {
-                    let coords = possibleMoves[y];
-                    if (possibleMoves[y].charAt(1) === num + 1) {
-                        let hitArray = computer.move(coords);
-                        return hitArray
-                    } else if (possibleMoves[y].charAt(1) === num - 1) {
-                        let hitArray = computer.move(coords);
-                        return hitArray
-                    } else {
-                        let hitArray = randomMove();
-                        return hitArray
-                    };
-                };
+        let newPossibleMoves = []
+        
+        for (let i = 0; i < possibleMoves.length; i++) {
+            let possibleLetter = possibleMoves[i].charAt(0);
+            let possibleCoordNum
+            if (possibleMoves[i].charAt(2)) {
+                let numString = possibleMoves[i].charAt(1) + possibleMoves[i].charAt(2);
+                possibleCoordNum = parseInt(numString)
+            } else {
+                possibleCoordNum = parseInt(possibleMoves[i].charAt(1));
             };
+
+            if (possibleLetter === prevCoordLetter) {
+                if ((prevCoordNum === possibleCoordNum + 1) || (prevCoordNum === possibleCoordNum - 1)) {
+                    newPossibleMoves.push(possibleMoves[i]);
+                };      
+            };
+        };
+        console.log(newPossibleMoves)
+
+        if (newPossibleMoves.length > 0) {
+            let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
+            let coords = newPossibleMoves[moveIndex]
+            let hitArray = computer.move(coords);
+            return hitArray
+        } else {
+            let hitArray = randomMove();
+            return hitArray
         };
     };
 
-    return { randomMove, computer }
+    return { randomMove, computer, educatedGuess }
 }
 
 export { Player, ComputerPlayer } 
