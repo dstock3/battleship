@@ -27,7 +27,7 @@ const Player = (enemyBoard) => {
 const ComputerPlayer = (playerBoard) => {
     const computer = Player(playerBoard);
 
-    const randomMove = () => {
+    function determinePossibleMoves() {
         let possibleMoves = []
         for (let i = 0; i < playerBoard.spaceArray.length; i++) {
             let spaceObj = playerBoard.spaceArray[i];
@@ -35,7 +35,12 @@ const ComputerPlayer = (playerBoard) => {
                 possibleMoves.push(spaceObj.coord);
             };
         };
-        
+        return possibleMoves
+    }
+
+    const randomMove = () => {
+        let possibleMoves = determinePossibleMoves();
+
         let moveIndex = Math.floor(Math.random() * possibleMoves.length);
         
         let coords = possibleMoves[moveIndex];
@@ -43,6 +48,11 @@ const ComputerPlayer = (playerBoard) => {
 
         return hitArray
     };
+
+    const educatedGuess = (previousCoord) => {
+
+
+    }
 
     return { randomMove, computer }
 }
