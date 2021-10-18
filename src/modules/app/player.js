@@ -98,8 +98,6 @@ const ComputerPlayer = (playerBoard) => {
             newPossibleMoves.push(nextLetterAttack)
         };
 
-        console.log(newPossibleMoves)
-
         if (newPossibleMoves.length > 0) {
             let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
             let coords = newPossibleMoves[moveIndex]

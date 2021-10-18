@@ -19,7 +19,7 @@ test("The move method effectively renders a hit on the board", () => {
         };
     };
 });
-/*
+
 test("The computer player effectively performs a random move", () => {
     computer.randomMove();
     let check = 0
@@ -46,26 +46,24 @@ test("The computer player can't attack the same position more than once", () => 
     
     expect(fail).toBe(false);
 });
-*/
+
+const newEnemyBoard = Gameboard();
+const newTestPlayer = Player(newEnemyBoard);
+
+const newPlayerBoard = Gameboard();
+const newComputer = ComputerPlayer(newPlayerBoard);
 
 test("The educated guess method effectively attacks valid coordinates.", () => {
     let previousAttack = "B2"
-    let hitArray = computer.educatedGuess(previousAttack);
+    let hitArray = newComputer.educatedGuess(previousAttack);
     expect(((hitArray[2]) === ("B1")) || ((hitArray[2]) === ("B3")) || ((hitArray[2]) === ("A2")) || ((hitArray[2]) === ("C2")) ).toBe(true);
 });
 
 test("The educated guess method effectively attacks valid coordinates based on a prior coordinate in the corner.", () => {
     let previousAttack = "A10"
-    let hitArray = computer.educatedGuess(previousAttack);
+    let hitArray = newComputer.educatedGuess(previousAttack);
     console.log(hitArray[2])
     expect(((hitArray[2]) === ("A9")) || ((hitArray[2]) === ("B10"))).toBe(true);
-});
-
-test("The educated guess method effectively attacks valid coordinates based on a prior coordinate in the corner.", () => {
-    let previousAttack = "J10"
-    let hitArray = computer.educatedGuess(previousAttack);
-    console.log(hitArray[2])
-    expect(((hitArray[2]) === ("I10")) || ((hitArray[2]) === ("J9"))).toBe(true);
 });
 
 

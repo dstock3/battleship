@@ -8,14 +8,16 @@ const enemyBoard = enemyPositions.enemyBoard
 const newPlayer = Player(enemyBoard.newBoard) 
 const enemy = ComputerPlayer(playerBoard.newBoard)
 
-let enemyBoard = enemyPositions.enemyBoard
 let playerHits = 0;
 let enemyHits = 0;
 
-let score = yourMove(enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit);
+let score = yourMove(enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits);
 
-score = nextMove(score.enemyHitArray, enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit)
-console.log(score)
+if (score) {
+    score = nextMove(score.enemyHitArray, enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits)
+    console.log(score)
+}
+
 
 console.log("Player Hits: " + playerHits)
 console.log("Enemy Hits: " + enemyHits)
