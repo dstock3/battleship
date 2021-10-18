@@ -42,7 +42,6 @@ const shipDestroyed = (shipList, coords, player) => {
 
 const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits) => {
     let enemyBoard = enemyPositions.enemyBoard
-    let playerIsHit
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
@@ -58,6 +57,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
 
             if (enemyHitArray[0]) {
+                removeListener(enemyBoard, performMove)
                 nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
             };
         };
@@ -65,9 +65,17 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     };
 };
 
+const removeListener = (enemyBoard, moveFunct) => {
+    for (let y = 0; y < enemyBoard.spaceElements.length; y++) {
+        enemyBoard.spaceElements[y].removeEventListener("click", moveFunct);
+        console.log("Event has been removed" + enemyBoard.spaceElements[y]);
+    };
+};
+
 const nextMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits) => {
     let enemyBoard = enemyPositions.enemyBoard
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
+        
         function newMove() {
             if (enemyHitArray[0]) {
                 let coords = enemyBoard.spaceElements[i].id;
@@ -79,8 +87,11 @@ const nextMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
                 let calculatedEnemyAttack = enemy.educatedGuess(enemyHitArray[2])
                 let potentialEnemyHit = registerHit(playerBoard, calculatedEnemyAttack);
                 enemyHits += potentialEnemyHit
-                shipDestroyed(playerShipList, enemyHitArray[2], "enemy")
+                shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
+                removeListener(enemyBoard, newMove)
+                
             } else {
+                removeListener(enemyBoard, newMove)
                 let score = yourMove(enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit);
                 return score
             };
