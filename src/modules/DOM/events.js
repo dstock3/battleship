@@ -40,7 +40,8 @@ const shipDestroyed = (shipList, coords, player) => {
     };
 };
 
-const yourMove = (enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits) => {
+const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits) => {
+    let enemyBoard = enemyPositions.enemyBoard
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
             let coords = enemyBoard.spaceElements[i].id;
@@ -61,14 +62,12 @@ const yourMove = (enemyBoard, playerBoard, playerShipList, enemy, newPlayer, reg
                     };
                 };
             };
-            removeListener(enemyHitArray[0])
+            removeListener(enemyHitArray[0]);
 
             return { playerHitArray, enemyHitArray, playerHits, enemyHits }
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
     };
-
-
 };
 
 const nextMove = (enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit) => {
