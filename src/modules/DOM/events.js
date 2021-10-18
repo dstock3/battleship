@@ -55,14 +55,15 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             enemyHits += potentialEnemyHit
             shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
 
-            function removeListener(enemyHit) {
+            let playerTargeted = enemyHitArray[0];
+
+            const removeListener = ((playerTargeted) => {
                 for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
-                    if (enemyHit) {
+                    if (playerTargeted) {
                         enemyBoard.spaceElements[i].removeEventListener("click", performMove);
                     };
                 };
-            };
-            removeListener(enemyHitArray[0]);
+            })();
 
             return { playerHitArray, enemyHitArray, playerHits, enemyHits }
         };
