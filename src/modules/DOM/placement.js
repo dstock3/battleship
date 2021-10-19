@@ -17,6 +17,15 @@ const setSail = (ship) => {
     };
 };
 
+const playerPrompt = () => {
+    const promptContainer = document.createElement("div");
+    promptContainer.classList.add("prompt-container");
+    const promptBoard = boardGen("prompt", promptContainer)
+    let coordArray = [];
+
+    return coordArray
+}
+
 const playerShipPlacement = (newCoords) => {
     const playerShipList = [];
 
