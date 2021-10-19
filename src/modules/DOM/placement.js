@@ -40,11 +40,23 @@ const playerPrompt = () => {
         };
     };
 
+    const placeNewShip = (shipArray) => {
+        let length = shipArray[1]
+        function choosePosition() {
 
+        }
 
-    
+        for (let i = 0; i < promptBoard.spaceElements.length; i++) {
+            let space = promptBoard.spaceElements[i]
+            space.addEventListener("mouseover", choosePosition)
+        }
+
+        return coords
+    }
+
     let coordArray = [];
     for (let prop in ships) {
+        console.log(ships[prop])
         let ship = placeNewShip(ships[prop])
         coordArray.push(ship)
     }
