@@ -43,7 +43,7 @@ const playerPrompt = () => {
 
     let coordArray = [];
 
-    const placeNewShip = (shipArray) => {
+    const placeNewShip = (shipArray, orientation) => {
         let length = shipArray[1];
 
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
@@ -60,14 +60,21 @@ const playerPrompt = () => {
             
             function choosePosition() {
                 let positionElements = []
-                for (let i = 0; i < length; i++) {
-                    let shipSpace = document.getElementById("c" + positionLetter + (positionNum + i));
-                    positionElements.push(shipSpace)
-                    shipSpace.style.backgroundColor = "#0377fc";
+                if (orientation === "vert") {
+                    if (positionNum < 7) {
+                        for (let i = 0; i < length; i++) {
+                            let newPositionNum = positionNum + i
+                            let shipSpace = document.getElementById("c" + positionLetter + (newPositionNum));
+                            positionElements.push(shipSpace)
+                            shipSpace.style.backgroundColor = "#0377fc";
+                        };
+                        for (let i = 0; i < positionElements.length; i++) {
+                            positionElements[i].style.backgroundColor = "#0377fc";
+                        };
+                    };
                 };
-                for (let i = 0; i < positionElements.length; i++) {
-                    positionElements[i].style.backgroundColor = "#0377fc";
-                }
+
+
                 
                 
                 let coords = []
@@ -102,7 +109,7 @@ const playerPrompt = () => {
     
     for (let prop in ships) {
         console.log(ships[prop])
-        let ship = placeNewShip(ships[prop])
+        let ship = placeNewShip(ships[prop], "vert")
         coordArray.push(ship)
     }
 
