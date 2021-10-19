@@ -2,7 +2,8 @@ const registerHit = (playerBoard, hitArray) => {
     let hitResult = hitArray[0];
     let index = hitArray[1];
     let coord = hitArray[2];
-    if (playerBoard.spaceElements[index].id === coord) {
+    let boardCoord = playerBoard.spaceElements[index].id.replace(playerBoard.spaceElements[index].id.charAt(0),'');
+    if (boardCoord === coord) {
         if (hitResult) {
             playerBoard.spaceElements[index].style.backgroundColor = "#a83244";
             return 1
@@ -45,7 +46,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
-            let coords = enemyBoard.spaceElements[i].id;
+            let coords = enemyBoard.spaceElements[i].id.replace(enemyBoard.spaceElements[i].id.charAt(0),'');;
             let playerHitArray = newPlayer.move(coords);
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;

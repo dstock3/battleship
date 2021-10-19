@@ -48,7 +48,8 @@ const playerPrompt = () => {
 
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
             let space = promptBoard.spaceElements[i]
-            let position = space.id;
+            let position = space.id.replace(space.id.charAt(0), '');
+            console.log(position)
             let positionLetter = position.charAt(0)
             let positionNum
             if (position.charAt(2)) {
