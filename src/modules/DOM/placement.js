@@ -58,7 +58,24 @@ const playerPrompt = () => {
             
             function choosePosition() {
                 space.style.backgroundColor = "#0377fc";
-                console.log(positionNum)
+                
+                let coords = []
+                function assignPosition() {
+                    for (let i = 0; i < length; i++) {
+                        let coord = positionLetter + (positionNum + i);
+                        coords.push(coord)
+                    };
+                    return coords
+                };
+                space.addEventListener("click", function() {
+                    let coords = assignPosition()
+                    return coords
+                });
+
+                for (let i = 0; i < length; i++) {
+                    let shipSpace = document.getElementById(positionLetter + (positionNum + i));
+                    shipSpace.style.backgroundColor = "#0377fc";
+                };
 
                 function offPosition() {
                     space.style.backgroundColor = "#0377fc18";
@@ -68,7 +85,7 @@ const playerPrompt = () => {
             space.addEventListener("mouseover", choosePosition)
         }
 
-        return coords
+        
     }
 
     let coordArray = [];
