@@ -1,4 +1,4 @@
-import { masterContainer, boardGen } from '../DOM/boardElements';
+import { body, masterContainer, boardGen } from '../DOM/boardElements';
 import { shipSet } from '../app/ship';
 
 const playerBoard = boardGen("player", masterContainer);
@@ -20,14 +20,14 @@ const setSail = (ship) => {
 const playerPrompt = () => {
     const promptContainer = document.createElement("div");
     promptContainer.classList.add("prompt-container");
-    const promptBoard = boardGen("prompt", promptContainer)
+    body.appendChild(promptContainer)
+    const promptBoard = boardGen("prompt", promptContainer);
     let coordArray = [];
 
     return coordArray
 }
 
 const playerShipPlacement = (newCoords) => {
-    const playerShipList = [];
 
     const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords[0]);
     const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, newCoords[1]);
@@ -41,6 +41,7 @@ const playerShipPlacement = (newCoords) => {
     };
 }
 
+/*
 const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A1", "A2", "A3", "A4"]);
 const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]);
 const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
@@ -51,7 +52,7 @@ const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSu
 for (let i = 0; i < playerShipList.length; i++) {
     setSail(playerShipList[i])
 }
-
+*/
 
 const enemyPositions = (() => {
     const enemyBoard = boardGen("enemy", masterContainer);
@@ -84,4 +85,4 @@ const enemyPositions = (() => {
     return { enemyBoard, enemyShipList, checkShipStatus }
 })();
 
-export { enemyPositions, playerBoard, playerShipList }
+export { enemyPositions, /* playerBoard, playerShipList,*/ playerPrompt }
