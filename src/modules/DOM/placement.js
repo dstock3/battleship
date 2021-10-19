@@ -22,6 +22,12 @@ const playerPrompt = () => {
     promptContainer.classList.add("prompt-container");
     body.appendChild(promptContainer);
     const promptBoard = boardGen("prompt", promptContainer);
+
+    const promptMessage = document.createElement("div");
+    promptMessage.classList.add("prompt-message");
+    promptContainer.appendChild(promptMessage);
+    promptMessage.textContent = "Choose Your Positions!"
+
     let coordArray = [];
 
     return coordArray
