@@ -20,7 +20,7 @@ const setSail = (ship) => {
 const playerPrompt = () => {
     const promptContainer = document.createElement("div");
     promptContainer.classList.add("prompt-container");
-    body.appendChild(promptContainer)
+    body.appendChild(promptContainer);
     const promptBoard = boardGen("prompt", promptContainer);
     let coordArray = [];
 
