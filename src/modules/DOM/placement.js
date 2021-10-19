@@ -61,7 +61,22 @@ const playerPrompt = () => {
             function choosePosition() {
                 let positionElements = []
                 if (orientation === "vert") {
-                    if (positionNum < 7) {
+
+                    let breakPoint
+                    if (length == 5) {
+                        breakPoint = 7
+                    };
+                    if (length == 4) {
+                        breakPoint = 8
+                    };
+                    if (length == 3) {
+                        breakPoint = 9
+                    };
+                    if (length == 2) {
+                        breakPoint = 10
+                    };
+
+                    if (positionNum < breakPoint) {
                         for (let i = 0; i < length; i++) {
                             let newPositionNum = positionNum + i
                             let shipSpace = document.getElementById("c" + positionLetter + (newPositionNum));
@@ -72,26 +87,53 @@ const playerPrompt = () => {
                             positionElements[i].style.backgroundColor = "#0377fc";
                         };
                     };
-                };
-
-
-                
-                
-                let coords = []
-                function assignPosition() {
-                    for (let i = 0; i < length; i++) {
-                        let coord = positionLetter + (positionNum + i);
-                        coords.push(coord)
+                    
+                    let coords = []
+                    function assignPosition() {
+                        for (let i = 0; i < length; i++) {
+                            let coord = positionLetter + (positionNum + i);
+                            coords.push(coord)
+                        };
+                        return coords
                     };
-                    return coords
+
+                    space.addEventListener("click", function() {
+                        let newCoords = assignPosition();
+                        return newCoords
+                    });
                 };
-                space.addEventListener("click", function() {
-                    let newCoords = assignPosition();
-                    coordArray.push(newCoords)
-                    console.log(newCoords)
-                });
+                if (orientation === "hor") {
+                    let letters = promptBoard.newBoard.letterArray;
 
+                    let breakPoint
+                    if (length == 5) {
+                        breakPoint = 6
+                    };
+                    if (length == 4) {
+                        breakPoint = 7
+                    };
+                    if (length == 3) {
+                        breakPoint = 8
+                    };
+                    if (length == 2) {
+                        breakPoint = 9
+                    };
 
+                    for (let i = 0; i < letters.length; i++) {
+                        if (positionLetter === letters[i]) {
+                            if (i < breakPoint) {
+                                for (let y = 0; y < length; y++) {
+                                    let newPositionLetter = letters[i + y]
+                                    let shipSpace = document.getElementById("c" + newPositionLetter + `${positionNum}`);
+                                    positionElements.push(shipSpace)
+                                    shipSpace.style.backgroundColor = "#0377fc";
+                                };
+                            } else {
+
+                            };
+                        };
+                    };
+                };
 
                 function offPosition() {
                     for (let i = 0; i < positionElements.length; i++) {
@@ -102,14 +144,12 @@ const playerPrompt = () => {
             }
             space.addEventListener("mouseover", choosePosition)
         }
-
-        return coords
     }
 
     
     for (let prop in ships) {
         console.log(ships[prop])
-        let ship = placeNewShip(ships[prop], "vert")
+        let ship = placeNewShip(ships[prop], "hor")
         coordArray.push(ship)
     }
 
