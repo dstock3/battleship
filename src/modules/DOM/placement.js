@@ -17,6 +17,19 @@ const setSail = (ship) => {
     };
 };
 
+const playerShipPlacement = (coords) => {
+    const playerShipList = [];
+    for (prop in ships) {
+        let shipType = ships[prop]
+        let newShip = playerBoard.newBoard.placeShip(shipType, coords[i]);
+        playerShipList.push(newShip)
+    }
+    /*
+    
+    return playerShipList
+    */
+}
+
 const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A1", "A2", "A3", "A4"]);
 const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]);
 const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
@@ -27,6 +40,7 @@ const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSu
 for (let i = 0; i < playerShipList.length; i++) {
     setSail(playerShipList[i])
 }
+
 
 const enemyPositions = (() => {
     const enemyBoard = boardGen("enemy", masterContainer);

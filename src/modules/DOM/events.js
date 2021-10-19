@@ -57,8 +57,8 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
 
             if (enemyHitArray[0]) {
-                removeListener(enemyBoard, performMove)
-                nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
+                //removeListener(enemyBoard, performMove)
+                //nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
             };
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
