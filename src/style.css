@@ -4,6 +4,7 @@ body {
     background-color: #e4e4e4;
 }
 
+/* position prompt */
 .prompt-container {
     position: absolute;
     top: 7%;
@@ -11,6 +12,21 @@ body {
     z-index: 2;
     background-color: #e4e4e4;
 }
+
+.prompt-message {
+    font-size: 1.5em;
+    text-align: center;
+    position: fixed;
+    padding: .5%;
+    top: 85%;
+    left: 44%;
+    z-index: 2;
+    width: 10%;
+    background-color: #e4e4e4;
+    border: 5px solid #0377fc;
+}
+
+/* gameboards */
 
 .master-container {
     display: flex;

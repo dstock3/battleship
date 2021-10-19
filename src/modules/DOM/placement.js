@@ -25,8 +25,22 @@ const playerPrompt = () => {
 
     const promptMessage = document.createElement("div");
     promptMessage.classList.add("prompt-message");
-    promptContainer.appendChild(promptMessage);
+    body.appendChild(promptMessage);
     promptMessage.textContent = "Choose Your Positions!"
+
+    body.style.backgroundColor = "#001f4265"
+    let childElements = Array.from(body.children)
+    for (let i = 0; i < childElements.length; i++) {
+        let child = childElements[i]
+        if (child.classList[0] !== "prompt-container") {
+            child.style.opacity = "100%"
+        }
+        if (child.classList[0] === "master-container") {
+            child.style.opacity = "25%"
+        };
+
+        
+    };
 
     let coordArray = [];
 
