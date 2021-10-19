@@ -38,11 +38,16 @@ const playerPrompt = () => {
         if (child.classList[0] === "master-container") {
             child.style.opacity = "25%"
         };
-
-        
     };
 
+
+
+    
     let coordArray = [];
+    for (let prop in ships) {
+        let ship = placeNewShip(ships[prop])
+        coordArray.push(ship)
+    }
 
     return coordArray
 }
