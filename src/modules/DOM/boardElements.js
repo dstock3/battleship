@@ -58,7 +58,7 @@ const boardGen = (allegiance, parent) => {
         let spaceObj = newBoard.spaceArray[i];
         let newSpace = document.createElement("div");
         newSpace.classList.add("space");
-        newSpace.id = spaceObj.coord;
+        newSpace.id = allegiance.charAt(0) + spaceObj.coord;
         spaceElements.push(newSpace);
     };
 
@@ -67,7 +67,7 @@ const boardGen = (allegiance, parent) => {
     for (let x = 0; x < spaceElements.length; x++) {
         let space = spaceElements[x]
         for (let z = 0; z < columns.length; z++) {
-            if (space.id.charAt(0) === columns[z].id) {
+            if (space.id.charAt(1) === columns[z].id) {
                 columns[z].appendChild(space);
             };
         };

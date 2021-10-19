@@ -21,7 +21,7 @@ const playerPrompt = () => {
     const promptContainer = document.createElement("div");
     promptContainer.classList.add("prompt-container");
     body.appendChild(promptContainer);
-    const promptBoard = boardGen("prompt", promptContainer);
+    const promptBoard = boardGen("choose", promptContainer);
     promptContainer.style.backgroundColor = "#b2d1f5"
 
     const promptMessage = document.createElement("div");
@@ -35,7 +35,7 @@ const playerPrompt = () => {
         let child = childElements[i]
         if (child.classList[0] !== "prompt-container") {
             child.style.opacity = "100%"
-        }
+        };
         if (child.classList[0] === "master-container") {
             child.style.opacity = "25%"
         };
