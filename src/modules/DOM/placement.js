@@ -22,6 +22,7 @@ const playerPrompt = () => {
     promptContainer.classList.add("prompt-container");
     body.appendChild(promptContainer);
     const promptBoard = boardGen("prompt", promptContainer);
+    promptContainer.style.backgroundColor = "#b2d1f5"
 
     const promptMessage = document.createElement("div");
     promptMessage.classList.add("prompt-message");
@@ -41,13 +42,22 @@ const playerPrompt = () => {
     };
 
     const placeNewShip = (shipArray) => {
-        let length = shipArray[1]
-        function choosePosition() {
+        let length = shipArray[1];
 
-        }
+
 
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
             let space = promptBoard.spaceElements[i]
+            function choosePosition() {
+
+                let position = space.id
+                space.style.backgroundColor = "#0377fc";
+
+                function offPosition() {
+                    space.style.backgroundColor = "#0377fc18";
+                }
+                space.addEventListener("mouseout", offPosition)
+            }
             space.addEventListener("mouseover", choosePosition)
         }
 
