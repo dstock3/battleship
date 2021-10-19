@@ -49,7 +49,6 @@ const playerPrompt = () => {
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
             let space = promptBoard.spaceElements[i]
             let position = space.id.replace(space.id.charAt(0), '');
-            console.log(position)
             let positionLetter = position.charAt(0)
             let positionNum
             if (position.charAt(2)) {
@@ -60,7 +59,16 @@ const playerPrompt = () => {
             };
             
             function choosePosition() {
-                space.style.backgroundColor = "#0377fc";
+                let positionElements = []
+                for (let i = 0; i < length; i++) {
+                    let shipSpace = document.getElementById("c" + positionLetter + (positionNum + i));
+                    positionElements.push(shipSpace)
+                    shipSpace.style.backgroundColor = "#0377fc";
+                };
+                for (let i = 0; i < positionElements.length; i++) {
+                    positionElements[i].style.backgroundColor = "#0377fc";
+                }
+                
                 
                 let coords = []
                 function assignPosition() {
@@ -76,13 +84,12 @@ const playerPrompt = () => {
                     console.log(newCoords)
                 });
 
-                for (let i = 0; i < length; i++) {
-                    let shipSpace = document.getElementById(positionLetter + (positionNum + i));
-                    shipSpace.style.backgroundColor = "#0377fc";
-                };
+
 
                 function offPosition() {
-                    space.style.backgroundColor = "#0377fc18";
+                    for (let i = 0; i < positionElements.length; i++) {
+                        positionElements[i].style.backgroundColor = "#0377fc18";
+                    };
                 };
                 space.addEventListener("mouseout", offPosition)
             }
