@@ -44,18 +44,25 @@ const playerPrompt = () => {
     const placeNewShip = (shipArray) => {
         let length = shipArray[1];
 
-
-
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
             let space = promptBoard.spaceElements[i]
+            let position = space.id;
+            let positionLetter = position.charAt(0)
+            let positionNum
+            if (position.charAt(2)) {
+                let numString = position.charAt(1) + position.charAt(2);
+                positionNum = parseInt(numString)
+            } else {
+                positionNum = parseInt(position.charAt(1));
+            };
+            
             function choosePosition() {
-
-                let position = space.id
                 space.style.backgroundColor = "#0377fc";
+                console.log(positionNum)
 
                 function offPosition() {
                     space.style.backgroundColor = "#0377fc18";
-                }
+                };
                 space.addEventListener("mouseout", offPosition)
             }
             space.addEventListener("mouseover", choosePosition)
