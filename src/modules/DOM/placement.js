@@ -8,7 +8,7 @@ const ships = shipSet();
 const setSail = (ship) => {
     const spaces = Array.from(document.getElementsByClassName("space"));
     for (let i = 0; i < ship.coords.length; i++) {
-        for (let y = 0; y < spaces.length; y++) {
+        for (let y = 0; y < spaces.length; y++) {            
             if (ship.coords[i] === spaces[y].id) {
                 spaces[y].style.backgroundColor = "#0377fc";
                 spaces[y].classList.add("occupied");
@@ -41,11 +41,10 @@ const playerPrompt = () => {
         };
     };
 
-    let coordArray = [];
+    
 
     const placeNewShip = (length, orientation) => {
-        console.log(length)
-
+        let coordArray = [];
         for (let i = 0; i < promptBoard.spaceElements.length; i++) {
             let space = promptBoard.spaceElements[i]
             let position = space.id.replace(space.id.charAt(0), '');
@@ -98,11 +97,10 @@ const playerPrompt = () => {
     
                         space.addEventListener("click", function() {
                             let newCoords = assignVertPosition();
-                            return newCoords
+                            coordArray.push(newCoords);
+                            console.log(coordArray)
                         });
                     };
-                    
-
                 };
                 
                 if (orientation === "hor") {
@@ -138,18 +136,16 @@ const playerPrompt = () => {
                             };
                         };
                     };
-                    
+
                     function assignHorPosition() {
                         return newCoords
                     };
 
                     space.addEventListener("click", function() {
                         let newCoords = assignHorPosition();
-                        console.log(newCoords)
-                        return newCoords
+                        coordArray.push(newCoords);
+                        console.log(coordArray)
                     });
-
-
                 };
 
                 function offPosition() {
@@ -158,12 +154,12 @@ const playerPrompt = () => {
                     };
                 };
                 space.addEventListener("mouseout", offPosition)
-            }
+            };
             space.addEventListener("mouseover", choosePosition)
-        }
+        };
     };
 
-    let ship = placeNewShip(ships.carrier[1], "hor")
+    let ship = placeNewShip(ships.battleship[1], "hor")
 
     /*
     for (let prop in ships) {
@@ -172,7 +168,6 @@ const playerPrompt = () => {
         coordArray.push(ship)
     }
     */
-    return coordArray
 };
 
 const playerShipPlacement = (newCoords) => {
@@ -185,7 +180,7 @@ const playerShipPlacement = (newCoords) => {
     const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSubmarine, playerDestroyer];
     
     for (let i = 0; i < playerShipList.length; i++) {
-        setSail(playerShipList[i])
+        setSail(playerShipList[i], "p")
     };
 }
 
