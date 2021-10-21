@@ -40,6 +40,7 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
+    return { promptContainer, childElements }
 };
 
 //perhaps separate prompt elements from the placeNewShip function
@@ -159,6 +160,8 @@ const placeNewShip = (length, orientation) => {
     };
 };
 
+
+
 /*
 for (let prop in ships) {
     console.log(ships[prop])
@@ -225,4 +228,4 @@ const enemyPositions = (() => {
     return { enemyBoard, enemyShipList, checkShipStatus }
 })();
 
-export { enemyPositions, /* playerBoard, playerShipList,*/ playerPrompt }
+export { enemyPositions, /* playerBoard, playerShipList,*/ ships, playerPrompt, placeNewShip }
