@@ -32,6 +32,19 @@ body {
     padding-right: 5%;
 }
 
+.rotate {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    right: 2%;
+    padding: 1%;
+    border: 2px solid #0377fc;
+    height: 5%;
+}
+.rotate:hover {
+    background-color: #0377fc21;
+
+}
 
 /* gameboards */
 

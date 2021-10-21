@@ -23,13 +23,13 @@ const playerPrompt = () => {
     promptContainer.classList.add("prompt-container");
     body.appendChild(promptContainer);
     const promptBoard = boardGen("choose", promptContainer);
-    promptContainer.style.backgroundColor = "#b2d1f5"
-    promptBoard.outerBoard.id = "prompt-frame"
-    promptBoard.boardContainer.id = "prompt-container"
+    promptContainer.style.backgroundColor = "#b2d1f5";
+    promptBoard.outerBoard.id = "prompt-frame";
+    promptBoard.boardContainer.id = "prompt-container";
 
     const rotateShip = document.createElement("div");
     rotateShip.classList.add("rotate");
-    rotateShip.textContent = "Rotate Ship"
+    rotateShip.textContent = "Rotate Ship";
     promptBoard.outerBoard.appendChild(rotateShip);
 
     const promptMessage = document.createElement("div");
