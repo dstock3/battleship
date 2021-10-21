@@ -18,49 +18,7 @@ const setSail = (ship) => {
     };
 };
 
-const playerPrompt = () => {
-    const promptContainer = document.createElement("div");
-    promptContainer.classList.add("prompt-container");
-    body.appendChild(promptContainer);
-    const promptBoard = boardGen("choose", promptContainer);
-    promptContainer.style.backgroundColor = "#b2d1f5";
-    promptBoard.outerBoard.id = "prompt-frame";
-    promptBoard.boardContainer.id = "prompt-container";
-
-    const controls = document.createElement("div");
-    controls.classList.add("controls");
-    promptBoard.outerBoard.appendChild(controls);
-
-    const rotateShip = document.createElement("div");
-    rotateShip.classList.add("rotate");
-    rotateShip.textContent = "Rotate Ship";
-    controls.appendChild(rotateShip);
-
-    const positionDisplay = document.createElement("div");
-    positionDisplay.classList.add("position-display");
-    positionDisplay.textContent = "A1"
-    controls.appendChild(positionDisplay);
-
-    const promptMessage = document.createElement("div");
-    promptMessage.classList.add("prompt-message");
-    body.appendChild(promptMessage);
-    promptMessage.textContent = "Choose Your Positions!"
-
-    body.style.backgroundColor = "#001f4265"
-    let childElements = Array.from(body.children)
-    for (let i = 0; i < childElements.length; i++) {
-        let child = childElements[i]
-        if (child.classList[0] !== "prompt-container") {
-            child.style.opacity = "100%"
-        };
-        if (child.classList[0] === "master-container") {
-            child.style.opacity = "25%"
-        };
-    };
-    return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
-};
-
-const placeNewShip = (length, orientation) => {
+const placeNewShip = (promptBoard, length, orientation) => {
     let coordArray = [];
     for (let i = 0; i < promptBoard.spaceElements.length; i++) {
         let space = promptBoard.spaceElements[i]
@@ -75,6 +33,8 @@ const placeNewShip = (length, orientation) => {
         };
         
         function choosePosition() {
+            let newDisplay = document.querySelector(".position-display");
+            newDisplay.textContent = position
             let positionElements = []
             if (orientation === "vert") {
 
@@ -185,6 +145,53 @@ for (let prop in ships) {
     coordArray.push(ship)
 }
 */
+
+const playerPrompt = () => {
+    const promptContainer = document.createElement("div");
+    promptContainer.classList.add("prompt-container");
+    body.appendChild(promptContainer);
+    const promptBoard = boardGen("choose", promptContainer);
+    promptContainer.style.backgroundColor = "#b2d1f5";
+    promptBoard.outerBoard.id = "prompt-frame";
+    promptBoard.boardContainer.id = "prompt-container";
+
+    const controls = document.createElement("div");
+    controls.classList.add("controls");
+    promptBoard.outerBoard.appendChild(controls);
+
+    const rotateShip = document.createElement("div");
+    rotateShip.classList.add("rotate");
+    rotateShip.textContent = "Rotate Ship";
+    controls.appendChild(rotateShip);
+
+    const positionDisplay = document.createElement("div");
+    positionDisplay.classList.add("position-display");
+    positionDisplay.textContent = "A1"
+    controls.appendChild(positionDisplay);
+
+    const promptMessage = document.createElement("div");
+    promptMessage.classList.add("prompt-message");
+    body.appendChild(promptMessage);
+    promptMessage.textContent = "Choose Your Positions!"
+
+    body.style.backgroundColor = "#001f4265"
+    let childElements = Array.from(body.children)
+    for (let i = 0; i < childElements.length; i++) {
+        let child = childElements[i]
+        if (child.classList[0] !== "prompt-container") {
+            child.style.opacity = "100%"
+        };
+        if (child.classList[0] === "master-container") {
+            child.style.opacity = "25%"
+        };
+    };
+
+    placeNewShip(promptBoard, 4, "hor")
+
+    return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
+};
+
+
 
 const playerShipPlacement = (newCoords) => {
 
