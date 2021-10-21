@@ -6,22 +6,61 @@ const playerBoard = boardGen("player", masterContainer);
 
 const ships = shipSet();
 
-const setSail = (ship) => {
-    const spaces = Array.from(document.getElementsByClassName("space"));
+const setSail = (board, ship) => {
     for (let i = 0; i < ship.coords.length; i++) {
-        for (let y = 0; y < spaces.length; y++) {            
-            if (ship.coords[i] === spaces[y].id) {
-                spaces[y].style.backgroundColor = "#0377fc";
-                spaces[y].classList.add("occupied");
+        for (let y = 0; y < board.spaceElements.length; y++) {
+            let elementCoord = board.spaceElements[y].id.replace(board.spaceElements[y].id.charAt(0), '');
+            if (ship.coords[i] === elementCoord) {
+                board.spaceElements[y].backgroundColor = "#0377fc";
+                board.spaceElements[y].classList.add("occupied");
             };
         };
     };
 };
 
+const changeOrientation = (orientation) => {
+    if (orientation === "vert") {
+        return "hor"
+    };
+
+    if (orientation === "hor") {
+        return "vert"
+    };
+};
+
+const addPointer = (element) => {
+    element.style.cursor = "pointer"
+};
+
+const eliminateOccupiedPositions = (promptBoard) => {
+    let newSpaceElements = []
+    for (let i = 0; i < promptBoard.spaceElements.length; i++) {
+        let space = promptBoard.spaceElements[i];
+        if (!space.classList.contains("occupied")){
+            newSpaceElements.push(space)
+        };
+    };
+    return newSpaceElements
+};
+
 const placeNewShip = (promptBoard, length, orientation) => {
     let coordArray = [];
-    for (let i = 0; i < promptBoard.spaceElements.length; i++) {
-        let space = promptBoard.spaceElements[i]
+
+    let newOrientation
+    let rotateButton = document.querySelector(".rotate");
+    rotateButton.addEventListener("click", function() {
+        newOrientation = changeOrientation(orientation);
+        if (newOrientation) {
+            orientation = newOrientation
+        };
+    });
+
+    let newSpaceElements = eliminateOccupiedPositions(promptBoard)
+
+    for (let i = 0; i < newSpaceElements.length; i++) {
+        let space = newSpaceElements[i];
+        
+
         let position = space.id.replace(space.id.charAt(0), '');
         let positionLetter = position.charAt(0)
         let positionNum
@@ -35,6 +74,7 @@ const placeNewShip = (promptBoard, length, orientation) => {
         function choosePosition() {
             let newDisplay = document.querySelector(".position-display");
             newDisplay.textContent = position
+            addPointer(space);
             let positionElements = []
             if (orientation === "vert") {
 
@@ -74,8 +114,13 @@ const placeNewShip = (promptBoard, length, orientation) => {
 
                     space.addEventListener("click", function() {
                         let newCoords = assignVertPosition();
-                        coordArray.push(newCoords);
-                        console.log(coordArray)
+                        const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords);
+                        setSail(promptBoard, playerBattleship)
+                        
+                        //space.addEventListener("mouseout", offPosition)
+
+                        //coordArray.push(newCoords);
+
                     });
                 };
             };
@@ -141,7 +186,8 @@ const placeNewShip = (promptBoard, length, orientation) => {
 /*
 for (let prop in ships) {
     console.log(ships[prop])
-    let ship = placeNewShip(ships[prop][1], "hor")
+    let ship = placeNewShip(ships[prop][1], "hor");
+    setSail(promptBoard, ship)
     coordArray.push(ship)
 }
 */
@@ -185,8 +231,6 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
-
-    placeNewShip(promptBoard, 4, "hor")
 
     return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
 };
