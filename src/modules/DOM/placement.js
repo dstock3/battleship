@@ -27,6 +27,10 @@ const changeOrientation = (orientation) => {
     };
 };
 
+const addPointer = (element) => {
+    element.style.cursor = "pointer"
+};
+
 const placeNewShip = (promptBoard, length, orientation) => {
     let coordArray = [];
 
@@ -38,7 +42,7 @@ const placeNewShip = (promptBoard, length, orientation) => {
             orientation = newOrientation
         };
     });
-    
+
     for (let i = 0; i < promptBoard.spaceElements.length; i++) {
         let space = promptBoard.spaceElements[i]
         let position = space.id.replace(space.id.charAt(0), '');
@@ -54,6 +58,7 @@ const placeNewShip = (promptBoard, length, orientation) => {
         function choosePosition() {
             let newDisplay = document.querySelector(".position-display");
             newDisplay.textContent = position
+            addPointer(space);
             let positionElements = []
             if (orientation === "vert") {
 
