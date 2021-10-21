@@ -29,6 +29,16 @@ const changeOrientation = (orientation) => {
 
 const placeNewShip = (promptBoard, length, orientation) => {
     let coordArray = [];
+
+    let newOrientation
+    let rotateButton = document.querySelector(".rotate");
+    rotateButton.addEventListener("click", function() {
+        newOrientation = changeOrientation(orientation);
+        if (newOrientation) {
+            orientation = newOrientation
+        };
+    });
+    
     for (let i = 0; i < promptBoard.spaceElements.length; i++) {
         let space = promptBoard.spaceElements[i]
         let position = space.id.replace(space.id.charAt(0), '');

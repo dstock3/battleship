@@ -4,7 +4,7 @@ import { registerHit, yourMove, nextMove } from './modules/DOM/events';
 import { enemyPositions, playerBoard, playerShipList, placeNewShip, playerPrompt } from './modules/DOM/placement';
 
 let newPrompt = playerPrompt();
-placeNewShip(newPrompt.promptBoard, 3, "hor")
+placeNewShip(newPrompt.promptBoard, 5, "hor")
 
 /*
 const enemyBoard = enemyPositions.enemyBoard
