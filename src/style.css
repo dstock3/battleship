@@ -11,6 +11,8 @@ body {
     left: 27%;
     z-index: 2;
     background-color: #e4e4e4;
+    border-radius: 15px;
+    
 }
 
 .prompt-message {
@@ -25,6 +27,11 @@ body {
     background-color: #e4e4e4;
     border: 5px solid #0377fc;
 }
+
+#prompt-container {
+    padding-right: 5%;
+}
+
 
 /* gameboards */
 
