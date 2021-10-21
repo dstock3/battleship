@@ -27,10 +27,19 @@ const playerPrompt = () => {
     promptBoard.outerBoard.id = "prompt-frame";
     promptBoard.boardContainer.id = "prompt-container";
 
+    const controls = document.createElement("div");
+    controls.classList.add("controls");
+    promptBoard.outerBoard.appendChild(controls);
+
     const rotateShip = document.createElement("div");
     rotateShip.classList.add("rotate");
     rotateShip.textContent = "Rotate Ship";
-    promptBoard.outerBoard.appendChild(rotateShip);
+    controls.appendChild(rotateShip);
+
+    const positionDisplay = document.createElement("div");
+    positionDisplay.classList.add("position-display");
+    positionDisplay.textContent = "A1"
+    controls.appendChild(positionDisplay);
 
     const promptMessage = document.createElement("div");
     promptMessage.classList.add("prompt-message");
@@ -48,7 +57,7 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
-    return { promptContainer, promptBoard, childElements }
+    return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
 };
 
 const placeNewShip = (length, orientation) => {

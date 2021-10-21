@@ -32,6 +32,10 @@ body {
     padding-right: 5%;
 }
 
+.controls {
+    display: flex;
+}
+
 .rotate {
     text-align: center;
     position: relative;
@@ -43,8 +47,18 @@ body {
 }
 .rotate:hover {
     background-color: #0377fc21;
-
 }
+
+.position-display {
+    position: relative;
+    top: 75%;
+    right: 2%;
+
+    border: 2px solid #0377fc;
+    height: 5%;
+    font-size: 1.5em;
+}
+
 
 /* gameboards */
 
