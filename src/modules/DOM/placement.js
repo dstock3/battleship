@@ -40,135 +40,132 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
+};
 
-    
+//perhaps separate prompt elements from the placeNewShip function
+const placeNewShip = (length, orientation) => {
+    let coordArray = [];
+    for (let i = 0; i < promptBoard.spaceElements.length; i++) {
+        let space = promptBoard.spaceElements[i]
+        let position = space.id.replace(space.id.charAt(0), '');
+        let positionLetter = position.charAt(0)
+        let positionNum
+        if (position.charAt(2)) {
+            let numString = position.charAt(1) + position.charAt(2);
+            positionNum = parseInt(numString)
+        } else {
+            positionNum = parseInt(position.charAt(1));
+        };
+        
+        function choosePosition() {
+            let positionElements = []
+            if (orientation === "vert") {
 
-    const placeNewShip = (length, orientation) => {
-        let coordArray = [];
-        for (let i = 0; i < promptBoard.spaceElements.length; i++) {
-            let space = promptBoard.spaceElements[i]
-            let position = space.id.replace(space.id.charAt(0), '');
-            let positionLetter = position.charAt(0)
-            let positionNum
-            if (position.charAt(2)) {
-                let numString = position.charAt(1) + position.charAt(2);
-                positionNum = parseInt(numString)
-            } else {
-                positionNum = parseInt(position.charAt(1));
-            };
-            
-            function choosePosition() {
-                let positionElements = []
-                if (orientation === "vert") {
-
-                    let breakPoint
-                    if (length == 5) {
-                        breakPoint = 7
-                    };
-                    if (length == 4) {
-                        breakPoint = 8
-                    };
-                    if (length == 3) {
-                        breakPoint = 9
-                    };
-                    if (length == 2) {
-                        breakPoint = 10
-                    };
-
-                    if (positionNum < breakPoint) {
-                        for (let i = 0; i < length; i++) {
-                            let newPositionNum = positionNum + i
-                            let shipSpace = document.getElementById("c" + positionLetter + (newPositionNum));
-                            positionElements.push(shipSpace)
-                            shipSpace.style.backgroundColor = "#0377fc";
-                        };
-                        for (let i = 0; i < positionElements.length; i++) {
-                            positionElements[i].style.backgroundColor = "#0377fc";
-                        };
-
-                        let coords = []
-                        function assignVertPosition() {
-                            for (let i = 0; i < length; i++) {
-                                let coord = positionLetter + (positionNum + i);
-                                coords.push(coord)
-                            };
-                            return coords
-                        };
-    
-                        space.addEventListener("click", function() {
-                            let newCoords = assignVertPosition();
-                            coordArray.push(newCoords);
-                            console.log(coordArray)
-                        });
-                    };
+                let breakPoint
+                if (length == 5) {
+                    breakPoint = 7
                 };
-                
-                if (orientation === "hor") {
-                    let letters = promptBoard.newBoard.letterArray;
+                if (length == 4) {
+                    breakPoint = 8
+                };
+                if (length == 3) {
+                    breakPoint = 9
+                };
+                if (length == 2) {
+                    breakPoint = 10
+                };
 
-                    let breakPoint
-                    if (length == 5) {
-                        breakPoint = 6
+                if (positionNum < breakPoint) {
+                    for (let i = 0; i < length; i++) {
+                        let newPositionNum = positionNum + i
+                        let shipSpace = document.getElementById("c" + positionLetter + (newPositionNum));
+                        positionElements.push(shipSpace)
+                        shipSpace.style.backgroundColor = "#0377fc";
                     };
-                    if (length == 4) {
-                        breakPoint = 7
+                    for (let i = 0; i < positionElements.length; i++) {
+                        positionElements[i].style.backgroundColor = "#0377fc";
                     };
-                    if (length == 3) {
-                        breakPoint = 8
-                    };
-                    if (length == 2) {
-                        breakPoint = 9
-                    };
-                    let newCoords = []
-                    for (let i = 0; i < letters.length; i++) {
-                        if (positionLetter === letters[i]) {
-                            
-                            if (i < breakPoint) {
-                                for (let y = 0; y < length; y++) {
-                                    let newPositionLetter = letters[i + y]
-                                    let shipSpace = document.getElementById("c" + newPositionLetter + `${positionNum}`);
-                                    positionElements.push(shipSpace)
-                                    let coord = newPositionLetter + `${positionNum}`
-                                    newCoords.push(coord)
-                                    shipSpace.style.backgroundColor = "#0377fc";
-                                };
-                                
-                            };
+
+                    let coords = []
+                    function assignVertPosition() {
+                        for (let i = 0; i < length; i++) {
+                            let coord = positionLetter + (positionNum + i);
+                            coords.push(coord)
                         };
-                    };
-
-                    function assignHorPosition() {
-                        return newCoords
+                        return coords
                     };
 
                     space.addEventListener("click", function() {
-                        let newCoords = assignHorPosition();
+                        let newCoords = assignVertPosition();
                         coordArray.push(newCoords);
                         console.log(coordArray)
                     });
                 };
+            };
+            
+            if (orientation === "hor") {
+                let letters = promptBoard.newBoard.letterArray;
 
-                function offPosition() {
-                    for (let i = 0; i < positionElements.length; i++) {
-                        positionElements[i].style.backgroundColor = "#0377fc18";
+                let breakPoint
+                if (length == 5) {
+                    breakPoint = 6
+                };
+                if (length == 4) {
+                    breakPoint = 7
+                };
+                if (length == 3) {
+                    breakPoint = 8
+                };
+                if (length == 2) {
+                    breakPoint = 9
+                };
+                let newCoords = []
+                for (let i = 0; i < letters.length; i++) {
+                    if (positionLetter === letters[i]) {
+                        
+                        if (i < breakPoint) {
+                            for (let y = 0; y < length; y++) {
+                                let newPositionLetter = letters[i + y]
+                                let shipSpace = document.getElementById("c" + newPositionLetter + `${positionNum}`);
+                                positionElements.push(shipSpace)
+                                let coord = newPositionLetter + `${positionNum}`
+                                newCoords.push(coord)
+                                shipSpace.style.backgroundColor = "#0377fc";
+                            };
+                            
+                        };
                     };
                 };
-                space.addEventListener("mouseout", offPosition)
+
+                function assignHorPosition() {
+                    return newCoords
+                };
+
+                space.addEventListener("click", function() {
+                    let newCoords = assignHorPosition();
+                    coordArray.push(newCoords);
+                    console.log(coordArray)
+                });
             };
-            space.addEventListener("mouseover", choosePosition)
+
+            function offPosition() {
+                for (let i = 0; i < positionElements.length; i++) {
+                    positionElements[i].style.backgroundColor = "#0377fc18";
+                };
+            };
+            space.addEventListener("mouseout", offPosition)
         };
+        space.addEventListener("mouseover", choosePosition)
     };
-
-    let ship = placeNewShip(ships.battleship[1], "hor")
-
-    /*
-    for (let prop in ships) {
-        console.log(ships[prop])
-        let ship = placeNewShip(ships[prop][1], "hor")
-        coordArray.push(ship)
-    }
-    */
 };
+
+/*
+for (let prop in ships) {
+    console.log(ships[prop])
+    let ship = placeNewShip(ships[prop][1], "hor")
+    coordArray.push(ship)
+}
+*/
 
 const playerShipPlacement = (newCoords) => {
 
