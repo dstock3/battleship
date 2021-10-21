@@ -18,6 +18,15 @@ const setSail = (ship) => {
     };
 };
 
+const changeOrientation = (orientation) => {
+    if (orientation === "vert") {
+        return "hor"
+    }
+    if (orientation === "hor") {
+        return "vert"
+    };
+};
+
 const placeNewShip = (promptBoard, length, orientation) => {
     let coordArray = [];
     for (let i = 0; i < promptBoard.spaceElements.length; i++) {
@@ -185,8 +194,6 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
-
-    placeNewShip(promptBoard, 4, "hor")
 
     return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
 };

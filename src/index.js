@@ -1,9 +1,10 @@
 import './style.css';
 import { Player, ComputerPlayer } from './modules/app/player';
 import { registerHit, yourMove, nextMove } from './modules/DOM/events';
-import { enemyPositions, playerBoard, playerShipList, playerPrompt } from './modules/DOM/placement';
+import { enemyPositions, playerBoard, playerShipList, placeNewShip, playerPrompt } from './modules/DOM/placement';
 
-playerPrompt();
+let newPrompt = playerPrompt();
+placeNewShip(newPrompt.promptBoard, 3, "hor")
 
 /*
 const enemyBoard = enemyPositions.enemyBoard
