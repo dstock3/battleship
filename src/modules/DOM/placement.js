@@ -1,5 +1,6 @@
 import { body, masterContainer, boardGen } from '../DOM/boardElements';
 import { shipSet } from '../app/ship';
+import { divide } from 'lodash';
 
 const playerBoard = boardGen("player", masterContainer);
 
@@ -23,6 +24,12 @@ const playerPrompt = () => {
     body.appendChild(promptContainer);
     const promptBoard = boardGen("choose", promptContainer);
     promptContainer.style.backgroundColor = "#b2d1f5"
+    promptBoard.outerBoard.id = "prompt-frame"
+
+    const rotateShip = document.createElement("div");
+    rotateShip.classList.add("rotate");
+    rotateShip.textContent = "Rotate Ship"
+    promptBoard.outerBoard.appendChild(rotateShip);
 
     const promptMessage = document.createElement("div");
     promptMessage.classList.add("prompt-message");
@@ -40,10 +47,9 @@ const playerPrompt = () => {
             child.style.opacity = "25%"
         };
     };
-    return { promptContainer, childElements }
+    return { promptContainer, promptBoard, childElements }
 };
 
-//perhaps separate prompt elements from the placeNewShip function
 const placeNewShip = (length, orientation) => {
     let coordArray = [];
     for (let i = 0; i < promptBoard.spaceElements.length; i++) {

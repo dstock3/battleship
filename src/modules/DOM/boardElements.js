@@ -73,7 +73,7 @@ const boardGen = (allegiance, parent) => {
         };
     };
 
-    return { newBoard, spaceElements }
+    return { newBoard, spaceElements, outerBoard, boardContainer }
 };
 
 export { body, masterContainer, boardGen }
