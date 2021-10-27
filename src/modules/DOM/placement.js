@@ -63,7 +63,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
 
     let occupiedSpaces = newSpaceElements[1]
     
-    
     for (let i = 0; i < newSpaces.length; i++) {
         let space = newSpaces[i];
         let position = space.id.replace(space.id.charAt(0), '');
@@ -110,7 +109,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
                                 for (let z = 0; z < positionElements.length; z++) {
                                     if (positionElements[z] === positionElements[i]) {
                                         positionElements[z].style.backgroundColor = "#0377fc";
-
                                     } else {
                                         positionElements[z].style.backgroundColor = "#0377fc18";
                                     };
@@ -177,7 +175,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
                                     for (let z = 0; z < positionElements.length; z++) {
                                         if (positionElements[z] === positionElements[i]) {
                                             positionElements[z].style.backgroundColor = "#0377fc";
-    
                                         } else {
                                             positionElements[z].style.backgroundColor = "#0377fc18";
                                         };
