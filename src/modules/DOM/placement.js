@@ -170,13 +170,23 @@ const placeNewShip = (promptBoard, length, orientation) => {
 
                 space.addEventListener("click", function() {
                     let newCoords = assignHorPosition();
-                    return newCoords
+                    let oldPrompt = document.querySelector(".prompt-container");
+                    oldPrompt.remove();
+                    let newPrompt = playerPrompt();
+                    let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
+                    setSail(newPrompt.promptBoard, playerBattleship)
+                    placeNewShip(newPrompt.promptBoard, 4, "hor")
                 });
             };
             
             function offPosition() {
-                for (let i = 0; i < positionElements.length; i++) {
-                    positionElements[i].style.backgroundColor = "#0377fc18";
+                for (let i = 0; i < newSpaces.length; i++) {
+                    for (let y = 0; y < positionElements.length; y++) {
+                        if (newSpaces[i] === positionElements[y]) {
+                            positionElements[y].style.backgroundColor = "#0377fc18";
+
+                        };
+                    };
                 };
             };
             space.addEventListener("mouseout", offPosition)
