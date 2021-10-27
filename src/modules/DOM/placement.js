@@ -60,9 +60,8 @@ const placeNewShip = (promptBoard, length, orientation) => {
     
     let newSpaceElements = eliminateOccupiedPositions(promptBoard)
     let newSpaces = newSpaceElements[0]
-    console.log(newSpaces)
+
     let occupiedSpaces = newSpaceElements[1]
-    
     
     for (let i = 0; i < newSpaces.length; i++) {
         let space = newSpaces[i];
@@ -103,8 +102,19 @@ const placeNewShip = (promptBoard, length, orientation) => {
                         positionElements.push(shipSpace)
                         shipSpace.style.backgroundColor = "#0377fc";
                     };
+
                     for (let i = 0; i < positionElements.length; i++) {
-                        positionElements[i].style.backgroundColor = "#0377fc";
+                        for (let y = 0; y < occupiedSpaces.length; y++) {
+                            if (occupiedSpaces[y] === positionElements[i]) {
+                                for (let z = 0; z < positionElements.length; z++) {
+                                    if (positionElements[z] === positionElements[i]) {
+                                        positionElements[z].style.backgroundColor = "#0377fc";
+                                    } else {
+                                        positionElements[z].style.backgroundColor = "#0377fc18";
+                                    };
+                                };
+                            };
+                        };
                     };
 
                     let coords = [];
@@ -149,7 +159,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
                 let newCoords = []
                 for (let i = 0; i < letters.length; i++) {
                     if (positionLetter === letters[i]) {
-                        
                         if (i < breakPoint) {
                             for (let y = 0; y < length; y++) {
                                 let newPositionLetter = letters[i + y]
@@ -159,7 +168,19 @@ const placeNewShip = (promptBoard, length, orientation) => {
                                 newCoords.push(coord)
                                 shipSpace.style.backgroundColor = "#0377fc";
                             };
-                            
+                        };
+                        for (let i = 0; i < positionElements.length; i++) {
+                            for (let y = 0; y < occupiedSpaces.length; y++) {
+                                if (occupiedSpaces[y] === positionElements[i]) {
+                                    for (let z = 0; z < positionElements.length; z++) {
+                                        if (positionElements[z] === positionElements[i]) {
+                                            positionElements[z].style.backgroundColor = "#0377fc";
+                                        } else {
+                                            positionElements[z].style.backgroundColor = "#0377fc18";
+                                        };
+                                    };
+                                };
+                            };
                         };
                     };
                 };
@@ -184,7 +205,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
                     for (let y = 0; y < positionElements.length; y++) {
                         if (newSpaces[i] === positionElements[y]) {
                             positionElements[y].style.backgroundColor = "#0377fc18";
-
                         };
                     };
                 };
