@@ -1,6 +1,5 @@
 import { body, masterContainer, boardGen } from '../DOM/boardElements';
 import { shipSet } from '../app/ship';
-import { divide } from 'lodash';
 
 const playerBoard = boardGen("player", masterContainer);
 
@@ -11,7 +10,7 @@ const setSail = (board, ship) => {
         for (let y = 0; y < board.spaceElements.length; y++) {
             let elementCoord = board.spaceElements[y].id.replace(board.spaceElements[y].id.charAt(0), '');
             if (ship.coords[i] === elementCoord) {
-                board.spaceElements[y].backgroundColor = "#0377fc";
+                board.spaceElements[y].style.backgroundColor = "#0377fc";
                 board.spaceElements[y].classList.add("occupied");
             };
         };
@@ -32,19 +31,23 @@ const addPointer = (element) => {
     element.style.cursor = "pointer"
 };
 
-const eliminateOccupiedPositions = (promptBoard) => {
+const eliminateOccupiedPositions = (newPromptBoard) => {
     let newSpaceElements = []
-    for (let i = 0; i < promptBoard.spaceElements.length; i++) {
-        let space = promptBoard.spaceElements[i];
+    let occupiedElements = []
+    for (let i = 0; i < newPromptBoard.spaceElements.length; i++) {
+        let space = newPromptBoard.spaceElements[i];
         if (!space.classList.contains("occupied")){
             newSpaceElements.push(space)
+        } else {
+            occupiedElements.push(space)
+            space.style.backgroundColor = "#0377fc";
         };
     };
-    return newSpaceElements
+    return [newSpaceElements, occupiedElements]
 };
 
 const placeNewShip = (promptBoard, length, orientation) => {
-    let coordArray = [];
+    let coordArray = [];    
 
     let newOrientation
     let rotateButton = document.querySelector(".rotate");
@@ -54,13 +57,15 @@ const placeNewShip = (promptBoard, length, orientation) => {
             orientation = newOrientation
         };
     });
-
+    
     let newSpaceElements = eliminateOccupiedPositions(promptBoard)
-
-    for (let i = 0; i < newSpaceElements.length; i++) {
-        let space = newSpaceElements[i];
-        
-
+    let newSpaces = newSpaceElements[0]
+    console.log(newSpaces)
+    let occupiedSpaces = newSpaceElements[1]
+    
+    
+    for (let i = 0; i < newSpaces.length; i++) {
+        let space = newSpaces[i];
         let position = space.id.replace(space.id.charAt(0), '');
         let positionLetter = position.charAt(0)
         let positionNum
@@ -77,7 +82,6 @@ const placeNewShip = (promptBoard, length, orientation) => {
             addPointer(space);
             let positionElements = []
             if (orientation === "vert") {
-
                 let breakPoint
                 if (length == 5) {
                     breakPoint = 7
@@ -103,7 +107,8 @@ const placeNewShip = (promptBoard, length, orientation) => {
                         positionElements[i].style.backgroundColor = "#0377fc";
                     };
 
-                    let coords = []
+                    let coords = [];
+
                     function assignVertPosition() {
                         for (let i = 0; i < length; i++) {
                             let coord = positionLetter + (positionNum + i);
@@ -114,13 +119,13 @@ const placeNewShip = (promptBoard, length, orientation) => {
 
                     space.addEventListener("click", function() {
                         let newCoords = assignVertPosition();
-                        const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords);
-                        setSail(promptBoard, playerBattleship)
+                        let oldPrompt = document.querySelector(".prompt-container");
+                        oldPrompt.remove();
+                        let newPrompt = playerPrompt();
+                        let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
+                        setSail(newPrompt.promptBoard, playerBattleship)
+                        placeNewShip(newPrompt.promptBoard, 4, "hor")
                         
-                        //space.addEventListener("mouseout", offPosition)
-
-                        //coordArray.push(newCoords);
-
                     });
                 };
             };
@@ -165,14 +170,23 @@ const placeNewShip = (promptBoard, length, orientation) => {
 
                 space.addEventListener("click", function() {
                     let newCoords = assignHorPosition();
-                    coordArray.push(newCoords);
-                    console.log(coordArray)
+                    let oldPrompt = document.querySelector(".prompt-container");
+                    oldPrompt.remove();
+                    let newPrompt = playerPrompt();
+                    let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
+                    setSail(newPrompt.promptBoard, playerBattleship)
+                    placeNewShip(newPrompt.promptBoard, 4, "hor")
                 });
             };
-
+            
             function offPosition() {
-                for (let i = 0; i < positionElements.length; i++) {
-                    positionElements[i].style.backgroundColor = "#0377fc18";
+                for (let i = 0; i < newSpaces.length; i++) {
+                    for (let y = 0; y < positionElements.length; y++) {
+                        if (newSpaces[i] === positionElements[y]) {
+                            positionElements[y].style.backgroundColor = "#0377fc18";
+
+                        };
+                    };
                 };
             };
             space.addEventListener("mouseout", offPosition)
@@ -235,8 +249,6 @@ const playerPrompt = () => {
     return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
 };
 
-
-
 const playerShipPlacement = (newCoords) => {
 
     const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords[0]);
@@ -280,7 +292,6 @@ const enemyPositions = (() => {
         for (let i = 0; i < enemyShipList.length; i++) {
             let ship = enemyShipList[i];
             ship.base.updateStatus();
-            console.log(ship.base.status)
             if (ship.base.status === "sunk") {
                 return ship.type
             }
