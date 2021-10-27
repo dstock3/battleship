@@ -10,7 +10,7 @@ const setSail = (board, ship) => {
         for (let y = 0; y < board.spaceElements.length; y++) {
             let elementCoord = board.spaceElements[y].id.replace(board.spaceElements[y].id.charAt(0), '');
             if (ship.coords[i] === elementCoord) {
-                board.spaceElements[y].backgroundColor = "#0377fc";
+                board.spaceElements[y].style.backgroundColor = "#0377fc";
                 board.spaceElements[y].classList.add("occupied");
             };
         };
@@ -33,16 +33,17 @@ const addPointer = (element) => {
 
 const eliminateOccupiedPositions = (newPromptBoard) => {
     let newSpaceElements = []
+    let occupiedElements = []
     for (let i = 0; i < newPromptBoard.spaceElements.length; i++) {
         let space = newPromptBoard.spaceElements[i];
         if (!space.classList.contains("occupied")){
             newSpaceElements.push(space)
         } else {
-            space.backgroundColor = "#0377fc";
-            console.log(space.backgroundColor)
+            occupiedElements.push(space)
+            space.style.backgroundColor = "#0377fc";
         };
     };
-    return newSpaceElements
+    return [newSpaceElements, occupiedElements]
 };
 
 const placeNewShip = (promptBoard, length, orientation) => {
@@ -58,9 +59,13 @@ const placeNewShip = (promptBoard, length, orientation) => {
     });
     
     let newSpaceElements = eliminateOccupiedPositions(promptBoard)
+    let newSpaces = newSpaceElements[0]
+    console.log(newSpaces)
+    let occupiedSpaces = newSpaceElements[1]
     
-    for (let i = 0; i < newSpaceElements.length; i++) {
-        let space = promptBoard.spaceElements[i];
+    
+    for (let i = 0; i < newSpaces.length; i++) {
+        let space = newSpaces[i];
         let position = space.id.replace(space.id.charAt(0), '');
         let positionLetter = position.charAt(0)
         let positionNum
