@@ -46,9 +46,8 @@ const eliminateOccupiedPositions = (newPromptBoard) => {
     return [newSpaceElements, occupiedElements]
 };
 
-const placeNewShip = (promptBoard, length, orientation) => {
-    let coordArray = [];    
-
+const placeNewShip = (promptBoard, length) => {
+    let orientation = "hor";
     let newOrientation
     let rotateButton = document.querySelector(".rotate");
     rotateButton.addEventListener("click", function() {
@@ -137,7 +136,7 @@ const placeNewShip = (promptBoard, length, orientation) => {
                         let newPrompt = playerPrompt();
                         let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
                         setSail(newPrompt.promptBoard, playerBattleship)
-                        placeNewShip(newPrompt.promptBoard, 4, "hor")
+                        placeNewShip(newPrompt.promptBoard, 4)
                         
                     });
                 };
@@ -202,7 +201,7 @@ const placeNewShip = (promptBoard, length, orientation) => {
                     let newPrompt = playerPrompt();
                     let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
                     setSail(newPrompt.promptBoard, playerBattleship)
-                    placeNewShip(newPrompt.promptBoard, 4, "hor")
+                    placeNewShip(newPrompt.promptBoard, 4)
                 });
             };
             
