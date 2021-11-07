@@ -46,7 +46,10 @@ const eliminateOccupiedPositions = (newPromptBoard) => {
     return [newSpaceElements, occupiedElements]
 };
 
-const placeNewShip = (promptBoard, length) => {
+const placeNewShip = (promptBoard, playerCoords, ship) => {
+    let shipName = ship[0];
+    let length = ship[1];
+
     let orientation = "hor";
     let newOrientation
     let rotateButton = document.querySelector(".rotate");
@@ -59,7 +62,6 @@ const placeNewShip = (promptBoard, length) => {
     
     let newSpaceElements = eliminateOccupiedPositions(promptBoard)
     let newSpaces = newSpaceElements[0]
-
     let occupiedSpaces = newSpaceElements[1]
     
     for (let i = 0; i < newSpaces.length; i++) {
@@ -130,14 +132,14 @@ const placeNewShip = (promptBoard, length) => {
                     };
 
                     space.addEventListener("click", function() {
-                        let newCoords = assignVertPosition();
+                        let newCoords = assignVertPosition()
+                        playerCoords[`${shipName}`] = newCoords;
                         let oldPrompt = document.querySelector(".prompt-container");
                         oldPrompt.remove();
                         let newPrompt = playerPrompt();
-                        let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
-                        setSail(newPrompt.promptBoard, playerBattleship)
-                        placeNewShip(newPrompt.promptBoard, 4)
-                        
+                        //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
+                        //setSail(newPrompt.promptBoard, newShip)
+                        checkPositions(playerCoords, newPrompt.promptBoard);
                     });
                 };
             };
@@ -196,12 +198,13 @@ const placeNewShip = (promptBoard, length) => {
 
                 space.addEventListener("click", function() {
                     let newCoords = assignHorPosition();
+                    playerCoords[`${shipName}`] = newCoords;
                     let oldPrompt = document.querySelector(".prompt-container");
                     oldPrompt.remove();
                     let newPrompt = playerPrompt();
-                    let playerBattleship = newPrompt.promptBoard.newBoard.placeShip(ships.battleship, newCoords);
-                    setSail(newPrompt.promptBoard, playerBattleship)
-                    placeNewShip(newPrompt.promptBoard, 4)
+                    //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
+                    //setSail(newPrompt.promptBoard, newShip)
+                    checkPositions(playerCoords, newPrompt.promptBoard);
                 });
             };
             
@@ -219,17 +222,6 @@ const placeNewShip = (promptBoard, length) => {
         space.addEventListener("mouseover", choosePosition)
     };
 };
-
-
-
-/*
-for (let prop in ships) {
-    console.log(ships[prop])
-    let ship = placeNewShip(ships[prop][1], "hor");
-    setSail(promptBoard, ship)
-    coordArray.push(ship)
-}
-*/
 
 const playerPrompt = () => {
     const promptContainer = document.createElement("div");
@@ -275,31 +267,47 @@ const playerPrompt = () => {
 };
 
 const playerShipPlacement = (newCoords) => {
-
-    const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords[0]);
-    const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, newCoords[1]);
-    const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, newCoords[2]);
-    const playerSubmarine = playerBoard.newBoard.placeShip(ships.submarine,  newCoords[3]);
-    const playerDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, newCoords[4]);
+    const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, newCoords.battleship);
+    const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, newCoords.cruiser);
+    const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, newCoords.carrier);
+    const playerSubmarine = playerBoard.newBoard.placeShip(ships.submarine,  newCoords.submarine);
+    const playerDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, newCoords.destroyer);
     const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSubmarine, playerDestroyer];
     
     for (let i = 0; i < playerShipList.length; i++) {
-        setSail(playerShipList[i], "p")
+        setSail(playerBoard, playerShipList[i])
     };
 }
 
-/*
-const playerBattleship = playerBoard.newBoard.placeShip(ships.battleship, ["A1", "A2", "A3", "A4"]);
-const playerCruiser = playerBoard.newBoard.placeShip(ships.cruiser, ["C5", "C6", "C7"]);
-const playerCarrier = playerBoard.newBoard.placeShip(ships.carrier, ["D2", "E2", "F2", "G2", "H2"]);
-const playerSubmarine = playerBoard.newBoard.placeShip(ships.submarine, ["F10", "F9", "F8"]);
-const playerDestroyer = playerBoard.newBoard.placeShip(ships.destroyer, ["H7", "H6"]);
-const playerShipList = [playerBattleship, playerCruiser, playerCarrier, playerSubmarine, playerDestroyer];
+function checkPositions(newCoords, promptBoard) {
+    if (!(newCoords.hasOwnProperty('carrier'))) {
+        placeNewShip(promptBoard, newCoords, ships.carrier);
+    } else if (!(newCoords.hasOwnProperty('battleship'))) {
+        placeNewShip(promptBoard, newCoords, ships.battleship);
+    } else if (!(newCoords.hasOwnProperty('cruiser'))) {
+        placeNewShip(promptBoard, newCoords, ships.cruiser);
+    } else if (!(newCoords.hasOwnProperty('submarine'))) {
+        placeNewShip(promptBoard, newCoords, ships.submarine);
+    } else if (!(newCoords.hasOwnProperty('destroyer'))) {
+        placeNewShip(promptBoard, newCoords, ships.destroyer);
+    } else if ((newCoords.hasOwnProperty('carrier')) &&
+    (newCoords.hasOwnProperty('battleship')) && 
+    (newCoords.hasOwnProperty('cruiser')) && 
+    (newCoords.hasOwnProperty('submarine')) && 
+    (newCoords.hasOwnProperty('destroyer'))) {
+        playerShipPlacement(newCoords);
+        let oldPrompt = document.querySelector(".prompt-container");
+        oldPrompt.remove();
+        let mainElements = document.getElementsByClassName("master-container")[0]
+        mainElements.style.opacity = "100%";
+    };
+};
 
-for (let i = 0; i < playerShipList.length; i++) {
-    setSail(playerShipList[i])
-}
-*/
+const placement = () => {
+    let placementPrompt = playerPrompt();
+    let playerCoords = {};
+    checkPositions(playerCoords, placementPrompt.promptBoard)
+};
 
 const enemyPositions = (() => {
     const enemyBoard = boardGen("enemy", masterContainer);
@@ -331,4 +339,4 @@ const enemyPositions = (() => {
     return { enemyBoard, enemyShipList, checkShipStatus }
 })();
 
-export { enemyPositions, /* playerBoard, playerShipList,*/ ships, playerPrompt, placeNewShip }
+export { enemyPositions, /* playerBoard, playerShipList,*/ ships, placement }
