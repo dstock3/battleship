@@ -5,7 +5,6 @@ import { enemyPositions, playerBoard, playerShipList, placement} from './modules
 
 
 let playerPositions = placement()
-
 /*
 const enemyBoard = enemyPositions.enemyBoard
 const newPlayer = Player(enemyBoard.newBoard) 
@@ -21,8 +20,8 @@ console.log("Enemy Hits: " + enemyHits)
 
 if ((score.playerHits === 17) || (score.enemyHits === 17)) {
     console.log("game over")
-}
-*/
+} */
+
 
 
 

@@ -139,7 +139,7 @@ const placeNewShip = (promptBoard, playerCoords, ship) => {
                         let newPrompt = playerPrompt();
                         //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
                         //setSail(newPrompt.promptBoard, newShip)
-                        checkPositions(playerCoords, newPrompt.promptBoard);
+                        checkPositions(playerCoords, newPrompt);
                     });
                 };
             };
@@ -204,7 +204,7 @@ const placeNewShip = (promptBoard, playerCoords, ship) => {
                     let newPrompt = playerPrompt();
                     //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
                     //setSail(newPrompt.promptBoard, newShip)
-                    checkPositions(playerCoords, newPrompt.promptBoard);
+                    checkPositions(playerCoords, newPrompt);
                 });
             };
             
@@ -263,7 +263,7 @@ const playerPrompt = () => {
         };
     };
 
-    return { promptContainer, promptBoard, rotateShip, childElements, positionDisplay }
+    return { promptContainer, promptBoard, rotateShip, promptMessage, childElements, positionDisplay }
 };
 
 const playerShipPlacement = (newCoords) => {
@@ -279,17 +279,22 @@ const playerShipPlacement = (newCoords) => {
     };
 }
 
-function checkPositions(newCoords, promptBoard) {
+function checkPositions(newCoords, placementPrompt) {
     if (!(newCoords.hasOwnProperty('carrier'))) {
-        placeNewShip(promptBoard, newCoords, ships.carrier);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.carrier);
+        placementPrompt.promptMessage.textContent = "Place your Carrier!";
     } else if (!(newCoords.hasOwnProperty('battleship'))) {
-        placeNewShip(promptBoard, newCoords, ships.battleship);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.battleship);
+        placementPrompt.promptMessage.textContent = "Place your Battleship!";
     } else if (!(newCoords.hasOwnProperty('cruiser'))) {
-        placeNewShip(promptBoard, newCoords, ships.cruiser);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.cruiser);
+        placementPrompt.promptMessage.textContent = "Place your Cruiser!";
     } else if (!(newCoords.hasOwnProperty('submarine'))) {
-        placeNewShip(promptBoard, newCoords, ships.submarine);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.submarine);
+        placementPrompt.promptMessage.textContent = "Place your Submarine!";
     } else if (!(newCoords.hasOwnProperty('destroyer'))) {
-        placeNewShip(promptBoard, newCoords, ships.destroyer);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.destroyer);
+        placementPrompt.promptMessage.textContent = "Place your Destroyer!";
     } else if ((newCoords.hasOwnProperty('carrier')) &&
     (newCoords.hasOwnProperty('battleship')) && 
     (newCoords.hasOwnProperty('cruiser')) && 
@@ -306,7 +311,7 @@ function checkPositions(newCoords, promptBoard) {
 const placement = () => {
     let placementPrompt = playerPrompt();
     let playerCoords = {};
-    checkPositions(playerCoords, placementPrompt.promptBoard)
+    checkPositions(playerCoords, placementPrompt)
 };
 
 const enemyPositions = (() => {
