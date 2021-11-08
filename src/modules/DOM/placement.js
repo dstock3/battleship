@@ -31,11 +31,17 @@ const addPointer = (element) => {
     element.style.cursor = "pointer"
 };
 
-const eliminateOccupiedPositions = (newPromptBoard) => {
+const eliminateOccupiedPositions = (newPromptBoard, occupiedArray) => {
     let newSpaceElements = []
     let occupiedElements = []
     for (let i = 0; i < newPromptBoard.spaceElements.length; i++) {
         let space = newPromptBoard.spaceElements[i];
+        for (let y = 0; y < occupiedArray.length; y++) {
+            if (space.id === occupiedArray[y]) {
+                space.classList.add("occupied");
+            };
+        };
+
         if (!space.classList.contains("occupied")){
             newSpaceElements.push(space)
         } else {
@@ -46,10 +52,20 @@ const eliminateOccupiedPositions = (newPromptBoard) => {
     return [newSpaceElements, occupiedElements]
 };
 
-const placeNewShip = (promptBoard, playerCoords, ship) => {
+const persistOccupiedStatus = (promptBoard, occupiedArray) => {
+    for (let i = 0; i < promptBoard.spaceElements.length; i++) {
+        let space = promptBoard.spaceElements[i];
+        if (space.classList.contains("occupied")){
+            occupiedArray.push(space.id)
+        };
+    };
+    return occupiedArray
+};
+
+const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
     let shipName = ship[0];
     let length = ship[1];
-
+    
     let orientation = "hor";
     let newOrientation
     let rotateButton = document.querySelector(".rotate");
@@ -60,9 +76,9 @@ const placeNewShip = (promptBoard, playerCoords, ship) => {
         };
     });
     
-    let newSpaceElements = eliminateOccupiedPositions(promptBoard)
-    let newSpaces = newSpaceElements[0]
-    let occupiedSpaces = newSpaceElements[1]
+    let newSpaceElements = eliminateOccupiedPositions(promptBoard, occupiedArray);
+    let newSpaces = newSpaceElements[0];
+    let occupiedSpaces = newSpaceElements[1];
     
     for (let i = 0; i < newSpaces.length; i++) {
         let space = newSpaces[i];
@@ -137,9 +153,10 @@ const placeNewShip = (promptBoard, playerCoords, ship) => {
                         let oldPrompt = document.querySelector(".prompt-container");
                         oldPrompt.remove();
                         let newPrompt = playerPrompt();
-                        //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
-                        //setSail(newPrompt.promptBoard, newShip)
-                        checkPositions(playerCoords, newPrompt);
+                        let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
+                        setSail(newPrompt.promptBoard, newShip);
+                        let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
+                        checkPositions(playerCoords, newPrompt, updatedArray);
                     });
                 };
             };
@@ -202,9 +219,10 @@ const placeNewShip = (promptBoard, playerCoords, ship) => {
                     let oldPrompt = document.querySelector(".prompt-container");
                     oldPrompt.remove();
                     let newPrompt = playerPrompt();
-                    //let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
-                    //setSail(newPrompt.promptBoard, newShip)
-                    checkPositions(playerCoords, newPrompt);
+                    let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
+                    setSail(newPrompt.promptBoard, newShip);
+                    let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
+                    checkPositions(playerCoords, newPrompt, updatedArray);
                 });
             };
             
@@ -279,21 +297,21 @@ const playerShipPlacement = (newCoords) => {
     };
 }
 
-function checkPositions(newCoords, placementPrompt) {
+function checkPositions(newCoords, placementPrompt, occupiedArray) {
     if (!(newCoords.hasOwnProperty('carrier'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.carrier);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.carrier, occupiedArray);
         placementPrompt.promptMessage.textContent = "Place your Carrier!";
     } else if (!(newCoords.hasOwnProperty('battleship'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.battleship);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.battleship, occupiedArray);
         placementPrompt.promptMessage.textContent = "Place your Battleship!";
     } else if (!(newCoords.hasOwnProperty('cruiser'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.cruiser);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.cruiser, occupiedArray);
         placementPrompt.promptMessage.textContent = "Place your Cruiser!";
     } else if (!(newCoords.hasOwnProperty('submarine'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.submarine);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.submarine, occupiedArray);
         placementPrompt.promptMessage.textContent = "Place your Submarine!";
     } else if (!(newCoords.hasOwnProperty('destroyer'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.destroyer);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.destroyer, occupiedArray);
         placementPrompt.promptMessage.textContent = "Place your Destroyer!";
     } else if ((newCoords.hasOwnProperty('carrier')) &&
     (newCoords.hasOwnProperty('battleship')) && 
@@ -311,7 +329,8 @@ function checkPositions(newCoords, placementPrompt) {
 const placement = () => {
     let placementPrompt = playerPrompt();
     let playerCoords = {};
-    checkPositions(playerCoords, placementPrompt)
+    let occupiedArray = [];
+    checkPositions(playerCoords, placementPrompt, occupiedArray)
 };
 
 const enemyPositions = (() => {
