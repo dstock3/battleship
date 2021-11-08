@@ -150,6 +150,8 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                     space.addEventListener("click", function() {
                         let newCoords = assignVertPosition()
                         playerCoords[`${shipName}`] = newCoords;
+                        let promptMessage = document.querySelector(".prompt-message");
+                        promptMessage.remove();
                         let oldPrompt = document.querySelector(".prompt-container");
                         oldPrompt.remove();
                         let newPrompt = playerPrompt();
@@ -216,6 +218,8 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                 space.addEventListener("click", function() {
                     let newCoords = assignHorPosition();
                     playerCoords[`${shipName}`] = newCoords;
+                    let promptMessage = document.querySelector(".prompt-message");
+                    promptMessage.remove();
                     let oldPrompt = document.querySelector(".prompt-container");
                     oldPrompt.remove();
                     let newPrompt = playerPrompt();
@@ -321,8 +325,11 @@ function checkPositions(newCoords, placementPrompt, occupiedArray) {
         playerShipPlacement(newCoords);
         let oldPrompt = document.querySelector(".prompt-container");
         oldPrompt.remove();
-        let mainElements = document.getElementsByClassName("master-container")[0]
-        mainElements.style.opacity = "100%";
+        let promptMessage = document.querySelector(".prompt-message");
+        promptMessage.remove();
+        let masterContainer = document.getElementsByClassName("master-container")[0]
+        masterContainer.style.opacity = "100%";
+        body.style.backgroundColor = "#e4e4e4"
     };
 };
 
