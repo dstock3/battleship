@@ -4,11 +4,13 @@ import { registerHit, yourMove, nextMove } from './modules/DOM/events';
 import { enemyPositions, playerBoard, playerShipList, placement} from './modules/DOM/placement';
 
 
-let playerPositions = placement()
+placement();
+
 /*
 const enemyBoard = enemyPositions.enemyBoard
 const newPlayer = Player(enemyBoard.newBoard) 
 const enemy = ComputerPlayer(playerBoard.newBoard)
+console.log(newPlayer, enemy)
 
 let playerHits = 0;
 let enemyHits = 0;
