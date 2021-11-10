@@ -6,7 +6,6 @@ const playerBoard = boardGen("player", masterContainer);
 const ships = shipSet();
 
 const setSail = (board, ship) => {
-    console.log(ship)
     for (let i = 0; i < ship.coords.length; i++) {
         for (let y = 0; y < board.spaceElements.length; y++) {
             let elementCoord = board.spaceElements[y].id.replace(board.spaceElements[y].id.charAt(0), '');
@@ -72,12 +71,21 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
     let orientation = "hor";
     let newOrientation
     let rotateButton = document.querySelector(".rotate");
-    rotateButton.addEventListener("click", function() {
+
+    function rotate() {
         newOrientation = changeOrientation(orientation);
         if (newOrientation) {
             orientation = newOrientation
         };
-    });
+    };
+
+    rotateButton.addEventListener("click", rotate);
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'r') {
+          rotate();
+        };
+    }, false);
     
     let newSpaceElements = eliminateOccupiedPositions(promptBoard, occupiedArray);
     let newSpaces = newSpaceElements[0];
@@ -241,7 +249,7 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                 };
 
                 space.addEventListener("click", assignHorPosition);
-                offPositionSpec(assignHorPosition)
+                offPositionSpec(assignHorPosition);
             };
         };
         space.addEventListener("mouseover", choosePosition)
