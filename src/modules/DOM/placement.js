@@ -249,9 +249,10 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
 };
 
 const playerPrompt = () => {
+    const masterContainer = document.getElementsByClassName("master-container")[0];
     const promptContainer = document.createElement("div");
     promptContainer.classList.add("prompt-container");
-    body.appendChild(promptContainer);
+    masterContainer.appendChild(promptContainer);
     const promptBoard = boardGen("choose", promptContainer);
     promptContainer.style.backgroundColor = "#b2d1f5";
     promptBoard.outerBoard.id = "prompt-frame";
@@ -276,16 +277,16 @@ const playerPrompt = () => {
     body.appendChild(promptMessage);
     promptMessage.textContent = "Choose Your Positions!"
 
-    body.style.backgroundColor = "#001f4265"
-    let childElements = Array.from(body.children)
+    body.style.backgroundColor = "#001f4265";
+    let childElements = Array.from(masterContainer.children)
     for (let i = 0; i < childElements.length; i++) {
         let child = childElements[i]
         if (child.classList[0] !== "prompt-container") {
-            child.style.opacity = "100%"
-        };
-        if (child.classList[0] === "master-container") {
-            child.style.opacity = "25%"
-        };
+            child.style.backgroundColor = "#001f4265";
+            child.style.opacity = "25%";
+        } else {
+            child.style.opacity = "100%";
+        }
     };
 
     return { promptContainer, promptBoard, rotateShip, promptMessage, childElements, positionDisplay }
@@ -330,9 +331,16 @@ function checkPositions(newCoords, placementPrompt, occupiedArray) {
         oldPrompt.remove();
         let promptMessage = document.querySelector(".prompt-message");
         promptMessage.remove();
-        let masterContainer = document.getElementsByClassName("master-container")[0]
-        masterContainer.style.opacity = "100%";
-        body.style.backgroundColor = "#e4e4e4"
+        body.style.backgroundColor = "#e4e4e4";
+        let masterContainer = document.getElementsByClassName("master-container")[0];
+        let childElements = Array.from(masterContainer.children)
+        for (let i = 0; i < childElements.length; i++) {
+            let child = childElements[i]
+            if (child.classList[0] !== "prompt-container") {
+                child.style.backgroundColor = "#e4e4e4";
+                child.style.opacity = "100%";
+            };
+        };
     };
 };
 
