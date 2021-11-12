@@ -184,6 +184,20 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                     
                     space.addEventListener("click", assignVertPosition);
                     offPositionSpec(assignVertPosition)
+                } else {
+                    for (let i = 0; i < length; i++) {
+                        let newPositionNum = positionNum + i
+                        let shipSpace = document.getElementById("c" + positionLetter + (newPositionNum));
+                        positionElements.push(shipSpace)
+                    };
+
+                    for (let x = 0; x < positionElements.length; x++) {
+                        let space = positionElements[x];
+                        if (space) {
+                            space.style.cursor = "default";
+                            
+                        };
+                    };
                 };
             };
             
@@ -215,41 +229,53 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                                 newCoords.push(coord)
                                 shipSpace.style.backgroundColor = "#0377fc";
                             };
-                        };
-                        for (let i = 0; i < positionElements.length; i++) {
-                            for (let y = 0; y < occupiedSpaces.length; y++) {
-                                if (occupiedSpaces[y] === positionElements[i]) {
-                                    for (let z = 0; z < positionElements.length; z++) {
-                                        if (positionElements[z] === positionElements[i]) {
-                                            positionElements[z].style.backgroundColor = "#0377fc";
-                                        } else {
-                                            positionElements[z].style.backgroundColor = "#0377fc18";
-                                            for (let n = 0; n < occupiedSpaces.length; n++) {
-                                                occupiedSpaces[n].style.backgroundColor = "#0377fc";
+                            for (let i = 0; i < positionElements.length; i++) {
+                                for (let y = 0; y < occupiedSpaces.length; y++) {
+                                    if (occupiedSpaces[y] === positionElements[i]) {
+                                        for (let z = 0; z < positionElements.length; z++) {
+                                            if (positionElements[z] === positionElements[i]) {
+                                                positionElements[z].style.backgroundColor = "#0377fc";
+                                            } else {
+                                                positionElements[z].style.backgroundColor = "#0377fc18";
+                                                for (let n = 0; n < occupiedSpaces.length; n++) {
+                                                    occupiedSpaces[n].style.backgroundColor = "#0377fc";
+                                                };
                                             };
                                         };
                                     };
                                 };
                             };
+                            function assignHorPosition() {
+                                playerCoords[`${shipName}`] = newCoords;
+                                let promptMessage = document.querySelector(".prompt-message");
+                                promptMessage.remove();
+                                let oldPrompt = document.querySelector(".prompt-container");
+                                oldPrompt.remove();
+                                let newPrompt = playerPrompt();
+                                let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
+                                setSail(newPrompt.promptBoard, newShip);
+                                let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
+                                checkPositions(playerCoords, newPrompt, updatedArray);
+                            };
+            
+                            space.addEventListener("click", assignHorPosition);
+                            offPositionSpec(assignHorPosition);
+                        } else {
+                            for (let y = 0; y < length; y++) {
+                                let newPositionLetter = letters[i + y]
+                                let shipSpace = document.getElementById("c" + newPositionLetter + `${positionNum}`);
+                                positionElements.push(shipSpace);
+                            };
+                            for (let x = 0; x < positionElements.length; x++) {
+                                let space = positionElements[x];
+                                if (space) {
+                                    space.style.cursor = "default";
+                                    
+                                };
+                            };
                         };
                     };
                 };
-
-                function assignHorPosition() {
-                    playerCoords[`${shipName}`] = newCoords;
-                    let promptMessage = document.querySelector(".prompt-message");
-                    promptMessage.remove();
-                    let oldPrompt = document.querySelector(".prompt-container");
-                    oldPrompt.remove();
-                    let newPrompt = playerPrompt();
-                    let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
-                    setSail(newPrompt.promptBoard, newShip);
-                    let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
-                    checkPositions(playerCoords, newPrompt, updatedArray);
-                };
-
-                space.addEventListener("click", assignHorPosition);
-                offPositionSpec(assignHorPosition);
             };
         };
         space.addEventListener("mouseover", choosePosition)
