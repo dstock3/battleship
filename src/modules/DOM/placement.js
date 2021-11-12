@@ -383,7 +383,7 @@ const enemyPositions = (() => {
     
     /*
     for (let i = 0; i < enemyShipList.length; i++) {
-        setSail(enemyShipList[i])
+        setSail(enemyBoard, enemyShipList[i])
     }*/
 
     return { enemyBoard, enemyShipList, checkShipStatus }

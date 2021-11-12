@@ -57,6 +57,13 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             enemyHits += potentialEnemyHit
             shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
 
+            console.log("Player Hits: " + playerHits)
+            console.log("Enemy Hits: " + enemyHits)
+
+            if ((playerHits === 17) || (enemyHits === 17)) {
+                console.log("game over")
+            }
+
             if (enemyHitArray[0]) {
                 //removeListener(enemyBoard, performMove)
                 //nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
