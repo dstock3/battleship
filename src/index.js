@@ -13,7 +13,7 @@ const enemy = ComputerPlayer(playerBoard.newBoard)
 let playerHits = 0;
 let enemyHits = 0;
 
-let score = yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits);
+yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits);
 
 
 

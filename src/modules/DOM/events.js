@@ -51,65 +51,41 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
             shipDestroyed(enemyPositions.enemyShipList, coords, "player")
+            removeListener() 
+            
+            let delayBase = Math.floor(Math.random() * 3)
+            let delay = delayBase * 1000;
 
-            function enemyIsThinking() {
-                let enemyHitArray =  enemy.randomMove();
-                let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
-                enemyHits += potentialEnemyHit
-                shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
-    
-                console.log("Player Hits: " + playerHits)
-                console.log("Enemy Hits: " + enemyHits)
-    
-                if ((playerHits === 17) || (enemyHits === 17)) {
-                    console.log("game over")
-                }
-    
-                if (enemyHitArray[0]) {
-                    //removeListener(enemyBoard, performMove)
-                    //nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
-                };
-            };
-
-            setTimeout(enemyIsThinking, 2000);
+            setTimeout(enemyIsThinking, delay);
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
-    };
-};
 
-const removeListener = (enemyBoard, moveFunct) => {
-    for (let y = 0; y < enemyBoard.spaceElements.length; y++) {
-        enemyBoard.spaceElements[y].removeEventListener("click", moveFunct);
-        console.log("Event has been removed" + enemyBoard.spaceElements[y]);
+        function removeListener() {
+            for (let y = 0; y < enemyBoard.spaceElements.length; y++) {
+                enemyBoard.spaceElements[y].removeEventListener("click", performMove);
+            }
+        }
     };
-};
 
-const nextMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits) => {
-    let enemyBoard = enemyPositions.enemyBoard
-    for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
-        
-        function newMove() {
-            if (enemyHitArray[0]) {
-                let coords = enemyBoard.spaceElements[i].id;
-                let playerHitArray = newPlayer.move(coords);
-                let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
-                playerHits += potentialPlayerHit;
-                shipDestroyed(enemyPositions.enemyShipList, coords, "player")
-    
-                let calculatedEnemyAttack = enemy.educatedGuess(enemyHitArray[2])
-                let potentialEnemyHit = registerHit(playerBoard, calculatedEnemyAttack);
-                enemyHits += potentialEnemyHit
-                shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
-                removeListener(enemyBoard, newMove)
-                
-            } else {
-                removeListener(enemyBoard, newMove)
-                let score = yourMove(enemyBoard, playerBoard, playerShipList, enemy, newPlayer, registerHit);
-                return score
-            };
+    function enemyIsThinking() {
+        let enemyHitArray =  enemy.randomMove();
+        let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
+        enemyHits += potentialEnemyHit
+        shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
+
+        console.log("Player Hits: " + playerHits)
+        console.log("Enemy Hits: " + enemyHits)
+
+        if ((playerHits === 17) || (enemyHits === 17)) {
+            console.log("game over")
+        }
+
+        if (enemyHitArray[0]) {
+            //removeListener(enemyBoard, performMove)
+            //nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
         };
-        enemyBoard.spaceElements[i].addEventListener("click", newMove);
     };
 };
 
-export { registerHit, yourMove, nextMove }
+
+export { registerHit, yourMove }
