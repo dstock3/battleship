@@ -51,20 +51,13 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
             shipDestroyed(enemyPositions.enemyShipList, coords, "player")
-            removeListener() 
             
-            let delayBase = Math.floor(Math.random() * 3)
+            let delayBase = Math.random() * (3 - 1) + 1;
             let delay = delayBase * 1000;
 
             setTimeout(enemyIsThinking, delay);
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
-
-        function removeListener() {
-            for (let y = 0; y < enemyBoard.spaceElements.length; y++) {
-                enemyBoard.spaceElements[y].removeEventListener("click", performMove);
-            }
-        }
     };
 
     function enemyIsThinking() {
