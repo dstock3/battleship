@@ -43,6 +43,14 @@ const shipDestroyed = (shipList, coords, player) => {
 
 const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits) => {
     let enemyBoard = enemyPositions.enemyBoard
+    let messageBox = document.querySelector(".message-box");
+
+    function enemyThought() {
+        messageBox.textContent = "Shhh! The Enemy is Trying to Think."
+        let delayBase = Math.random() * (3 - 1) + 1;
+        let delay = delayBase * 1000;
+        setTimeout(enemyIsThinking, delay);
+    }
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
@@ -51,20 +59,19 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
             shipDestroyed(enemyPositions.enemyShipList, coords, "player")
-            
-            let delayBase = Math.random() * (3 - 1) + 1;
-            let delay = delayBase * 1000;
-
-            setTimeout(enemyIsThinking, delay);
+            enemyThought();
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
     };
 
     function enemyIsThinking() {
+        messageBox.textContent = "Your Move!"
+        
         let enemyHitArray =  enemy.randomMove();
         let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
         enemyHits += potentialEnemyHit
         shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
+        
 
         console.log("Player Hits: " + playerHits)
         console.log("Enemy Hits: " + enemyHits)
@@ -77,6 +84,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             //removeListener(enemyBoard, performMove)
             //nextMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, enemyHitArray, playerHits, enemyHits);  
         };
+        
     };
 };
 
