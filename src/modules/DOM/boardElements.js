@@ -4,13 +4,13 @@ import { Gameboard } from '../app/gameboard.js'
 const body = document.getElementsByTagName("body")[0];
 body.appendChild(header);
 
-const messageBox = document.createElement("div");
-messageBox.classList.add("message-box");
-body.appendChild(messageBox);
-
 const masterContainer = document.createElement("div");
 masterContainer.classList.add("master-container");
 body.appendChild(masterContainer);
+
+const messageBox = document.createElement("div");
+messageBox.classList.add("message-box");
+body.appendChild(messageBox);
 
 const boardGen = (allegiance, parent) => {
     const newBoard = Gameboard();

@@ -16,7 +16,7 @@ const registerHit = (playerBoard, hitArray) => {
     };
 };
 
-const shipDestroyed = (shipList, coords, player) => {
+const shipDestroyed = (messageBox, shipList, coords, player) => {
     for (let i = 0; i < shipList.length; i++) {
         let ship = shipList[i];
         
@@ -28,9 +28,9 @@ const shipDestroyed = (shipList, coords, player) => {
 
                         if (ship.base.isSunk()) {
                             if (player === "player") {
-                                console.log(`You have sunk the enemy's ${ship.type}!`)
+                                messageBox.textContent = `You have sunk the enemy's ${ship.type}!`;
                             } else {
-                                console.log(`The enemy has sunk your ${ship.type}!`)
+                                messageBox.textContent = `The enemy has sunk your ${ship.type}!`;
                             };
                         };
                         break
@@ -46,7 +46,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     let messageBox = document.querySelector(".message-box");
 
     function enemyThought() {
-        messageBox.textContent = "Shhh! The Enemy is Trying to Think."
+        //messageBox.textContent = "Shhh! The Enemy is Trying to Think."
         let delayBase = Math.random() * (3 - 1) + 1;
         let delay = delayBase * 1000;
         setTimeout(enemyIsThinking, delay);
@@ -58,19 +58,19 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let playerHitArray = newPlayer.move(coords);
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
-            shipDestroyed(enemyPositions.enemyShipList, coords, "player")
+            shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player")
             enemyThought();
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
     };
 
     function enemyIsThinking() {
-        messageBox.textContent = "Your Move!"
+        //messageBox.textContent = "Your Move!"
         
         let enemyHitArray =  enemy.randomMove();
         let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
         enemyHits += potentialEnemyHit
-        shipDestroyed(playerShipList, enemyHitArray[2], "enemy");
+        shipDestroyed(messageBox, playerShipList, enemyHitArray[2], "enemy");
         
 
         console.log("Player Hits: " + playerHits)

@@ -326,6 +326,9 @@ const playerPrompt = () => {
         } else {
             child.style.opacity = "100%";
         }
+        let messageBox = document.querySelector(".message-box");
+        messageBox.style.zIndex = "0";
+        messageBox.style.opacity = "0%";
     };
 
     return { promptContainer, promptBoard, rotateShip, promptMessage, childElements, positionDisplay }
@@ -380,6 +383,9 @@ function checkPositions(newCoords, placementPrompt, occupiedArray) {
                 child.style.opacity = "100%";
             };
         };
+        let messageBox = document.querySelector(".message-box");
+        messageBox.style.zIndex = "2";
+        messageBox.style.opacity = "100%";
     };
 };
 
