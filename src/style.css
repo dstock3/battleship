@@ -162,6 +162,9 @@ h1 {
 }
 
 @media only screen and (max-width: 600px) {
+    body {
+        width: max-content;
+    }
 
     .master-container {
         flex-direction: column;
@@ -174,6 +177,11 @@ h1 {
 
     .prompt-container {
         top: 25%;
+    }
+
+    .prompt-message {
+        margin: -95% 0 0 0;
+        width: 20%;
     }
 
     .message-box {
