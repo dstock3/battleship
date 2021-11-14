@@ -5,6 +5,8 @@ const playerBoard = boardGen("player", masterContainer);
 
 const ships = shipSet();
 
+let messageBox = document.querySelector(".message-box");
+
 const setSail = (board, ship) => {
     for (let i = 0; i < ship.coords.length; i++) {
         for (let y = 0; y < board.spaceElements.length; y++) {
@@ -383,7 +385,7 @@ function checkPositions(newCoords, placementPrompt, occupiedArray) {
                 child.style.opacity = "100%";
             };
         };
-        let messageBox = document.querySelector(".message-box");
+        
         messageBox.style.zIndex = "2";
         messageBox.style.opacity = "100%";
     };
@@ -394,6 +396,7 @@ const placement = () => {
     let playerCoords = {};
     let occupiedArray = [];
     checkPositions(playerCoords, placementPrompt, occupiedArray)
+    messageBox.textContent = "Your Move."
 };
 
 const enemyPositions = (() => {
