@@ -55,13 +55,21 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         enemyBoard.spaceElements[i].style.cursor = "crosshair"
     };
     
-    function reset() {
+    function reset(enemyBoard) {
         let master = document.querySelector(".master-container");
         let enemyBoardElement = document.getElementById("enemy");
         let newEnemyBoardElement = enemyBoardElement.cloneNode(true);
+        enemyBoardElement.remove();        
         master.appendChild(newEnemyBoardElement)
-        console.log(newEnemyBoardElement)
-        enemyBoardElement.remove();
+        let spaceElements = document.getElementsByClassName("space")
+        let spaceArray = Array.from(spaceElements);
+        let spaceElementArray = [];
+        for (let i = 0; i < spaceArray.length; i++) {
+            if (spaceArray[i].id.charAt(0) === "e") {
+                spaceElementArray.push(spaceArray[i]);
+            };
+        };
+        enemyBoard.spaceElements = spaceElementArray;
     };
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
@@ -73,7 +81,8 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
             enemyThought(playerHitArray[0], result, enemyTarget);
             enemyBoard.spaceElements[i].style.cursor = "default"
-            reset()
+            reset(enemyBoard)
+            
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
 
@@ -102,18 +111,20 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         } else {
             enemyHitArray =  enemy.randomMove();
         };
+        let potentialHit = enemyHitArray[2];
 
         let isHit = enemyHitArray[0];
         let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
         enemyHits += potentialEnemyHit
         let result = shipDestroyed(messageBox, playerShipList.coords, enemyHitArray[2], "enemy");
-
-        /*
         if ((!result) && (isHit)) { 
             messageBox.textContent = "You've Been Hit! Your Move." 
         } else if ((!result) || (!isHit)) {
             messageBox.textContent = "Your Move." 
         }
+        yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit)
+        
+        /*
         
         console.log("Player Hits: " + playerHits)
         console.log("Enemy Hits: " + enemyHits)
