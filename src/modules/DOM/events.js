@@ -54,6 +54,15 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         enemyBoard.spaceElements[i].style.cursor = "crosshair"
     };
+    
+    function reset() {
+        let master = document.querySelector(".master-container");
+        let enemyBoardElement = document.getElementById("enemy");
+        let newEnemyBoardElement = enemyBoardElement.cloneNode(true);
+        master.appendChild(newEnemyBoardElement)
+        console.log(newEnemyBoardElement)
+        enemyBoardElement.remove();
+    };
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
         function performMove() {
@@ -63,10 +72,11 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             playerHits += potentialPlayerHit;
             let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
             enemyThought(playerHitArray[0], result, enemyTarget);
-            enemyBoard.spaceElements[i].removeEventListener("click", performMove);
             enemyBoard.spaceElements[i].style.cursor = "default"
+            reset()
         };
         enemyBoard.spaceElements[i].addEventListener("click", performMove);
+
     };
 
     function enemyThought(isHit, result, enemyTarget) {
@@ -97,8 +107,8 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         let potentialEnemyHit = registerHit(playerBoard, enemyHitArray);
         enemyHits += potentialEnemyHit
         let result = shipDestroyed(messageBox, playerShipList.coords, enemyHitArray[2], "enemy");
-        console.log("Enemy result: " + result);
 
+        /*
         if ((!result) && (isHit)) { 
             messageBox.textContent = "You've Been Hit! Your Move." 
         } else if ((!result) || (!isHit)) {
@@ -110,7 +120,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
         if ((playerHits === 17) || (enemyHits === 17)) {
             console.log("game over")
-        };
+        };*/
     };
 };
 
