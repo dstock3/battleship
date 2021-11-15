@@ -66,7 +66,7 @@ const persistOccupiedStatus = (promptBoard, occupiedArray) => {
     return occupiedArray
 };
 
-const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
+const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray, newShipList) => {
     let shipName = ship[0];
     let length = ship[1];
     
@@ -164,7 +164,7 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                         let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
                         setSail(newPrompt.promptBoard, newShip);
                         let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
-                        checkPositions(playerCoords, newPrompt, updatedArray);
+                        checkPositions(playerCoords, newPrompt, updatedArray, newShipList);
                     };
                     
                     space.addEventListener("click", assignVertPosition);
@@ -243,7 +243,7 @@ const placeNewShip = (promptBoard, playerCoords, ship, occupiedArray) => {
                                 let newShip = newPrompt.promptBoard.newBoard.placeShip(ship, newCoords);
                                 setSail(newPrompt.promptBoard, newShip);
                                 let updatedArray = persistOccupiedStatus(newPrompt.promptBoard, occupiedArray);
-                                checkPositions(playerCoords, newPrompt, updatedArray);
+                                checkPositions(playerCoords, newPrompt, updatedArray, newShipList);
                             };
             
                             space.addEventListener("click", assignHorPosition);
@@ -347,30 +347,31 @@ const playerShipPlacement = (newCoords) => {
     for (let i = 0; i < playerShipList.length; i++) {
         setSail(playerBoard, playerShipList[i])
     };
+    return playerShipList
 }
 
-function checkPositions(newCoords, placementPrompt, occupiedArray) {
+function checkPositions(newCoords, placementPrompt, occupiedArray, newShipList) {
     if (!(newCoords.hasOwnProperty('carrier'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.carrier, occupiedArray);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.carrier, occupiedArray, newShipList);
         placementPrompt.promptMessage.textContent = "Place your Carrier!";
     } else if (!(newCoords.hasOwnProperty('battleship'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.battleship, occupiedArray);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.battleship, occupiedArray, newShipList);
         placementPrompt.promptMessage.textContent = "Place your Battleship!";
     } else if (!(newCoords.hasOwnProperty('cruiser'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.cruiser, occupiedArray);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.cruiser, occupiedArray, newShipList);
         placementPrompt.promptMessage.textContent = "Place your Cruiser!";
     } else if (!(newCoords.hasOwnProperty('submarine'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.submarine, occupiedArray);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.submarine, occupiedArray, newShipList);
         placementPrompt.promptMessage.textContent = "Place your Submarine!";
     } else if (!(newCoords.hasOwnProperty('destroyer'))) {
-        placeNewShip(placementPrompt.promptBoard, newCoords, ships.destroyer, occupiedArray);
+        placeNewShip(placementPrompt.promptBoard, newCoords, ships.destroyer, occupiedArray, newShipList);
         placementPrompt.promptMessage.textContent = "Place your Destroyer!";
     } else if ((newCoords.hasOwnProperty('carrier')) &&
     (newCoords.hasOwnProperty('battleship')) && 
     (newCoords.hasOwnProperty('cruiser')) && 
     (newCoords.hasOwnProperty('submarine')) && 
     (newCoords.hasOwnProperty('destroyer'))) {
-        playerShipPlacement(newCoords);
+        let playerShipList = playerShipPlacement(newCoords);
         let oldPrompt = document.querySelector(".prompt-container");
         oldPrompt.remove();
         let promptMessage = document.querySelector(".prompt-message");
@@ -388,6 +389,8 @@ function checkPositions(newCoords, placementPrompt, occupiedArray) {
         
         messageBox.style.zIndex = "2";
         messageBox.style.opacity = "100%";
+        newShipList.coords = playerShipList;
+        
     };
 };
 
@@ -395,8 +398,11 @@ const placement = () => {
     let placementPrompt = playerPrompt();
     let playerCoords = {};
     let occupiedArray = [];
-    checkPositions(playerCoords, placementPrompt, occupiedArray)
+    let newShipList = {};
+    checkPositions(playerCoords, placementPrompt, occupiedArray, newShipList)
+
     messageBox.textContent = "Your Move."
+    return newShipList
 };
 
 const enemyPositions = (() => {
