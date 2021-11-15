@@ -73,19 +73,21 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     };
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
-        function performMove() {
-            let coords = enemyBoard.spaceElements[i].id.replace(enemyBoard.spaceElements[i].id.charAt(0),'');;
-            let playerHitArray = newPlayer.move(coords);
-            let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
-            playerHits += potentialPlayerHit;
-            let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
-            enemyThought(playerHitArray[0], result, enemyTarget);
+        if (enemyBoard.spaceElements[i].textContent === "X") {
             enemyBoard.spaceElements[i].style.cursor = "default"
-            reset(enemyBoard)
-            
+        } else {
+            function performMove() {
+                enemyBoard.spaceElements[i].style.cursor = "default"
+                let coords = enemyBoard.spaceElements[i].id.replace(enemyBoard.spaceElements[i].id.charAt(0),'');;
+                let playerHitArray = newPlayer.move(coords);
+                let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
+                playerHits += potentialPlayerHit;
+                let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
+                enemyThought(playerHitArray[0], result, enemyTarget);
+                reset(enemyBoard);
+            };
+            enemyBoard.spaceElements[i].addEventListener("click", performMove);
         };
-        enemyBoard.spaceElements[i].addEventListener("click", performMove);
-
     };
 
     function enemyThought(isHit, result, enemyTarget) {
