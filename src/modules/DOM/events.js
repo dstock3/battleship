@@ -73,19 +73,20 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     };
 
     for (let i = 0; i < enemyBoard.spaceElements.length; i++) {
+        function performMove() {
+            enemyBoard.spaceElements[i].style.cursor = "default"
+            let coords = enemyBoard.spaceElements[i].id.replace(enemyBoard.spaceElements[i].id.charAt(0),'');;
+            let playerHitArray = newPlayer.move(coords);
+            let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
+            playerHits += potentialPlayerHit;
+            let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
+            enemyThought(playerHitArray[0], result, enemyTarget);
+            reset(enemyBoard);
+        };
+
         if (enemyBoard.spaceElements[i].textContent === "X") {
             enemyBoard.spaceElements[i].style.cursor = "default"
         } else {
-            function performMove() {
-                enemyBoard.spaceElements[i].style.cursor = "default"
-                let coords = enemyBoard.spaceElements[i].id.replace(enemyBoard.spaceElements[i].id.charAt(0),'');;
-                let playerHitArray = newPlayer.move(coords);
-                let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
-                playerHits += potentialPlayerHit;
-                let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
-                enemyThought(playerHitArray[0], result, enemyTarget);
-                reset(enemyBoard);
-            };
             enemyBoard.spaceElements[i].addEventListener("click", performMove);
         };
     };
@@ -124,16 +125,14 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         } else if ((!result) || (!isHit)) {
             messageBox.textContent = "Your Move." 
         }
-        yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit)
-        
-        /*
-        
-        console.log("Player Hits: " + playerHits)
-        console.log("Enemy Hits: " + enemyHits)
 
-        if ((playerHits === 17) || (enemyHits === 17)) {
-            console.log("game over")
-        };*/
+        if (playerHits === 17) {
+            messageBox.textContent = "You Won!"
+        } else if (enemyHits === 17) {
+            messageBox.textContent = "You Have Been Defeated."
+        };
+
+        yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
     };
 };
 
