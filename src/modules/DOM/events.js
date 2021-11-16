@@ -6,11 +6,16 @@ const registerHit = (playerBoard, hitArray) => {
     if (boardCoord === coord) {
         if (hitResult) {
             playerBoard.spaceElements[index].style.backgroundColor = "#a83244";
+            playerBoard.spaceElements[index].classList.add("hit")
             return 1
         } else {
+            playerBoard.spaceElements[index].classList.add("miss")
             playerBoard.spaceElements[index].textContent = "X";
-            playerBoard.spaceElements[index].style.textAlign = "center";
+            playerBoard.spaceElements[index].style.display = "flex";
+            playerBoard.spaceElements[index].style.justifyContent = "center";
+            playerBoard.spaceElements[index].style.alignItems = "center";
             playerBoard.spaceElements[index].style.fontSize = "3em";
+            
             return 0
         };
     };

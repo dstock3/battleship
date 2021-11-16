@@ -163,6 +163,14 @@ h1 {
     background-color: #0377fc36;
 }
 
+.miss {
+    transition: 500ms;
+}
+
+.hit {
+    transition: 750ms;
+}
+
 @media only screen and (max-width: 600px) {
     body {
         width: max-content;
