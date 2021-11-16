@@ -11,7 +11,7 @@ const Ship = (length, hitCount, status) => {
         };
     };
 
-    return { length, hitCount, status, hit, isSunk }
+    return { length, hitCount, status, hit, isSunk, updateStatus }
 };
 
 const shipSet = () => {

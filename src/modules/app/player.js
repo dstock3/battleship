@@ -28,22 +28,25 @@ const ComputerPlayer = (playerBoard) => {
     const computer = Player(playerBoard);
 
     function determinePossibleMoves() {
-        let possibleMoves = []
+        let possibleMoves = [];
+        let excludedMoves = [];
+
         for (let i = 0; i < playerBoard.spaceArray.length; i++) {
             let spaceObj = playerBoard.spaceArray[i];
             if (!spaceObj.isHit) {
                 possibleMoves.push(spaceObj.coord);
+            } else {
+                excludedMoves.push(spaceObj.coord);
             };
         };
-        return possibleMoves
+
+        return { possibleMoves, excludedMoves }
     }
 
     const randomMove = () => {
-        let possibleMoves = determinePossibleMoves();
-
-        let moveIndex = Math.floor(Math.random() * possibleMoves.length);
-        
-        let coords = possibleMoves[moveIndex];
+        let set = determinePossibleMoves();
+        let moveIndex = Math.floor(Math.random() * set.possibleMoves.length);
+        let coords = set.possibleMoves[moveIndex];
         let hitArray = computer.move(coords);
 
         return hitArray
@@ -60,23 +63,23 @@ const ComputerPlayer = (playerBoard) => {
             prevCoordNum = parseInt(previousCoord.charAt(1));
         };
 
-        let possibleMoves = determinePossibleMoves();
+        let set = determinePossibleMoves();
 
         let newPossibleMoves = []
         
-        for (let i = 0; i < possibleMoves.length; i++) {
-            let possibleLetter = possibleMoves[i].charAt(0);
+        for (let i = 0; i < set.possibleMoves.length; i++) {
+            let possibleLetter = set.possibleMoves[i].charAt(0);
             let possibleCoordNum
-            if (possibleMoves[i].charAt(2)) {
-                let numString = possibleMoves[i].charAt(1) + possibleMoves[i].charAt(2);
+            if (set.possibleMoves[i].charAt(2)) {
+                let numString = set.possibleMoves[i].charAt(1) + set.possibleMoves[i].charAt(2);
                 possibleCoordNum = parseInt(numString)
             } else {
-                possibleCoordNum = parseInt(possibleMoves[i].charAt(1));
+                possibleCoordNum = parseInt(set.possibleMoves[i].charAt(1));
             };
 
             if (possibleLetter === prevCoordLetter) {
                 if ((prevCoordNum === possibleCoordNum + 1) || (prevCoordNum === possibleCoordNum - 1)) {
-                    newPossibleMoves.push(possibleMoves[i]);
+                    newPossibleMoves.push(set.possibleMoves[i]);
                 };      
             };
         };
@@ -99,6 +102,13 @@ const ComputerPlayer = (playerBoard) => {
         };
 
         if (newPossibleMoves.length > 0) {
+            for (let i = 0; i < set.excludedMoves.length; i++) {
+                for (let y = 0; y < newPossibleMoves.length; y++) {
+                    if (set.excludedMoves[i] === newPossibleMoves[y]) {
+                        newPossibleMoves.splice(y, 1)
+                    };
+                };
+            };
             let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
             let coords = newPossibleMoves[moveIndex]
             let hitArray = computer.move(coords);

@@ -36,7 +36,6 @@ const shipDestroyed = (messageBox, shipList, coords, player) => {
                                 messageBox.textContent = `You have sunk the enemy's ${ship.type}!`;
                                 return true
                             } else if (player === "enemy") {
-                                console.log("Enemy ship base: " + ship.base)
                                 messageBox.textContent = `The enemy has sunk your ${ship.type}!`;
                                 return true
                             };
