@@ -51,7 +51,7 @@ const shipDestroyed = (messageBox, shipList, coords, player) => {
     };
 };
 
-const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, enemyTarget, previousCoord) => {
+const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, enemyTarget, previousCoord, targetAgain = 0) => {
     let enemyBoard = enemyPositions.enemyBoard
     let messageBox = document.querySelector(".message-box");
 
@@ -84,7 +84,12 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let potentialPlayerHit = registerHit(enemyBoard, playerHitArray);
             playerHits += potentialPlayerHit;
             let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
-            enemyThought(playerHitArray[0], result, enemyTarget);
+            if (targetAgain) {
+                enemyThought(playerHitArray[0], result, enemyTarget, targetAgain);
+            } else {
+                enemyThought(playerHitArray[0], result, enemyTarget);
+            }
+            
             reset(enemyBoard);
         };
 
@@ -95,7 +100,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         };
     };
 
-    function enemyThought(isHit, result, enemyTarget) {
+    function enemyThought(isHit, result, enemyTarget, targetAgain = 0) {
         if ((isHit) && (!result)) {
             messageBox.textContent = "It's a Direct Hit!"
         } else if ((!result) || (!isHit)) {
@@ -113,7 +118,9 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
     function enemyIsThinking(enemyTarget, previousCoord) {
         let enemyHitArray
-        if (enemyTarget) {
+        if (targetAgain) {
+            enemyHitArray =  enemy.educatedGuess(targetAgain);
+        } else if (enemyTarget) {
             enemyHitArray =  enemy.educatedGuess(previousCoord);
         } else {
             enemyHitArray =  enemy.randomMove();
@@ -136,7 +143,11 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             messageBox.textContent = "You Have Been Defeated."
         };
 
-        yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
+        if ((enemyTarget) && (!isHit)) {
+            yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, previousCoord)
+        } else {
+            yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
+        };        
     };
 };
 
