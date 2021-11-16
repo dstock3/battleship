@@ -110,7 +110,7 @@ const ComputerPlayer = (playerBoard) => {
                 };
             };
             let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
-            let coords = newPossibleMoves[moveIndex]
+            let coords = newPossibleMoves[moveIndex];
             let hitArray = computer.move(coords);
             return hitArray
         } else {

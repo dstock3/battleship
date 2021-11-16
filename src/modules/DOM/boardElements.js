@@ -8,9 +8,16 @@ const masterContainer = document.createElement("div");
 masterContainer.classList.add("master-container");
 body.appendChild(masterContainer);
 
+const mobile = window.matchMedia("(max-width: 600px)")
+
 const messageBox = document.createElement("div");
 messageBox.classList.add("message-box");
-body.appendChild(messageBox);
+if (!mobile.matches) {
+    body.appendChild(messageBox);
+} else {
+    messageBox.classList.add("mobile");
+    masterContainer.appendChild(messageBox);
+}
 
 const boardGen = (allegiance, parent) => {
     const newBoard = Gameboard();
