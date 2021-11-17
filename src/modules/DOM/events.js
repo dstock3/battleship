@@ -120,6 +120,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
     function enemyIsThinking(enemyTarget, previousCoord) {
         let enemyHitArray
+        
         if (calculatedHit) {
             enemyHitArray =  enemy.surgicalStrike(previousCoord, calculatedHit);
         } else if (targetAgain) {

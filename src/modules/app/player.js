@@ -111,8 +111,13 @@ const ComputerPlayer = (playerBoard) => {
             };
             let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
             let coords = newPossibleMoves[moveIndex];
-            let hitArray = computer.move(coords);
-            return hitArray
+            if (coords) {
+                let hitArray = computer.move(coords);
+                return hitArray
+            } else {
+                let hitArray = randomMove();
+                return hitArray
+            };
         } else {
             let hitArray = randomMove();
             return hitArray
