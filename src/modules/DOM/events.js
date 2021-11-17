@@ -120,15 +120,22 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
     function enemyIsThinking(enemyTarget, previousCoord) {
         let enemyHitArray
+
+        let strikeSuccess
         
         if (calculatedHit) {
             enemyHitArray =  enemy.surgicalStrike(previousCoord, calculatedHit);
+            strikeSuccess = enemyHitArray[0];
+            console.log("Surgical Strike: " + enemyHitArray)
         } else if (targetAgain) {
             enemyHitArray =  enemy.educatedGuess(targetAgain);
+            console.log("Educated Guess after Miss: " + enemyHitArray)
         } else if (enemyTarget) {
             enemyHitArray =  enemy.educatedGuess(previousCoord);
+            console.log("Educated Guess: " + enemyHitArray)
         } else {
             enemyHitArray =  enemy.randomMove();
+            console.log("Random Move: " + enemyHitArray)
         };
 
         let potentialHit = enemyHitArray[2];
@@ -151,7 +158,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
         if ((enemyTarget) && (!isHit)) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, previousCoord)
-        } else if ((enemyTarget) && (isHit)) {
+        } else if (((enemyTarget) && (isHit)) || (strikeSuccess)) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, previousCoord)
         } else {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
