@@ -51,7 +51,7 @@ const shipDestroyed = (messageBox, shipList, coords, player) => {
     };
 };
 
-const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, enemyTarget, previousCoord, targetAgain = 0) => {
+const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, enemyTarget, previousCoord, targetAgain = 0, calculatedHit = 0) => {
     let enemyBoard = enemyPositions.enemyBoard
     let messageBox = document.querySelector(".message-box");
 
@@ -86,6 +86,8 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             let result = shipDestroyed(messageBox, enemyPositions.enemyShipList, coords, "player");
             if (targetAgain) {
                 enemyThought(playerHitArray[0], result, enemyTarget, targetAgain);
+            } else if (calculatedHit) {
+                enemyThought(playerHitArray[0], result, 0, calculatedHit);
             } else {
                 enemyThought(playerHitArray[0], result, enemyTarget);
             }
@@ -100,7 +102,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         };
     };
 
-    function enemyThought(isHit, result, enemyTarget, targetAgain = 0) {
+    function enemyThought(isHit, result, enemyTarget, targetAgain = 0, calculatedHit = 0) {
         if ((isHit) && (!result)) {
             messageBox.textContent = "It's a Direct Hit!"
         } else if ((!result) || (!isHit)) {
@@ -118,13 +120,16 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
     function enemyIsThinking(enemyTarget, previousCoord) {
         let enemyHitArray
-        if (targetAgain) {
+        if (calculatedHit) {
+            enemyHitArray =  enemy.surgicalStrike(previousCoord, calculatedHit);
+        } else if (targetAgain) {
             enemyHitArray =  enemy.educatedGuess(targetAgain);
         } else if (enemyTarget) {
             enemyHitArray =  enemy.educatedGuess(previousCoord);
         } else {
             enemyHitArray =  enemy.randomMove();
         };
+
         let potentialHit = enemyHitArray[2];
 
         let isHit = enemyHitArray[0];
@@ -145,6 +150,8 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
 
         if ((enemyTarget) && (!isHit)) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, previousCoord)
+        } else if ((enemyTarget) && (isHit)) {
+            yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, previousCoord)
         } else {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
         };        

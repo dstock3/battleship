@@ -119,7 +119,81 @@ const ComputerPlayer = (playerBoard) => {
         };
     };
 
-    return { randomMove, computer, educatedGuess }
+    const surgicalStrike = (coordOne, coordTwo) => {
+        let coordOneLetter = coordOne.charAt(0);
+        let coordTwoLetter = coordTwo.charAt(0);
+
+        let coordOneNum = coordOne.charAt(1);
+        let coordTwoNum = coordTwo.charAt(1);
+
+        let set = determinePossibleMoves();
+        
+        set.excludedMoves
+        let conceivableMoves = []
+        
+        let newPossibleMoves = []
+
+        if (coordOneLetter === coordTwoLetter) {
+            for (let i = 0; i < set.possibleMoves.length; i++) {
+                if (set.possibleMoves[i].charAt(0) === coordOneLetter) {
+                    conceivableMoves.push(set.possibleMoves[i])
+                };
+            };
+
+            for (let y = 0; y < conceivableMoves.length; y++) {
+                if (parseInt(conceivableMoves[y].charAt(1)) === (parseInt(coordOneNum) + 1)) {
+                    newPossibleMoves.push(conceivableMoves[y])
+                } else if (parseInt(conceivableMoves[y].charAt(1)) === (parseInt(coordOneNum) - 1)) {
+                    newPossibleMoves.push(conceivableMoves[y])
+                } else if (parseInt(conceivableMoves[y].charAt(1)) === (parseInt(coordTwoNum) + 1)) {
+                    newPossibleMoves.push(conceivableMoves[y])
+                } else if (parseInt(conceivableMoves[y].charAt(1)) === (parseInt(coordTwoNum) - 1)) {
+                    newPossibleMoves.push(conceivableMoves[y])
+                };
+            };
+
+        } else if (coordOneNum === coordTwoNum) {
+            for (let i = 0; i < set.possibleMoves.length; i++) {
+                if (set.possibleMoves[i].charAt(1) === coordOneNum) {
+                    conceivableMoves.push(set.possibleMoves[i])
+                };
+            };
+
+            for (let x = 0; x < playerBoard.letterArray.length; x++) {
+                if (coordOneLetter === playerBoard.letterArray[x]) {
+                    for (let z = 0; z < conceivableMoves.length; z++) {
+                        if (conceivableMoves[z].charAt(0) === playerBoard.letterArray[x + 1]) {
+                            newPossibleMoves.push(conceivableMoves[z])
+                        } else if (conceivableMoves[z].charAt(0) === playerBoard.letterArray[x - 1]) {
+                            newPossibleMoves.push(conceivableMoves[z])
+                        };
+
+                    };
+                } else if (coordTwoLetter === playerBoard.letterArray[x]) {
+                    for (let z = 0; z < conceivableMoves.length; z++) {
+                        if (conceivableMoves[z].charAt(0) === playerBoard.letterArray[x + 1]) {
+                            newPossibleMoves.push(conceivableMoves[z])
+                        } else if (conceivableMoves[z].charAt(0) === playerBoard.letterArray[x - 1]) {
+                            newPossibleMoves.push(conceivableMoves[z])
+                        };
+                    };
+                };
+            };
+        };
+
+
+        if (newPossibleMoves.length > 0) {
+            let moveIndex = Math.floor(Math.random() * newPossibleMoves.length);
+            let coords = newPossibleMoves[moveIndex];
+            let hitArray = computer.move(coords);
+            return hitArray
+        } else {
+            let hitArray = randomMove();
+            return hitArray
+        }
+    }
+
+    return { randomMove, computer, educatedGuess, surgicalStrike }
 }
 
 export { Player, ComputerPlayer } 
