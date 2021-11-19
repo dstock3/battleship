@@ -30,7 +30,8 @@ const shipDestroyed = (messageBox, shipList, coords, player) => {
                 for (let x = 0; x < ship.base.hitCount.length; x++) {
                     if (!ship.base.hitCount[x]) {
                         ship.base.hitCount[x] = true;
-                        
+
+                        /*
                         if (ship.base.isSunk()) {
                             if (player === "player") {
                                 messageBox.textContent = `You have sunk the enemy's ${ship.type}!`;
@@ -42,7 +43,7 @@ const shipDestroyed = (messageBox, shipList, coords, player) => {
                         } else {
                             return false
                         };
-                        break   
+                        break  */ 
                     };
                 };
                 break
