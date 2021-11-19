@@ -241,7 +241,7 @@ const ComputerPlayer = (playerBoard) => {
                     return hitArray
                 };
             } else {
-                let hitArray = educatedGuess(set.successfulMoves[0]);
+                let hitArray = randomMove();
                 return hitArray
             };
         } else {
