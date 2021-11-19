@@ -144,6 +144,9 @@ const ComputerPlayer = (playerBoard) => {
                         } else {
                             eliminationProcess.push(set.possibleMoves[y]);
                         };
+                    } else {
+                        let hitArray = randomMove();
+                        return hitArray
                     };
                 };
             };
@@ -173,6 +176,9 @@ const ComputerPlayer = (playerBoard) => {
                         } else {
                             eliminationProcessTwo.push(set.possibleMoves[y]);
                         };
+                    } else {
+                        let hitArray = randomMove();
+                        return hitArray
                     };
                 };
             };
@@ -184,22 +190,27 @@ const ComputerPlayer = (playerBoard) => {
                 } else {
                     successfulMoveNum = set.successfulMoves[i].charAt(1)
                 }
-                for (let x = 0; x < eliminationProcess.length; x++) {
-                    let elimNum
-                    if (eliminationProcess[x].charAt(2)) {
-                        elimNum = eliminationProcess[x].charAt(1) + eliminationProcess[x].charAt(2);
-                    } else {
-                        elimNum = eliminationProcess[x].charAt(1);
-                    }
-                    if (!targetingSystem.includes(eliminationProcess[x])) {
-                        if (parseInt(elimNum) === (parseInt(successfulMoveNum) + 1)) {
-                            targetingSystem.push(eliminationProcess[x])
-                        } else if (parseInt(elimNum) === (parseInt(successfulMoveNum) - 1)) {
-                            targetingSystem.push(eliminationProcess[x])
+                if (eliminationProcess.length > 0) {
+                    for (let x = 0; x < eliminationProcess.length; x++) {
+                        let elimNum
+                        if (eliminationProcess[x].charAt(2)) {
+                            elimNum = eliminationProcess[x].charAt(1) + eliminationProcess[x].charAt(2);
+                        } else {
+                            elimNum = eliminationProcess[x].charAt(1);
+                        }
+                        if (!targetingSystem.includes(eliminationProcess[x])) {
+                            if (parseInt(elimNum) === (parseInt(successfulMoveNum) + 1)) {
+                                targetingSystem.push(eliminationProcess[x])
+                            } else if (parseInt(elimNum) === (parseInt(successfulMoveNum) - 1)) {
+                                targetingSystem.push(eliminationProcess[x])
+                            };
                         };
                     };
+                } else {
+                    let hitArray = randomMove();
+                    return hitArray
                 };
-                
+
                 for (let y = 0; y < playerBoard.letterArray.length; y++) {
                     if (set.successfulMoves[i].charAt(0) === playerBoard.letterArray[y]) {
                         let nextLetter = playerBoard.letterArray[y + 1];
@@ -214,7 +225,10 @@ const ComputerPlayer = (playerBoard) => {
                                     };
                                 };
                             };
-                        };
+                        } else {
+                            let hitArray = randomMove();
+                            return hitArray
+                        }
                     };
                 }; 
             };
