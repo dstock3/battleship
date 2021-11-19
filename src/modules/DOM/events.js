@@ -104,7 +104,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
         };
     };
 
-    function enemyThought(isHit, result, enemyTarget, targetAgain = 0, calculatedHit = 0, targetAttempt = 0) {
+    function enemyThought(isHit, result, enemyTarget) {
         if ((isHit) && (!result)) {
             messageBox.textContent = "It's a Direct Hit!"
         } else if ((!result) || (!isHit)) {
