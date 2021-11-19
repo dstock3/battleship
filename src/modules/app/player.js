@@ -119,7 +119,7 @@ const ComputerPlayer = (playerBoard) => {
                 let hitArray = computer.move(coords);
                 return hitArray
             } else {
-                let hitArray = targetedStrike();
+                let hitArray = randomMove();
                 return hitArray
             };
         };
@@ -145,7 +145,7 @@ const ComputerPlayer = (playerBoard) => {
                             eliminationProcess.push(set.possibleMoves[y]);
                         };
                     } else {
-                        let hitArray = randomMove();
+                        let hitArray = educatedGuess(set.successfulMoves[0]);
                         return hitArray
                     };
                 };
@@ -177,7 +177,7 @@ const ComputerPlayer = (playerBoard) => {
                             eliminationProcessTwo.push(set.possibleMoves[y]);
                         };
                     } else {
-                        let hitArray = randomMove();
+                        let hitArray = educatedGuess(set.successfulMoves[0]);
                         return hitArray
                     };
                 };
@@ -207,7 +207,7 @@ const ComputerPlayer = (playerBoard) => {
                         };
                     };
                 } else {
-                    let hitArray = randomMove();
+                    let hitArray = educatedGuess(set.successfulMoves[0]);
                     return hitArray
                 };
 
@@ -226,7 +226,7 @@ const ComputerPlayer = (playerBoard) => {
                                 };
                             };
                         } else {
-                            let hitArray = randomMove();
+                            let hitArray = educatedGuess(set.successfulMoves[0]);
                             return hitArray
                         }
                     };
