@@ -97,7 +97,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             reset(enemyBoard);
         };
 
-        if (enemyBoard.spaceElements[i].textContent === "X") {
+        if ((enemyBoard.spaceElements[i].textContent === "X") || (enemyBoard.spaceElements[i].classList.contains("hit"))) {
             enemyBoard.spaceElements[i].style.cursor = "default"
         } else {
             enemyBoard.spaceElements[i].addEventListener("click", performMove);
