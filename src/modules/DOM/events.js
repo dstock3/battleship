@@ -133,16 +133,20 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             if (!strikeSuccess) {
                 guessAfterMiss = true
                 priorCoord = previousCoord;
-            }
-            
+            };
             console.log("Surgical Strike: " + enemyHitArray)
         } else if (targetAgain) {
             enemyHitArray =  enemy.educatedGuess(targetAgain);
             if (!enemyHitArray[0]) {
-                guessAfterMiss = true
+                let chance = Math.floor(Math.random() * 2);
+                if (chance) {
+                    guessAfterMiss = true
+                } else {
+                    newTargetAttempt = true
+                };
             } else {
                 guessAfterMiss = false
-            }
+            };
             priorCoord = targetAgain
             console.log("Educated Guess After Miss: " + enemyHitArray)
         } else if (targetAttempt) {
@@ -177,7 +181,9 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             messageBox.textContent = "You Have Been Defeated."
         };
 
-        if ((enemyTarget) && (!isHit)) {
+        if (newTargetAttempt) {
+            yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, 0, newTargetAttempt);
+        } else if ((enemyTarget) && (!isHit)) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, previousCoord)
         } else if (guessAfterMiss) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, priorCoord)
@@ -185,8 +191,6 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, previousCoord)
         } else if (!guessAfterMiss) {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, priorCoord)
-        } else if (newTargetAttempt) {
-            yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit, 0, 0, newTargetAttempt);
         } else {
             yourMove(enemyPositions, playerBoard, playerShipList, enemy, newPlayer, registerHit, playerHits, enemyHits, isHit, potentialHit);
         };        

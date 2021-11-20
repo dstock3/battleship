@@ -130,7 +130,7 @@ const ComputerPlayer = (playerBoard) => {
         let targetingSystem = [];
         let eliminationProcess = [];
         let eliminationProcessTwo = [];
-
+        
         if (set.successfulMoves.length > 0) {
             for (let y = 0; y < set.possibleMoves.length; y++) {
                 for (let i = 0; i < set.successfulMoves.length; i++) {
@@ -144,9 +144,6 @@ const ComputerPlayer = (playerBoard) => {
                         } else {
                             eliminationProcess.push(set.possibleMoves[y]);
                         };
-                    } else {
-                        let hitArray = educatedGuess(set.successfulMoves[0]);
-                        return hitArray
                     };
                 };
             };
@@ -176,9 +173,6 @@ const ComputerPlayer = (playerBoard) => {
                         } else {
                             eliminationProcessTwo.push(set.possibleMoves[y]);
                         };
-                    } else {
-                        let hitArray = educatedGuess(set.successfulMoves[0]);
-                        return hitArray
                     };
                 };
             };
@@ -206,9 +200,6 @@ const ComputerPlayer = (playerBoard) => {
                             };
                         };
                     };
-                } else {
-                    let hitArray = educatedGuess(set.successfulMoves[0]);
-                    return hitArray
                 };
 
                 for (let y = 0; y < playerBoard.letterArray.length; y++) {
@@ -225,15 +216,13 @@ const ComputerPlayer = (playerBoard) => {
                                     };
                                 };
                             };
-                        } else {
-                            let hitArray = educatedGuess(set.successfulMoves[0]);
-                            return hitArray
-                        }
+                        };
                     };
                 }; 
             };
-    
-            if ((targetingSystem.length > 0) && (targetingSystem.length < 45)) {
+            console.log(targetingSystem)
+            if ((targetingSystem.length > 0) && (targetingSystem.length < 100)) {
+            
                 let moveIndex = Math.floor(Math.random() * targetingSystem.length);
                 let coords = targetingSystem[moveIndex];
                 if (coords) {
@@ -298,7 +287,6 @@ const ComputerPlayer = (playerBoard) => {
                     newPossibleMoves.push(conceivableMoves[y])
                 };
             };
-
         } else if (coordOneNum === coordTwoNum) {
             for (let i = 0; i < set.possibleMoves.length; i++) {
                 let possibleMovesNum
@@ -311,7 +299,6 @@ const ComputerPlayer = (playerBoard) => {
                     conceivableMoves.push(set.possibleMoves[i])
                 };
             };
-
             for (let x = 0; x < playerBoard.letterArray.length; x++) {
                 if (coordOneLetter === playerBoard.letterArray[x]) {
                     for (let z = 0; z < conceivableMoves.length; z++) {
