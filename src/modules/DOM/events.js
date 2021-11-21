@@ -62,7 +62,7 @@ const yourMove = (enemyPositions, playerBoard, playerShipList, enemy, newPlayer,
     
     function reset(enemyBoard) {
         let master = document.querySelector(".master-container");
-        let enemyBoardElement = document.getElementById("enemy");
+        let enemyBoardElement = document.getElementById("enemy-player");
         let newEnemyBoardElement = enemyBoardElement.cloneNode(true);
         enemyBoardElement.remove();        
         master.appendChild(newEnemyBoardElement)

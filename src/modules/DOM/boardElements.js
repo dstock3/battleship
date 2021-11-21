@@ -24,7 +24,12 @@ const boardGen = (allegiance, parent) => {
     let outerBoard = document.createElement("div");
     parent.appendChild(outerBoard);
     outerBoard.classList.add("outer-board");
-    outerBoard.id = allegiance
+    if (allegiance === "player") {
+        outerBoard.id = "user"
+    } else {
+        outerBoard.id = "enemy-player"
+    };
+    
 
     let numContainer = document.createElement("div");
     numContainer.classList.add("num-container");
