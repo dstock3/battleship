@@ -147,6 +147,7 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 };
             };
+            console.log("process one: " + eliminationProcess)
             
             for (let y = 0; y < set.possibleMoves.length; y++) {
                 let possibleMoveNum
@@ -176,6 +177,7 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 };
             };
+            console.log("process two: " + eliminationProcessTwo)
 
             for (let i = 0; i < set.successfulMoves.length; i++) {
                 let successfulMoveNum
@@ -193,10 +195,12 @@ const ComputerPlayer = (playerBoard) => {
                             elimNum = eliminationProcess[x].charAt(1);
                         }
                         if (!targetingSystem.includes(eliminationProcess[x])) {
-                            if (parseInt(elimNum) === (parseInt(successfulMoveNum) + 1)) {
-                                targetingSystem.push(eliminationProcess[x])
-                            } else if (parseInt(elimNum) === (parseInt(successfulMoveNum) - 1)) {
-                                targetingSystem.push(eliminationProcess[x])
+                            if (eliminationProcess[x].charAt(0) === set.successfulMoves[i].charAt(0)) {
+                                if (parseInt(elimNum) === (parseInt(successfulMoveNum) + 1)) {
+                                    targetingSystem.push(eliminationProcess[x])
+                                } else if (parseInt(elimNum) === (parseInt(successfulMoveNum) - 1)) {
+                                    targetingSystem.push(eliminationProcess[x])
+                                };
                             };
                         };
                     };
@@ -208,11 +212,20 @@ const ComputerPlayer = (playerBoard) => {
                         let prevLetter = playerBoard.letterArray[y - 1];
                         if (eliminationProcessTwo.length > 0) {
                             for (let z = 0; z < eliminationProcessTwo.length; z++) {
+                                let elimTwoNum
+                                if (eliminationProcessTwo[z].charAt(2)) {
+                                    elimTwoNum = eliminationProcessTwo[z].charAt(1) + eliminationProcessTwo[z].charAt(2)
+                                } else {
+                                    elimTwoNum = eliminationProcessTwo[z].charAt(1)
+                                };
+
                                 if (!targetingSystem.includes(eliminationProcessTwo[z])) {
-                                    if ((eliminationProcessTwo[z].charAt(0)) === nextLetter) {
-                                        targetingSystem.push(eliminationProcessTwo[z])
-                                    } else if ((eliminationProcessTwo[z].charAt(0)) === prevLetter) {
-                                        targetingSystem.push(eliminationProcessTwo[z])
+                                    if (elimTwoNum === successfulMoveNum) {
+                                        if ((eliminationProcessTwo[z].charAt(0)) === nextLetter) {
+                                            targetingSystem.push(eliminationProcessTwo[z])
+                                        } else if ((eliminationProcessTwo[z].charAt(0)) === prevLetter) {
+                                            targetingSystem.push(eliminationProcessTwo[z])
+                                        };
                                     };
                                 };
                             };
@@ -220,7 +233,8 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 }; 
             };
-            console.log(targetingSystem)
+            console.log("targeting system after filter: " + targetingSystem)
+            
             if ((targetingSystem.length > 0) && (targetingSystem.length < 100)) {
             
                 let moveIndex = Math.floor(Math.random() * targetingSystem.length);
