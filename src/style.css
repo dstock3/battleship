@@ -196,7 +196,7 @@ h1 {
         width: 20%;
     }
 
-    .outer-board, #player {
+    .outer-board, #user {
         order: 0;
     }
 
@@ -208,7 +208,7 @@ h1 {
         align-self: center;
 
     }
-    .outer-board, #enemy {
+    .outer-board, #enemy-player {
         order: 2;
     }
 }
