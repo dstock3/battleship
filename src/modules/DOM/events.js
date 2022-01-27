@@ -14,7 +14,11 @@ const registerHit = (playerBoard, hitArray) => {
             playerBoard.spaceElements[index].style.display = "flex";
             playerBoard.spaceElements[index].style.justifyContent = "center";
             playerBoard.spaceElements[index].style.alignItems = "center";
-            playerBoard.spaceElements[index].style.fontSize = "3em";
+            if (window.matchMedia("(max-width: 800px)").matches){
+                playerBoard.spaceElements[index].style.fontSize = "1.5em";
+            } else {
+                playerBoard.spaceElements[index].style.fontSize = "3em";
+            }
             
             return 0
         };

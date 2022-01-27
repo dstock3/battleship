@@ -171,7 +171,7 @@ h1 {
     transition: 750ms;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
     body {
         width: max-content;
         height: 110%
@@ -181,19 +181,62 @@ h1 {
         flex-direction: column;
         width: 100%;
         height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
     }
 
     h1 {
         font-size: 3.25em;
     }
 
+    .outer-board {
+        height: 50vh;
+        width: 95vw;
+        border: 3px solid #0377fc;
+
+    }
+
+    .board {
+        border: none;
+    }
+
     .prompt-container {
-        top: 25%;
+        top: 13%;
+        height: 50.5vh;
+    }
+
+    .num-container {
+        padding-top: 17%;
+    }
+
+    .num {
+        height: 5%;
+        margin-right: 15px;
+    }
+
+    .letter-container {
+        width: 80vw;
+        margin: unset;
+
+    }
+
+    .letter {
+        width: 15%;
+    }
+
+    .col {
+        width: 5%;
+        height: 50%;
     }
 
     .prompt-message {
-        margin: -95% 0 0 0;
-        width: 20%;
+        width: 50%;
     }
 
     .outer-board, #user {

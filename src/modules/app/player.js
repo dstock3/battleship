@@ -134,7 +134,9 @@ const ComputerPlayer = (playerBoard) => {
         if (set.successfulMoves.length > 0) {
             for (let y = 0; y < set.possibleMoves.length; y++) {
                 for (let i = 0; i < set.successfulMoves.length; i++) {
-                    if ((set.successfulMoves[i].charAt(0) === set.possibleMoves[y].charAt(0))) {
+                    let successfulMoveLetter = set.successfulMoves[i].charAt(0)
+                    let possibleMoveLetter = set.possibleMoves[y].charAt(0)
+                    if ((successfulMoveLetter === possibleMoveLetter)) {
                         if (eliminationProcess.length > 0) {
                             for (let x = 0; x < eliminationProcess.length; x++) {
                                 if (!eliminationProcess.includes(set.possibleMoves[y])) {
@@ -147,7 +149,6 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 };
             };
-            console.log("process one: " + eliminationProcess)
             
             for (let y = 0; y < set.possibleMoves.length; y++) {
                 let possibleMoveNum
@@ -177,15 +178,39 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 };
             };
-            console.log("process two: " + eliminationProcessTwo)
 
             for (let i = 0; i < set.successfulMoves.length; i++) {
+                
                 let successfulMoveNum
                 if (set.successfulMoves[i].charAt(2)) {
                     successfulMoveNum = set.successfulMoves[i].charAt(1) + set.successfulMoves[i].charAt(2);
                 } else {
                     successfulMoveNum = set.successfulMoves[i].charAt(1)
                 }
+                let successfulMoveLetter = set.successfulMoves[i].charAt(0);
+                /*
+                let matchSetOne = [];
+                let matchSetTwo = []
+                let primeMoves = [];
+
+                for (let x = 0; x < set.successfulMoves.length; x++) {
+                    let checkMovesNum
+                    if (set.successfulMoves[x].charAt(2)) {
+                        checkMovesNum = set.successfulMoves[x].charAt(1) + set.successfulMoves[x].charAt(2);
+                    } else {
+                        checkMovesNum = set.successfulMoves[x].charAt(1)
+                    }
+                    let checkMovesLetter = set.successfulMoves[i].charAt(0);
+                    if (successfulMoveLetter === checkMovesLetter) {
+                        matchSetOne.push(set.successfulMoves[x])
+                    };
+                    if (successfulMoveNum === checkMovesNum) {
+                        matchSetTwo.push(set.successfulMoves[x])
+                    };
+                };
+                console.log("Matchset:" + matchSetOne)
+                console.log("Matchset Two:" + matchSetTwo) */
+
                 if (eliminationProcess.length > 0) {
                     for (let x = 0; x < eliminationProcess.length; x++) {
                         let elimNum
@@ -207,7 +232,7 @@ const ComputerPlayer = (playerBoard) => {
                 };
 
                 for (let y = 0; y < playerBoard.letterArray.length; y++) {
-                    if (set.successfulMoves[i].charAt(0) === playerBoard.letterArray[y]) {
+                    if (successfulMoveLetter === playerBoard.letterArray[y]) {
                         let nextLetter = playerBoard.letterArray[y + 1];
                         let prevLetter = playerBoard.letterArray[y - 1];
                         if (eliminationProcessTwo.length > 0) {
@@ -233,10 +258,8 @@ const ComputerPlayer = (playerBoard) => {
                     };
                 }; 
             };
-            console.log("targeting system after filter: " + targetingSystem)
             
             if ((targetingSystem.length > 0) && (targetingSystem.length < 100)) {
-            
                 let moveIndex = Math.floor(Math.random() * targetingSystem.length);
                 let coords = targetingSystem[moveIndex];
                 if (coords) {
