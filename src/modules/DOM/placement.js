@@ -299,10 +299,17 @@ const playerPrompt = () => {
     promptBoard.outerBoard.id = "prompt-frame";
     promptBoard.boardContainer.id = "prompt-container";
 
+    let mediaQuery = window.matchMedia("(max-width: 800px)")
+
     const controls = document.createElement("div");
     controls.classList.add("controls");
-    promptBoard.outerBoard.appendChild(controls);
+    if (mediaQuery.matches) {
+        promptBoard.boardContainer.appendChild(controls);
 
+    } else {
+        promptBoard.outerBoard.appendChild(controls);
+    }
+    
     const rotateShip = document.createElement("div");
     rotateShip.classList.add("rotate");
     rotateShip.textContent = "Rotate Ship";
