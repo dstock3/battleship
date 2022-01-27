@@ -173,14 +173,13 @@ h1 {
 
 @media only screen and (max-width: 800px) {
     body {
-        width: max-content;
-        height: 110%
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
-
     .master-container {
         flex-direction: column;
-        width: 100%;
-        height: 100%;
         align-items: center;
         justify-content: center;
     }
@@ -196,9 +195,15 @@ h1 {
     }
 
     .outer-board {
-        height: 50vh;
-        width: 95vw;
+        height: 56vh;
+        width: 105vw;
         border: 3px solid #0377fc;
+
+    }
+
+    .board-container {
+        width: 95vw;
+        width: 99vw;
 
     }
 
@@ -207,8 +212,10 @@ h1 {
     }
 
     .prompt-container {
-        top: 13%;
-        height: 50.5vh;
+        top: 125px;
+        left: 2%;
+        height: 56.5vh;
+        width: 106vw;
     }
 
     .num-container {
@@ -221,7 +228,7 @@ h1 {
     }
 
     .letter-container {
-        width: 80vw;
+        width: 90%;
         margin: unset;
 
     }
@@ -236,7 +243,10 @@ h1 {
     }
 
     .prompt-message {
-        width: 50%;
+        position: fixed;
+        top: 41%;
+        left: 15%;
+        width: 50vw;
     }
 
     .outer-board, #user {
@@ -245,10 +255,12 @@ h1 {
 
     .message-box {
         border: none;
-        width: 66%;
+        width: 98%;
         position: relative;
+        left: 10%;
         order: 1;
         align-self: center;
+        text-align: center;
 
     }
     .outer-board, #enemy-player {
