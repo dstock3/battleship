@@ -172,12 +172,6 @@ h1 {
 }
 
 @media only screen and (max-width: 800px) {
-    body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
     .master-container {
         flex-direction: column;
         align-items: center;
@@ -202,7 +196,7 @@ h1 {
     }
 
     .prompt-container > .outer-board {
-        height: 400px;
+        height: 410px;
         width: 350px;
     }
 
@@ -222,9 +216,8 @@ h1 {
 
     .prompt-container {
         position: fixed;
-        top: 125px;
-        left: 10px;
-        height: 400px;
+        bottom: 22%;
+        height: 415px;
         width: 355px;
     }
 
@@ -258,7 +251,7 @@ h1 {
 
     .controls {
         flex-direction: row;
-        margin: auto;
+        left: 33%;
         width: 75%;
         height: 35px;
         top: 40px;

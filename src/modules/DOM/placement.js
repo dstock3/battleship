@@ -320,6 +320,10 @@ const playerPrompt = () => {
     positionDisplay.textContent = "A1"
     controls.appendChild(positionDisplay);
 
+    if (mediaQuery.matches) {
+        positionDisplay.style.visibility = "collapse"
+    }
+
     const promptMessage = document.createElement("div");
     promptMessage.classList.add("prompt-message");
     body.appendChild(promptMessage);
